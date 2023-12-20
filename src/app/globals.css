@@ -1,27 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;500&family=Ubuntu:wght@300;400;500;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --primary: 252 71 71;
+  --primary-background: 16 20 30;
+  --secondary-background: 22 29 47;
+  --tertiary-background: 90 105 143;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "Outfit", sans-serif;
+  scroll-behavior: smooth;
+  background: rgb(var(--primary-background));
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  max-width: 1920px;
+  min-width: 325px;
+  margin: 0 auto;
 }
