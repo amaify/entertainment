@@ -28,9 +28,7 @@ export default function Thumbnail({ variant }: Props) {
         </div>
       </div>
       <BookmarkIcon />
-      {variant === "trending" && (
-        <TrendingThumbnailDescription category="Movies" />
-      )}
+      <TrendingThumbnailDescription category="Movies" variant={variant} />
     </div>
   );
 }

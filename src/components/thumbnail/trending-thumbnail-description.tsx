@@ -3,9 +3,15 @@ import styles from "./thumbnail.module.css";
 
 interface Props {
   category: "Movies" | "TV Series";
+  variant: "trending" | "popular";
 }
 
-export default function TrendingThumbnailDescription({ category }: Props) {
+export default function TrendingThumbnailDescription({
+  category,
+  variant,
+}: Props) {
+  if (variant === "popular") return null;
+
   return (
     <div className="absolute left-[2.4rem] bottom-[2.4rem]">
       <div className={styles.description}>
