@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
+import db from "@/lib/supabase/db";
 import "./globals.css";
 
 export const metadata: Metadata = {

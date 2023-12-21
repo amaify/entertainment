@@ -27,6 +27,9 @@ const config: Config = {
           "rgb(var(--tertiary-background) / <alpha-value>)",
       },
     },
+    fontFamily: {
+      outfit: "Outfit",
+    },
   },
   plugins: [
     plugin(({ addBase }) => {
