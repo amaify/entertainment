@@ -6,10 +6,7 @@ interface Props {
   variant: "trending" | "popular";
 }
 
-export default function TrendingThumbnailDescription({
-  category,
-  variant,
-}: Props) {
+export default function ThumbnailDescription({ category, variant }: Props) {
   if (variant === "popular") return null;
 
   return (
