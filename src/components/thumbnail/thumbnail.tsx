@@ -17,16 +17,16 @@ export default function Thumbnail({ variant }: Props) {
         "w-[47rem] h-[23rem]": variant === "trending",
       })}
     >
-      <button className="w-full h-full relative transition-all group/play before:transition-all hover:cursor-pointer hover:before:content-[''] hover:before:absolute hover:before:inset-0 hover:before:w-full hover:before:h-full hover:before:bg-black/50">
+      <button className="w-full h-full relative group/play before:transition-all hover:cursor-pointer hover:before:content-[''] hover:before:absolute hover:before:inset-0 hover:before:w-full hover:before:h-full hover:before:bg-black/50">
         <Image
           src={TheGreatLands}
           alt="The Great Lands"
           className="w-full h-full object-cover block rounded-[0.8rem]"
         />
         <ThumbnailPlayButton />
+        <ThumbnailDescription category="Movies" variant={variant} />
       </button>
       <BookmarkIcon isBookmarked={false} />
-      <ThumbnailDescription category="Movies" variant={variant} />
     </div>
   );
 }
