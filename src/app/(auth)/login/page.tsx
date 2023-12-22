@@ -3,6 +3,22 @@
 import Button from "@/components/ui/button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
+import AuthForm, { FormFields } from "../components/auth-form";
+
+const formFields: FormFields[] = [
+  {
+    id: "email",
+    type: "email",
+    placeholder: "Email address",
+    variant: "formInput",
+  },
+  {
+    id: "password",
+    type: "password",
+    placeholder: "Password",
+    variant: "formInput",
+  },
+];
 
 export default function Login() {
   const router = useRouter();
@@ -32,10 +48,8 @@ export default function Login() {
     router.refresh();
   };
   return (
-    <div>
-      <Button onClick={handleSignup}>Signup</Button>
-      <Button onClick={handleLogin}>login</Button>
-      <Button>sign out</Button>
-    </div>
+    <main>
+      <AuthForm variant="login" title="login" formFields={formFields} />
+    </main>
   );
 }

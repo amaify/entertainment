@@ -1,10 +1,11 @@
 import SvgIcon from "@/components/svg/svg";
 import cn from "@/helpers/cn";
-import { clsx } from "clsx";
 import type { InputHTMLAttributes } from "react";
 
+export type FormInputVariant = "searchInput" | "formInput";
+
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  variant: "searchInput" | "formInput";
+  variant: FormInputVariant;
   inputError?: Record<string, string>;
 }
 

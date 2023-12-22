@@ -6,7 +6,8 @@ interface Props {
     | "playIcon"
     | "bookmarkIcon"
     | "movieIcon"
-    | "tvSeriesIcon";
+    | "tvSeriesIcon"
+    | "logoIcon";
   fillColour?: string;
   className?: string;
 }
@@ -60,6 +61,14 @@ export default function SvgIcon({
         <path
           d="M20 4.481H9.08l2.7-3.278L10.22 0 7 3.909 3.78.029 2.22 1.203l2.7 3.278H0V20h20V4.481Zm-8 13.58H2V6.42h10v11.64Zm5-3.88h-2v-1.94h2v1.94Zm0-3.88h-2V8.36h2v1.94Z"
           fill={fillColour}
+        />
+      </svg>
+    ),
+    logoIcon: (
+      <svg width="33" height="27" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="m26.463.408 3.2 6.4h-4.8l-3.2-6.4h-3.2l3.2 6.4h-4.8l-3.2-6.4h-3.2l3.2 6.4h-4.8l-3.2-6.4h-1.6a3.186 3.186 0 0 0-3.184 3.2l-.016 19.2a3.2 3.2 0 0 0 3.2 3.2h25.6a3.2 3.2 0 0 0 3.2-3.2V.408h-6.4Z"
+          fill="#FC4747"
         />
       </svg>
     ),
