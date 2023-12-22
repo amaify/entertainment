@@ -1,4 +1,4 @@
-import AuthForm, { type FormFields } from "../components/auth-form";
+import AuthForm, { type FormFields } from "../auth-form";
 
 const formFields: FormFields[] = [
   {
@@ -21,7 +21,7 @@ const formFields: FormFields[] = [
   },
 ];
 
-export default function SignUpPage() {
+export default function Signup() {
   return (
     <main>
       <AuthForm variant="signup" title="Sign Up" formFields={formFields} />;
