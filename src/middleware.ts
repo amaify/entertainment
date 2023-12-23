@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
     await supabase.auth.getSession();
     return response;
   } catch (error) {
-    console.log("Could not create supabas client", error);
+    console.log("🔴 Could not create supabas client", error);
 
     return NextResponse.next({ request: { headers: request.headers } });
   }

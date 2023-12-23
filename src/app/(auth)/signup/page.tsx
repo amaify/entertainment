@@ -4,12 +4,14 @@ const formFields: FormFields[] = [
   {
     id: "email",
     type: "email",
+    name: "email",
     placeholder: "Email address",
     variant: "formInput",
   },
   {
     id: "password",
     type: "password",
+    name: "password",
     placeholder: "Password",
     variant: "formInput",
   },

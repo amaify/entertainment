@@ -47,13 +47,7 @@ export default function Input({ variant, inputError, ...props }: Props) {
       )}
     >
       <input
-        type={props.type}
-        id={props.id}
-        value={props.value}
-        name={props.name}
-        onChange={props.onChange}
-        onBlur={props.onBlur}
-        placeholder={props.placeholder}
+        {...props}
         className="text-body-md bg-transparent px-[1.6rem] text-white caret-primary placeholder:text-white/50 focus:outline-none"
       />
       {inputError && inputError[props.name ?? ""] && (
