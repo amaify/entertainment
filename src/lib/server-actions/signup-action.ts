@@ -1,18 +1,16 @@
 "use server";
 
+import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-
-import { createClient } from "../supabase/server";
 
 export async function signupAction(formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const repeatPassword = formData.get("repeatPassword") as string;
-  const supabase = createClient(cookies());
+  const supabase = createServerActionClient({ cookies });
 
   if (password !== repeatPassword) {
-    return redirect(`/signup?message=Passwords don't match`);
+    return { message: "Passwords do not match" };
   }
 
   const { error } = await supabase.auth.signUp({
@@ -21,8 +19,8 @@ export async function signupAction(formData: FormData) {
   });
 
   if (error) {
-    return redirect(`/signup?message=${error.message}`);
+    return { message: error.message };
   }
 
-  return redirect("/login");
+  return { message: "success" };
 }

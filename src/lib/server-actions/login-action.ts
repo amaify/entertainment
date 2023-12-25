@@ -1,18 +1,16 @@
 "use server";
 
+import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-
-import { createClient } from "../supabase/server";
 
 interface ActionResponse {
   message: "success" | (string & {});
 }
 
-export async function loginAction(prevState: any, formData: FormData): Promise<ActionResponse> {
+export async function loginAction(formData: FormData): Promise<ActionResponse> {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createServerActionClient({ cookies });
 
   const { error } = await supabase.auth.signInWithPassword({
     email,

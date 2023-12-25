@@ -1,5 +1,7 @@
+"use server";
+
 export async function play() {
   return {
-    message: "hello world"
+    message: "Hello world"
   };
 }

@@ -1,9 +1,6 @@
-import Link from "next/link";
+import type { DefaultInputValue, FormFields } from "../components/auth-form-layout";
 
-import { signupAction } from "@/lib/server-actions/signup-action";
-
-import AuthFormInput from "../components/auth-form-input.client";
-import AuthFormLayout, { type DefaultInputValue, type FormFields } from "../components/auth-form-layout";
+import SignupClient from "./signup-client";
 
 const formFields: FormFields[] = [
   {
@@ -38,17 +35,7 @@ const defaultInputValue: DefaultInputValue = {
 export default async function Signup() {
   return (
     <main>
-      <AuthFormLayout title="sign up">
-        <form className="w-full h-full mb-[2.4rem]" action={signupAction}>
-          <AuthFormInput formFields={formFields} defaultInputValue={defaultInputValue} btnTitle="Create an account" />
-        </form>
-        <span className="text-white text-body-md flex items-center gap-[0.9rem] justify-center">
-          <span>Already have an account?</span>
-          <span className="text-primary">
-            <Link href="/login">Login</Link>
-          </span>
-        </span>
-      </AuthFormLayout>
+      <SignupClient defaultInputValue={defaultInputValue} formFields={formFields} />
     </main>
   );
 }

@@ -1,12 +1,12 @@
+import { createServerActionClient, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import Button from "@/components/ui/button";
-import { createClient } from "@/lib/supabase/server";
 
 export async function getSupabaseUser() {
-  const supabase = createClient(cookies());
+  const supabase = createServerComponentClient({ cookies });
   const user = await supabase.auth.getUser();
   return user;
 }
@@ -22,17 +22,9 @@ export default async function Home() {
 
   const handleAddMovie = async () => {
     "use server";
-    const supabase = createClient(cookies());
-    // const { error, status, data } = await supabase
-    //   .from("bookmarked_movies")
-    //   .select("title");
+    const supabase = createServerActionClient({ cookies });
 
-    // const { error, status, data } = await supabase
-    //   .from("bookmarked_movies")
-    //   .delete()
-    //   .eq("title", "thor");
-
-    const { data, error, status } = await supabase
+    const { error, status } = await supabase
       .from("bookmarked_movies")
       .insert([{ title: "for john.ugwuanyi", user_id: user.data.user?.id }])
       .select();
@@ -42,13 +34,12 @@ export default async function Home() {
       return redirect(`/?message=${error.message}`);
     }
 
-    console.info("STATUS: ", data);
     return status;
   };
 
   const handleLogout = async () => {
     "use server";
-    const supabase = createClient(cookies());
+    const supabase = createServerActionClient({ cookies });
     const { error } = await supabase.auth.signOut();
     if (error) {
       // console.log(error);
