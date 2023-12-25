@@ -31,3 +31,12 @@ body {
   min-width: 325px;
   margin: 0 auto;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: rgb(var(--pure-white));
+  background: transparent !important;
+  transition: background-color 5000s ease-in-out 0s;
+}

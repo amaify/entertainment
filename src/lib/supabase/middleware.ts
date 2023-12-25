@@ -5,8 +5,6 @@ import { NextRequest, NextResponse } from "next/server";
 export function createClient(request: NextRequest) {
   let response = NextResponse.next({ headers: request.headers });
 
-  // console.log("🟡 viewing request", request);
-
   const supabase = createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     cookies: {
       get(name: string) {
@@ -23,8 +21,8 @@ export function createClient(request: NextRequest) {
         request.cookies.set({ name, value: "", ...options });
         response = NextResponse.next({ headers: request.headers });
         response.cookies.set({ name, value: "", ...options });
-      },
-    },
+      }
+    }
   });
 
   return { supabase, response };

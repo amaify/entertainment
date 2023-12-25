@@ -1,6 +1,7 @@
+import type { InputHTMLAttributes } from "react";
+
 import SvgIcon from "@/components/svg/svg";
 import cn from "@/helpers/cn";
-import type { InputHTMLAttributes } from "react";
 
 export type FormInputVariant = "searchInput" | "formInput";
 
@@ -26,7 +27,7 @@ export default function Input({ variant, inputError, ...props }: Props) {
             onChange={props.onChange}
             onBlur={props.onBlur}
             placeholder={props.placeholder}
-            className="text-heading-light-sm bg-transparent text-white caret-primary placeholder:text-white/50 focus:outline-none"
+            className="text-heading-light-sm text-white caret-primary placeholder:text-white/50 focus:outline-none"
           />
         </label>
       </div>
@@ -37,23 +38,20 @@ export default function Input({ variant, inputError, ...props }: Props) {
     <label
       htmlFor={props.id}
       className={cn(
-        "relative transition-colors w-full",
+        "flex gap-2 relative transition-colors w-full",
         "after:content-[''] after:absolute after:w-full after:h-[1px] after:-bottom-6 after:bg-tertiary-background after:block",
         "focus-within:after:bg-white",
         {
-          "after:bg-primary focus-within:after:bg-primary":
-            inputError && inputError[props.name ?? ""],
+          "after:bg-primary focus-within:after:bg-primary": inputError && inputError[props.name ?? ""]
         }
       )}
     >
       <input
         {...props}
-        className="text-body-md bg-transparent px-[1.6rem] text-white caret-primary placeholder:text-white/50 focus:outline-none"
+        className="w-full text-body-md mr-auto bg-transparent px-[1.6rem] text-white caret-primary !placeholder:text-white/50 focus:outline-none"
       />
       {inputError && inputError[props.name ?? ""] && (
-        <span className="text-primary text-body-sm ml-2">
-          {inputError[props.name ?? ""]}
-        </span>
+        <span className="w-full text-primary text-body-sm text-right ml-2">{inputError[props.name ?? ""]}</span>
       )}
     </label>
   );

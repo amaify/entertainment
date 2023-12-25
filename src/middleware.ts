@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
     await supabase.auth.getSession();
     return response;
   } catch (error) {
-    console.log("🔴 Could not create supabas client", error);
+    console.info("🔴 Could not create supabas client", error);
 
     return NextResponse.next({ request: { headers: request.headers } });
   }
@@ -22,6 +22,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * Feel free to modify this pattern to include more paths.
      */
-    "/((?!_next/static|_next/image|favicon.ico).*)",
-  ],
+    "/((?!_next/static|_next/image|favicon.ico).*)"
+  ]
 };

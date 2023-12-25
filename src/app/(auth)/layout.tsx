@@ -1,15 +1,16 @@
 import type { ReactNode } from "react";
-import { redirect } from "next/navigation";
-import { headers } from "next/headers";
-import SvgIcon from "@/components/svg/svg";
+import { cookies } from "next/headers";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-export default async function AuthLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
-  if (headers().get("cookie")) return redirect("/");
+import SvgIcon from "@/components/svg/svg";
+import { createClient } from "@/lib/supabase/server";
+
+export default async function AuthLayout({ children }: { children: ReactNode }) {
+  const supabase = createClient(cookies());
+  const userSession = await supabase.auth.getSession();
+
+  if (userSession.data.session) return redirect("/");
 
   return (
     <section className="flex flex-col items-center gap-[8.3rem] h-screen pt-[7.841rem]">

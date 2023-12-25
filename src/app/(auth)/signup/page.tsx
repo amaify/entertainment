@@ -1,4 +1,9 @@
-import AuthForm, { type FormFields } from "../auth-form";
+import Link from "next/link";
+
+import { signupAction } from "@/lib/server-actions/signup-action";
+
+import AuthFormInput from "../components/auth-form-input.client";
+import AuthFormLayout, { type DefaultInputValue, type FormFields } from "../components/auth-form-layout";
 
 const formFields: FormFields[] = [
   {
@@ -6,27 +11,44 @@ const formFields: FormFields[] = [
     type: "email",
     name: "email",
     placeholder: "Email address",
-    variant: "formInput",
+    variant: "formInput"
   },
   {
     id: "password",
     type: "password",
     name: "password",
     placeholder: "Password",
-    variant: "formInput",
+    variant: "formInput"
   },
   {
     id: "repeatPassword",
     type: "password",
+    name: "repeatPassword",
     placeholder: "Repeat password",
-    variant: "formInput",
-  },
+    variant: "formInput"
+  }
 ];
 
-export default function Signup() {
+const defaultInputValue: DefaultInputValue = {
+  email: "",
+  password: "",
+  repeatPassword: ""
+};
+
+export default async function Signup() {
   return (
     <main>
-      <AuthForm variant="signup" title="Sign Up" formFields={formFields} />;
+      <AuthFormLayout title="sign up">
+        <form className="w-full h-full mb-[2.4rem]" action={signupAction}>
+          <AuthFormInput formFields={formFields} defaultInputValue={defaultInputValue} btnTitle="Create an account" />
+        </form>
+        <span className="text-white text-body-md flex items-center gap-[0.9rem] justify-center">
+          <span>Already have an account?</span>
+          <span className="text-primary">
+            <Link href="/login">Login</Link>
+          </span>
+        </span>
+      </AuthFormLayout>
     </main>
   );
 }
