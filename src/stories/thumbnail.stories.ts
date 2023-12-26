@@ -1,5 +1,5 @@
-import Thumbnail from "@/components/thumbnail/thumbnail";
 import type { Meta, StoryObj } from "@storybook/react";
+import Thumbnail from "@/components/thumbnail/thumbnail";
 
 const meta = {
   title: "Thumbnail",
@@ -8,8 +8,8 @@ const meta = {
   argTypes: {
     variant: {
       options: ["trending", "popular"],
-      control: { type: "radio" },
-    },
+      control: { type: "radio" }
+    }
   },
   parameters: {
     backgrounds: {
@@ -17,12 +17,12 @@ const meta = {
       values: [
         {
           name: "primary background",
-          value: "#10141E",
-        },
-      ],
+          value: "#10141E"
+        }
+      ]
     },
-    layout: "centered",
-  },
+    layout: "centered"
+  }
 } as Meta<typeof Thumbnail>;
 
 export default meta;
@@ -31,6 +31,6 @@ type Story = StoryObj<typeof meta>;
 
 export const ThumbnailStory: Story = {
   args: {
-    variant: "trending",
-  },
+    variant: "trending"
+  }
 };

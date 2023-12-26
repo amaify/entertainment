@@ -1,10 +1,8 @@
 "use client";
 
 import { type ChangeEvent, useState } from "react";
-
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
-
 import type { DefaultInputValue, FormFields, FormInputName } from "./auth-form-layout";
 import { validateInput } from "./form-input-validator";
 

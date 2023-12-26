@@ -4,9 +4,7 @@ import { FormEvent, useTransition } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
 import { loginAction } from "@/lib/server-actions/login-action";
-
 import AuthFormInput from "../components/auth-form-input.client";
 import AuthFormLayout, { DefaultInputValue, FormFields } from "../components/auth-form-layout";
 

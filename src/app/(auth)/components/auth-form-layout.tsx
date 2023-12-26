@@ -1,5 +1,4 @@
 import type { InputHTMLAttributes, ReactNode } from "react";
-
 import type { FormInputVariant } from "@/components/ui/input";
 
 export type FormInputName = "email" | "password" | "repeatPassword";

@@ -1,5 +1,5 @@
+import type { Meta, StoryObj } from "@storybook/react";
 import Input from "@/components/ui/input";
-import type { StoryObj, Meta } from "@storybook/react";
 
 const meta = {
   title: "Input/Search",
@@ -11,12 +11,12 @@ const meta = {
       values: [
         {
           name: "primary background",
-          value: "#10141E",
-        },
-      ],
+          value: "#10141E"
+        }
+      ]
     },
-    layout: "centered",
-  },
+    layout: "centered"
+  }
 } as Meta<typeof Input>;
 
 export default meta;
@@ -26,8 +26,8 @@ type Story = StoryObj<typeof meta>;
 export const SearchInput: Story = {
   args: {
     variant: "searchInput",
-    placeholder: "Search for movies or TV series",
-  },
+    placeholder: "Search for movies or TV series"
+  }
 };
 
 export const FormInput: Story = {
@@ -36,7 +36,7 @@ export const FormInput: Story = {
     placeholder: "Email address",
     name: "email",
     inputError: {
-      email: "Not valid",
-    },
-  },
+      email: "Not valid"
+    }
+  }
 };

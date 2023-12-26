@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
-
 import AppProvider from "./app-provider";
-
 import "./globals.css";
 
 export const metadata: Metadata = {

@@ -1,7 +1,6 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
 import Button from "@/components/ui/button";
 import LogoutButton from "@/components/ui/logout-button";
 import { createClient } from "@/lib/supabase/server";

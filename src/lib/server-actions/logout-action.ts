@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-
 import { createClient } from "../supabase/server";
 
 interface ActionResponse {
