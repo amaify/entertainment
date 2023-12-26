@@ -1,12 +1,13 @@
-import { createServerActionClient, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import Button from "@/components/ui/button";
+import LogoutButton from "@/components/ui/logout-button";
+import { createClient } from "@/lib/supabase/server";
 
 export async function getSupabaseUser() {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createClient(cookies());
   const user = await supabase.auth.getUser();
   return user;
 }
@@ -22,7 +23,7 @@ export default async function Home() {
 
   const handleAddMovie = async () => {
     "use server";
-    const supabase = createServerActionClient({ cookies });
+    const supabase = createClient(cookies());
 
     const { error, status } = await supabase
       .from("bookmarked_movies")
@@ -37,33 +38,22 @@ export default async function Home() {
     return status;
   };
 
-  const handleLogout = async () => {
-    "use server";
-    const supabase = createServerActionClient({ cookies });
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      // console.log(error);
-      return redirect(`/?message=${error.message}`);
-    }
-    return redirect("/");
-  };
-
   return (
-    <div>
-      {navLinks.map((link) => (
-        <Link key={link.title} href={link.link} className="text-body-md text-white">
-          {link.title}
-        </Link>
-      ))}
+    <main>
+      <div className="flex gap-4">
+        {navLinks.map((link) => (
+          <Link key={link.title} href={link.link} className="text-body-md text-white">
+            {link.title}
+          </Link>
+        ))}
+      </div>
       <h1 className="text-primary text-heading-lg">Welcome to entertainment</h1>
       <div className="flex flex-col gap-6">
         <form action={handleAddMovie}>
           <Button type="submit">Add to bookmarks</Button>
         </form>
-        <form action={handleLogout}>
-          <Button type="submit">Logout</Button>
-        </form>
+        <LogoutButton />
       </div>
-    </div>
+    </main>
   );
 }

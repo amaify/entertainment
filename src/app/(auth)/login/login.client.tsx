@@ -3,6 +3,7 @@
 import { FormEvent, useTransition } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { loginAction } from "@/lib/server-actions/login-action";
 
@@ -16,6 +17,7 @@ interface Props {
 
 export default function LoginClient({ formFields, defaultInputValue }: Props) {
   const [pending, startTransition] = useTransition();
+  const router = useRouter();
 
   const onSubmit = async (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
@@ -23,12 +25,12 @@ export default function LoginClient({ formFields, defaultInputValue }: Props) {
 
     startTransition(async () => {
       const submitAction = await loginAction(formData);
-
       if (submitAction.message !== "success") {
         toast.error(submitAction.message, { duration: 15000 });
         return;
       }
 
+      router.push("/");
       toast.success("Successfully logged in", { duration: 10000 });
     });
   };
