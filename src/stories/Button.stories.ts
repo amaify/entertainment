@@ -1,13 +1,13 @@
-import Button from "@/components/ui/button";
 import type { Meta, StoryObj } from "@storybook/react";
+import Button from "@/components/ui/button";
 
 const meta = {
   title: "Example/Button",
   component: Button,
   parameters: {
-    layout: "centered",
+    layout: "centered"
   },
-  tags: ["autodocs"],
+  tags: ["autodocs"]
 } as Meta<typeof Button>;
 
 export default meta;
@@ -15,6 +15,6 @@ type Story = StoryObj<typeof meta>;
 
 export const LoginButton: Story = {
   args: {
-    children: "Login to your account",
-  },
+    children: "Login to your account"
+  }
 };

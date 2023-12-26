@@ -1,4 +1,5 @@
-import AuthForm, { type FormFields } from "../auth-form";
+import type { DefaultInputValue, FormFields } from "../components/auth-form-layout";
+import LoginClient from "./login.client";
 
 const formFields: FormFields[] = [
   {
@@ -6,21 +7,26 @@ const formFields: FormFields[] = [
     type: "email",
     name: "email",
     placeholder: "Email address",
-    variant: "formInput",
+    variant: "formInput"
   },
   {
     id: "password",
     type: "password",
     name: "password",
     placeholder: "Password",
-    variant: "formInput",
-  },
+    variant: "formInput"
+  }
 ];
 
-export default async function Login() {
+const defaultInputValue: DefaultInputValue = {
+  email: "",
+  password: ""
+};
+
+export default function Login() {
   return (
     <main>
-      <AuthForm variant="login" title="login" formFields={formFields} />
+      <LoginClient defaultInputValue={defaultInputValue} formFields={formFields} />
     </main>
   );
 }

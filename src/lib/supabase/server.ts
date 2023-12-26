@@ -12,16 +12,16 @@ export function createClient(cookieStore: ReturnType<typeof cookies>) {
         try {
           cookieStore.set({ name, value, ...options });
         } catch (error) {
-          console.log("Could not set cookie", name);
+          console.info("Could not set cookie", name);
         }
       },
       remove(name: string, options: CookieOptions) {
         try {
           cookieStore.set({ name, value: "", ...options });
         } catch (error) {
-          console.log("Could not remove cookie", name);
+          console.info("Could not remove cookie", name);
         }
-      },
-    },
+      }
+    }
   });
 }

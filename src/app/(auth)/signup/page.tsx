@@ -1,4 +1,5 @@
-import AuthForm, { type FormFields } from "../auth-form";
+import type { DefaultInputValue, FormFields } from "../components/auth-form-layout";
+import SignupClient from "./signup-client";
 
 const formFields: FormFields[] = [
   {
@@ -6,27 +7,34 @@ const formFields: FormFields[] = [
     type: "email",
     name: "email",
     placeholder: "Email address",
-    variant: "formInput",
+    variant: "formInput"
   },
   {
     id: "password",
     type: "password",
     name: "password",
     placeholder: "Password",
-    variant: "formInput",
+    variant: "formInput"
   },
   {
     id: "repeatPassword",
     type: "password",
+    name: "repeatPassword",
     placeholder: "Repeat password",
-    variant: "formInput",
-  },
+    variant: "formInput"
+  }
 ];
 
-export default function Signup() {
+const defaultInputValue: DefaultInputValue = {
+  email: "",
+  password: "",
+  repeatPassword: ""
+};
+
+export default async function Signup() {
   return (
     <main>
-      <AuthForm variant="signup" title="Sign Up" formFields={formFields} />;
+      <SignupClient defaultInputValue={defaultInputValue} formFields={formFields} />
     </main>
   );
 }
