@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -11,6 +12,12 @@ export async function getSupabaseUser() {
   return user;
 }
 
+async function getBookmarkedMovies() {
+  const supabase = createClient(cookies());
+  const movies = await supabase.from("bookmarked_movies").select();
+  return movies;
+}
+
 const navLinks = [
   { title: "login", link: "/login" },
   { title: "signup", link: "/signup" }
@@ -18,6 +25,7 @@ const navLinks = [
 
 export default async function Home() {
   const user = await getSupabaseUser();
+  const movies = await getBookmarkedMovies();
   // console.log(JSON.stringify(user, undefined, 4));
 
   const handleAddMovie = async () => {
@@ -33,7 +41,7 @@ export default async function Home() {
       console.info(error);
       return redirect(`/?message=${error.message}`);
     }
-
+    revalidatePath("/");
     return status;
   };
 
@@ -47,12 +55,14 @@ export default async function Home() {
         ))}
       </div>
       <h1 className="text-primary text-heading-lg">Welcome to entertainment</h1>
+      <h2 className="text-heading-medium-sm text-primary">Hi, {user.data.user?.email}</h2>
       <div className="flex flex-col gap-6">
         <form action={handleAddMovie}>
           <Button type="submit">Add to bookmarks</Button>
         </form>
         <LogoutButton />
       </div>
+      <pre className="text-white text-body-md">{JSON.stringify(movies.data, null, 2)}</pre>
     </main>
   );
 }
