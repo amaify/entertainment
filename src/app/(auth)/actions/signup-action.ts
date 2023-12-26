@@ -1,11 +1,11 @@
 "use server";
 
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import { createClient } from "@/lib/supabase/server";
 
 export async function signupAction(formData: FormData) {
   const { email, password, repeatPassword } = Object.fromEntries(formData.entries()) as { [key: string]: string };
-  const supabase = createServerActionClient({ cookies });
+  const supabase = createClient(cookies());
 
   if (password !== repeatPassword) {
     return { message: "Passwords do not match" };
