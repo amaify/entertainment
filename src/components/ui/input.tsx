@@ -50,7 +50,9 @@ export default function Input({ variant, inputError, ...props }: Props) {
         className="w-full text-body-md mr-auto bg-transparent px-[1.6rem] text-white caret-primary !placeholder:text-white/50 focus:outline-none"
       />
       {inputError && inputError[props.name ?? ""] && (
-        <span className="w-full text-primary text-body-sm text-right ml-2">{inputError[props.name ?? ""]}</span>
+        <span className="w-full text-primary text-body-sm text-right ml-2" data-testid="errorMessage">
+          {inputError[props.name ?? ""]}
+        </span>
       )}
     </label>
   );
