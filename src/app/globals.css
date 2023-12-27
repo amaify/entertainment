@@ -30,6 +30,7 @@ html {
 body {
   min-width: 325px;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 input:-webkit-autofill,

@@ -16,7 +16,7 @@ export default function Input({ variant, inputError, ...props }: Props) {
         <SvgIcon variant="searchIcon" />
         <label
           htmlFor={props.id}
-          className="relative focus-within:after:content-[''] focus-within:after:absolute focus-within:after:w-full focus-within:after:h-[1px] focus-within:after:-bottom-6 focus-within:after:bg-tertiary-background focus-within:after:block"
+          className="w-full relative focus-within:after:content-[''] focus-within:after:absolute focus-within:after:w-full focus-within:after:h-[1px] focus-within:after:-bottom-6 focus-within:after:bg-tertiary-background focus-within:after:block"
         >
           <input
             type={props.type}
@@ -26,7 +26,7 @@ export default function Input({ variant, inputError, ...props }: Props) {
             onChange={props.onChange}
             onBlur={props.onBlur}
             placeholder={props.placeholder}
-            className="text-heading-light-sm text-white caret-primary placeholder:text-white/50 focus:outline-none"
+            className="w-full text-heading-light-sm bg-transparent text-white caret-primary placeholder:text-white/50 focus:outline-none"
           />
         </label>
       </div>

@@ -2,9 +2,13 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import Thumbnail from "@/components/thumbnail/thumbnail";
 import Button from "@/components/ui/button";
+import Input from "@/components/ui/input";
 import LogoutButton from "@/components/ui/logout-button";
+import HomePageLayout from "@/layout/pages-layout";
 import { createClient } from "@/lib/supabase/server";
+import movieData from "../../starter-code/data.json";
 
 export async function getSupabaseUser() {
   const supabase = createClient(cookies());
@@ -45,8 +49,16 @@ export default async function Home() {
     return status;
   };
 
+  // console.log(movieData);
+
   return (
-    <main>
+    <HomePageLayout placeholderText="Search for movies or TV series">
+      <div className="grid grid-cols-4 gap-4">
+        {/* {movieData.map((movie) => (
+          <Thumbnail variant="popular" key={movie.title} />
+        ))} */}
+      </div>
+      <div></div>
       <div className="flex gap-4">
         {navLinks.map((link) => (
           <Link key={link.title} href={link.link} className="text-body-md text-white">
@@ -63,6 +75,6 @@ export default async function Home() {
         <LogoutButton />
       </div>
       <pre className="text-white text-body-md">{JSON.stringify(movies.data, null, 2)}</pre>
-    </main>
+    </HomePageLayout>
   );
 }
