@@ -41,3 +41,11 @@ input:-webkit-autofill:active {
   background: transparent !important;
   transition: background-color 5000s ease-in-out 0s;
 }
+
+.trending-show-layout {
+  scrollbar-width: none !important;
+}
+
+.trending-show-layout::-webkit-scrollbar {
+  display: none;
+}

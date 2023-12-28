@@ -1,8 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
+import AppLayout from "@/components/layout/app-layout";
 import Notification from "@/components/ui/notification";
-import AppLayout from "@/layout/app-layout";
 
 export default function AppProvider({ children }: { children: ReactNode }) {
   return (

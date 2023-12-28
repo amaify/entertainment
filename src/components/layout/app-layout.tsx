@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Navigation from "../components/navigation/navigation";
+import Navigation from "../navigation/navigation";
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   return (

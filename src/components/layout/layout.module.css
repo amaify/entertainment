@@ -1,0 +1,6 @@
+.shows_layout {
+  display: grid;
+  gap: 3.2rem 4rem;
+  grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+  padding-right: 3.2rem;
+}

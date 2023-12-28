@@ -1,3 +1,4 @@
+import cn from "@/helpers/cn";
 import SvgIcon from "../svg/svg";
 import styles from "./thumbnail.module.css";
 
@@ -7,11 +8,14 @@ interface Props {
 }
 
 export default function ThumbnailDescription({ category, variant }: Props) {
-  if (variant === "popular") return null;
-
   return (
-    <span className="absolute left-[2.4rem] bottom-[2.4rem] z-0 text-left">
-      <span className={styles.description}>
+    <span
+      className={cn("text-white text-left", {
+        "absolute left-[2.4rem] bottom-[2.4rem] z-0": variant === "trending",
+        relative: variant === "popular"
+      })}
+    >
+      <span className={cn(styles.description)}>
         <span>2019</span>
         <span className="flex items-center gap-[0.6rem]">
           <SvgIcon variant={category === "Movies" ? "movieIcon" : "tvSeriesIcon"} fillColour="#FFFFFF" />
@@ -19,7 +23,13 @@ export default function ThumbnailDescription({ category, variant }: Props) {
         </span>
         <span>PG</span>
       </span>
-      <h1 className="text-white text-heading-medium-sm capitalize mt-[0.3rem]">beyond earth</h1>
+      <span
+        className={cn("text-white w-full text-heading-medium-sm capitalize mt-[0.3rem]", {
+          "text-heading-xs": variant === "popular"
+        })}
+      >
+        beyond earth
+      </span>
     </span>
   );
 }

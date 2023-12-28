@@ -1,14 +1,8 @@
-import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import Thumbnail from "@/components/thumbnail/thumbnail";
-import Button from "@/components/ui/button";
-import Input from "@/components/ui/input";
-import LogoutButton from "@/components/ui/logout-button";
-import HomePageLayout from "@/layout/pages-layout";
+import PagesLayout from "@/components/layout/pages-layout";
+import ShowsLayout from "@/components/layout/shows-layout";
+import TrendingShows from "@/components/layout/trending-shows";
 import { createClient } from "@/lib/supabase/server";
-import movieData from "../../starter-code/data.json";
 
 export async function getSupabaseUser() {
   const supabase = createClient(cookies());
@@ -16,47 +10,49 @@ export async function getSupabaseUser() {
   return user;
 }
 
-async function getBookmarkedMovies() {
-  const supabase = createClient(cookies());
-  const movies = await supabase.from("bookmarked_movies").select();
-  return movies;
-}
+// async function getBookmarkedMovies() {
+//   const supabase = createClient(cookies());
+//   const movies = await supabase.from("bookmarked_movies").select();
+//   return movies;
+// }
 
-const navLinks = [
-  { title: "login", link: "/login" },
-  { title: "signup", link: "/signup" }
-];
+// const navLinks = [
+//   { title: "login", link: "/login" },
+//   { title: "signup", link: "/signup" }
+// ];
 
 export default async function Home() {
-  const user = await getSupabaseUser();
-  const movies = await getBookmarkedMovies();
+  // const user = await getSupabaseUser();
+  // const movies = await getBookmarkedMovies();
   // console.log(JSON.stringify(user, undefined, 4));
 
-  const handleAddMovie = async () => {
-    "use server";
-    const supabase = createClient(cookies());
+  // const handleAddMovie = async () => {
+  //   "use server";
+  //   const supabase = createClient(cookies());
 
-    const { error, status } = await supabase
-      .from("bookmarked_movies")
-      .insert([{ title: "for john.ugwuanyi", user_id: user.data.user?.id }])
-      .select();
+  //   const { error, status } = await supabase
+  //     .from("bookmarked_movies")
+  //     .insert([{ title: "for john.ugwuanyi", user_id: user.data.user?.id }])
+  //     .select();
 
-    if (error) {
-      console.info(error);
-      return redirect(`/?message=${error.message}`);
-    }
-    revalidatePath("/");
-    return status;
-  };
+  //   if (error) {
+  //     console.info(error);
+  //     return redirect(`/?message=${error.message}`);
+  //   }
+  //   revalidatePath("/");
+  //   return status;
+  // };
 
   // console.log(movieData);
 
   return (
-    <HomePageLayout placeholderText="Search for movies or TV series">
-      <div className="grid grid-cols-4 gap-4">
-        {/* {movieData.map((movie) => (
+    <PagesLayout placeholderText="Search for movies or TV series" showSearchQuery>
+      <TrendingShows />
+      <ShowsLayout title="Recommended for you" />
+      {/* <div className="grid grid-cols-4 gap-4">
+        {movieData.map((movie) => (
           <Thumbnail variant="popular" key={movie.title} />
-        ))} */}
+        ))}
       </div>
       <div></div>
       <div className="flex gap-4">
@@ -74,7 +70,7 @@ export default async function Home() {
         </form>
         <LogoutButton />
       </div>
-      <pre className="text-white text-body-md">{JSON.stringify(movies.data, null, 2)}</pre>
-    </HomePageLayout>
+      <pre className="text-white text-body-md">{JSON.stringify(movies.data, null, 2)}</pre> */}
+    </PagesLayout>
   );
 }
