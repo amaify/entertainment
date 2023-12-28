@@ -1,7 +1,7 @@
 import PagesLayout from "@/components/layout/pages-layout";
 import ShowsLayout from "@/components/layout/shows-layout";
 
-type Category = "movies" | "series" | "bookmarks";
+export type Category = "movies" | "series" | "bookmarks";
 
 export default function CategoryPage({ params }: { params: { category: Category } }) {
   const { category } = params;
@@ -20,18 +20,18 @@ export default function CategoryPage({ params }: { params: { category: Category 
     return (
       <div className="flex flex-col gap-16">
         <PagesLayout placeholderText={queryPlaceholderText[category]} showSearchQuery>
-          <ShowsLayout title="Bookmarked Movies" />
+          <ShowsLayout title="Bookmarked Movies" pageCategory="movies" />
         </PagesLayout>
 
         <PagesLayout placeholderText={queryPlaceholderText[category]} showSearchQuery={false}>
-          <ShowsLayout title="Bookmarked TV Series" />
+          <ShowsLayout title="Bookmarked TV Series" pageCategory="series" />
         </PagesLayout>
       </div>
     );
   }
   return (
     <PagesLayout placeholderText={queryPlaceholderText[category]} showSearchQuery>
-      <ShowsLayout title={layoutTitle[category]} />
+      <ShowsLayout title={layoutTitle[category]} pageCategory={category} />
     </PagesLayout>
   );
 }
