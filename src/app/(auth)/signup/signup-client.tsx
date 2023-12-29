@@ -1,6 +1,6 @@
 "use client";
 
-import { signupAction } from "@/app/(auth)/actions/signup-action";
+import { signupAction } from "../actions/signup-action";
 import AuthFormFooter from "../components/auth-form-footer";
 import AuthFormInput from "../components/auth-form-input.client";
 import AuthFormLayout, { DefaultInputValue, FormFields } from "../components/auth-form-layout";

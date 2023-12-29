@@ -16,6 +16,7 @@
   },
   "plugins": ["@typescript-eslint", "simple-import-sort"],
   "rules": {
+    "react-hooks/exhaustive-deps": 0,
     "react/react-in-jsx-scope": 0,
     "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": false }],
     "no-console": ["error", { "allow": ["warn", "error", "info"] }],

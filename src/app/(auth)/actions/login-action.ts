@@ -1,7 +1,8 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/src/lib/supabase/server";
 
 interface ActionResponse {
   message: "success" | (string & {});
@@ -17,5 +18,6 @@ export async function loginAction(formData: FormData): Promise<ActionResponse> {
     return { message: error.message };
   }
 
+  revalidatePath("/");
   return { message: "success" };
 }

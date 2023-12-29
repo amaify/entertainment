@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Thumbnail from "@/components/thumbnail/thumbnail";
+import Thumbnail from "../components/thumbnail/thumbnail";
 
 const meta = {
   title: "Thumbnail",

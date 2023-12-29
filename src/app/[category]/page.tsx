@@ -1,10 +1,14 @@
-import PagesLayout from "@/components/layout/pages-layout";
-import ShowsLayout from "@/components/layout/shows-layout";
+import { redirect } from "next/navigation";
+import PagesLayout from "@/src/components/layout/pages-layout";
+import ShowsLayout from "@/src/components/layout/shows-layout";
+import { authSessionAction } from "@/src/lib/server-actions/auth-session-action";
 
 export type Category = "movies" | "series" | "bookmarks";
 
-export default function CategoryPage({ params }: { params: { category: Category } }) {
+export default async function CategoryPage({ params }: { params: { category: Category } }) {
   const { category } = params;
+  const session = await authSessionAction();
+
   const queryPlaceholderText: Record<Category, string> = {
     movies: "Search for movies",
     series: "Search for TV series",
@@ -15,6 +19,8 @@ export default function CategoryPage({ params }: { params: { category: Category 
     series: "TV series",
     bookmarks: "Bookmarked shows"
   };
+
+  if (!session && category === "bookmarks") redirect("/");
 
   if (category === "bookmarks") {
     return (

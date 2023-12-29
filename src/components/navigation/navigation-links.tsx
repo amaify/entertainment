@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AuthContext } from "@/src/app/auth-provider";
 import cn from "@/src/helpers/cn";
 import SvgIcon, { IconVariant } from "../svg/svg";
 
@@ -9,15 +11,17 @@ interface NavLinks {
   icon: IconVariant;
 }
 
-const navLinks: NavLinks[] = [
-  { title: "Home", icon: "navHomeIcon", href: "/" },
-  { title: "Movies", icon: "navMovieIcon", href: "/movies" },
-  { title: "TV series", icon: "navTvSeriesIcon", href: "/series" },
-  { title: "Bookmarks", icon: "navBookmarkIcon", href: "/bookmarks" }
-];
-
 export default function NavigationLinks() {
   const pathname = usePathname();
+  const authSession = useContext(AuthContext);
+
+  const navLinks: NavLinks[] = [
+    { title: "Home", icon: "navHomeIcon", href: "/" },
+    { title: "Movies", icon: "navMovieIcon", href: "/movies" },
+    { title: "TV series", icon: "navTvSeriesIcon", href: "/series" },
+    ...(authSession ? [{ title: "Bookmarks", icon: "navBookmarkIcon", href: "/bookmarks" } as NavLinks] : [])
+  ];
+
   return (
     <ul className="flex flex-col items-center gap-16 mb-auto">
       {navLinks.map((link) => (
