@@ -1,11 +1,26 @@
 import { redirect } from "next/navigation";
+import movieData from "@/data.json";
 import PagesLayout from "@/src/components/layout/pages-layout";
 import ShowsLayout from "@/src/components/layout/shows-layout";
+import { ShowCategory } from "@/src/components/thumbnail/thumbnail-description";
 import { authSessionAction } from "@/src/lib/server-actions/auth-session-action";
+import BookmarkPage from "./bookmark-page";
 
+type CategoryParams = { params: { category: Category } };
 export type Category = "movies" | "series" | "bookmarks";
 
-export default async function CategoryPage({ params }: { params: { category: Category } }) {
+export async function generateMetadata({ params }: CategoryParams) {
+  return {
+    title: `Entertainment App | ${params.category.charAt(0).toUpperCase() + params.category.slice(1)}`
+  };
+}
+
+export const movieCategory: Record<"movies" | "series", ShowCategory> = {
+  movies: "Movie",
+  series: "TV Series"
+};
+
+export default async function CategoryPage({ params }: CategoryParams) {
   const { category } = params;
   const session = await authSessionAction();
 
@@ -22,22 +37,14 @@ export default async function CategoryPage({ params }: { params: { category: Cat
 
   if (!session && category === "bookmarks") redirect("/");
 
-  if (category === "bookmarks") {
-    return (
-      <div className="flex flex-col gap-16">
-        <PagesLayout placeholderText={queryPlaceholderText[category]} showSearchQuery>
-          <ShowsLayout title="Bookmarked Movies" pageCategory="movies" />
-        </PagesLayout>
+  if (category === "bookmarks") return <BookmarkPage />;
 
-        <PagesLayout placeholderText={queryPlaceholderText[category]} showSearchQuery={false}>
-          <ShowsLayout title="Bookmarked TV Series" pageCategory="series" />
-        </PagesLayout>
-      </div>
-    );
-  }
   return (
     <PagesLayout placeholderText={queryPlaceholderText[category]} showSearchQuery>
-      <ShowsLayout title={layoutTitle[category]} pageCategory={category} />
+      <ShowsLayout
+        title={layoutTitle[category]}
+        movieData={movieData.filter((movie) => movie.category === movieCategory[category])}
+      />
     </PagesLayout>
   );
 }

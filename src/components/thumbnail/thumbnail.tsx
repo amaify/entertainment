@@ -1,5 +1,9 @@
+"use client";
+
+import toast from "react-hot-toast";
 import Image from "next/image";
 import cn from "@/src/helpers/cn";
+import { addMovieToBookmarkAction } from "@/src/lib/server-actions/bookmark-action";
 import BookmarkIcon from "./thumbnail-bookmark-icon";
 import ThumbnailDescription, { ShowCategory } from "./thumbnail-description";
 import ThumbnailPlayButton from "./thumbnail-play-button";
@@ -27,6 +31,20 @@ interface Props {
 
 export default function Thumbnail({ variant, title, thumbnail, category, rating, year }: Props) {
   const imgSrc = variant === "trending" ? thumbnail.trending?.large : thumbnail.regular.large;
+
+  const addMovieToBookmark = async () => {
+    const toastLoadingId = toast.loading("Adding to bookmarks");
+    const { message } = await addMovieToBookmarkAction({ title, category });
+
+    if (message !== "success") {
+      toast.error(message);
+      toast.dismiss(toastLoadingId);
+      return;
+    }
+
+    toast.success("Added to bookmarks");
+    toast.dismiss(toastLoadingId);
+  };
   return (
     <div
       className={cn("w-full bg-primary rounded-[0.8rem] relative", {
@@ -47,7 +65,7 @@ export default function Thumbnail({ variant, title, thumbnail, category, rating,
           <ThumbnailDescription category={category} variant={variant} title={title} year={year} rating={rating} />
         )}
       </button>
-      <BookmarkIcon isBookmarked={false} />
+      <BookmarkIcon isBookmarked={false} onClick={addMovieToBookmark} />
     </div>
   );
 }

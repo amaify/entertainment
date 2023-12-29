@@ -26,3 +26,10 @@ export async function logoutAction(): Promise<LogoutResponse> {
 
   return { message: "success" };
 }
+
+export async function getUserAction() {
+  const supabase = createClient(cookies());
+  const { data } = await supabase.auth.getUser();
+
+  return data.user;
+}

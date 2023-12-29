@@ -4,8 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AvatarImage from "@/public/shared/image-avatar.png";
-import type { AuthSession } from "@/src/app/app-provider";
-import { AuthContext } from "@/src/app/auth-provider";
+import { AuthContext, type AuthSession } from "@/src/app/app-provider";
 import { logoutAction } from "@/src/lib/server-actions/logout-action";
 import SvgIcon from "../svg/svg";
 

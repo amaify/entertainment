@@ -1,24 +1,18 @@
-import movieData from "@/data.json";
-import type { Category } from "@/src/app/[category]/page";
 import ThumbnailCard from "../thumbnail/thumbnail-card";
 import { ShowCategory } from "../thumbnail/thumbnail-description";
 import styles from "./layout.module.css";
 
 interface Props {
   title: string;
-  pageCategory?: Category;
+  movieData: any;
 }
 
-export default function ShowsLayout({ title, pageCategory }: Props) {
-  let layoutMovieData = movieData;
-  if (pageCategory === "movies") layoutMovieData = movieData.filter((movie) => movie.category === "Movie");
-  if (pageCategory === "series") layoutMovieData = movieData.filter((movie) => movie.category === "TV Series");
-
+export default function ShowsLayout({ title, movieData }: Props) {
   return (
     <section className="mt-">
       <h1 className="text-heading-lg text-white mb-[3.2rem]">{title}</h1>
       <div className={styles.shows_layout}>
-        {layoutMovieData.map((movie) => (
+        {movieData.map((movie: any) => (
           <ThumbnailCard
             category={movie.category as ShowCategory}
             key={movie.title}
