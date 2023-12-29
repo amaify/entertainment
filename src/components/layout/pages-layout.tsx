@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-import Input from "@/components/ui/input";
-
+import Input from "@/src/components/ui/input";
 interface Props {
   children: ReactNode;
   placeholderText: string;

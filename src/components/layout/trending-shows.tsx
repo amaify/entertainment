@@ -1,4 +1,4 @@
-import movieData from "../../../starter-code/data.json";
+import movieData from "@/data.json";
 import Thumbnail from "../thumbnail/thumbnail";
 import { ShowCategory } from "../thumbnail/thumbnail-description";
 

@@ -1,4 +1,4 @@
-import cn from "@/helpers/cn";
+import cn from "@/src/helpers/cn";
 import SvgIcon from "../svg/svg";
 import styles from "./thumbnail.module.css";
 

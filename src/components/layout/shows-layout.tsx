@@ -1,5 +1,5 @@
-import { Category } from "@/app/[category]/page";
-import movieData from "../../../starter-code/data.json";
+import movieData from "@/data.json";
+import type { Category } from "@/src/app/[category]/page";
 import ThumbnailCard from "../thumbnail/thumbnail-card";
 import { ShowCategory } from "../thumbnail/thumbnail-description";
 import styles from "./layout.module.css";

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import cn from "@/helpers/cn";
+import cn from "@/src/helpers/cn";
 import SvgIcon, { IconVariant } from "../svg/svg";
 
 interface NavLinks {
