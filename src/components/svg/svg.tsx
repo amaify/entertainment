@@ -14,12 +14,11 @@ export type IconVariant =
 
 interface Props {
   variant: IconVariant;
-  title?: string;
   fillColour?: string;
   className?: string;
 }
 
-export default function SvgIcon({ variant, className, fillColour, title }: Props) {
+export default function SvgIcon({ variant, className, fillColour }: Props) {
   const svgIcons: Record<typeof variant, ReactNode> = {
     searchIcon: (
       <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" data-icon="searchIcon">
