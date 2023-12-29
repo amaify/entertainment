@@ -24,7 +24,7 @@ export default function useFormSubmitAction({ formAction, pushTo, successMessage
       }
 
       router.push(pushTo);
-      toast.success(successMessage, { duration: 10000 });
+      toast.success(successMessage, { duration: 3000 });
     });
   };
 
