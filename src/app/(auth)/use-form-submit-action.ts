@@ -23,8 +23,8 @@ export default function useFormSubmitAction({ formAction, pushTo, successMessage
         return;
       }
 
-      router.push(pushTo);
       toast.success(successMessage, { duration: 3000 });
+      router.replace(pushTo);
     });
   };
 

@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { createClient } from "@/src/lib/supabase/server";
 
@@ -18,6 +17,5 @@ export async function loginAction(formData: FormData): Promise<ActionResponse> {
     return { message: error.message };
   }
 
-  revalidatePath("/");
   return { message: "success" };
 }
