@@ -2,7 +2,7 @@
 
 import { useContext } from "react";
 import movieData from "@/data.json";
-import PagesLayout from "@/src/components/layout/pages-layout";
+import PagesLayout from "@/src/app/_layout/pages-layout";
 import { AppContext } from "../_components/app-provider";
 import { Show } from "../page";
 import ShowspageClient from "./shows-page-client";

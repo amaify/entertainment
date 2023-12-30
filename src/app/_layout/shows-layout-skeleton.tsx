@@ -1,4 +1,4 @@
-import Skeleton from "../ui/skeleton";
+import Skeleton from "../../components/ui/skeleton";
 import styles from "./layout.module.css";
 
 export default function ShowsLayoutSkeleton() {

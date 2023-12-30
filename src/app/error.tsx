@@ -1,6 +1,6 @@
 "use client";
 
-import AppLayout from "../components/layout/app-layout";
+import AppLayout from "./_layout/app-layout";
 
 interface Props {
   error: Error & { digest?: string };

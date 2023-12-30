@@ -3,7 +3,7 @@
 import { type ChangeEvent } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import Input from "../ui/input";
+import Input from "./input";
 
 interface Props {
   placeholderText: string;

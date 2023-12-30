@@ -2,9 +2,8 @@ import { useContext } from "react";
 import { useSearchParams } from "next/navigation";
 import { AppContext } from "@/src/app/_components/app-provider";
 import type { Show, ShowCategory } from "@/src/app/page";
-import cn from "@/src/helpers/cn";
 import { getBookmarkedShows } from "@/src/helpers/get-bookmarked-shows";
-import ThumbnailCard from "../thumbnail/thumbnail-card";
+import ThumbnailCard from "../../components/thumbnail/thumbnail-card";
 import styles from "./layout.module.css";
 
 interface Props {
@@ -21,7 +20,7 @@ export default function ShowsLayout({ title, movieData }: Props) {
   return (
     <section>
       <h1 className="text-heading-lg text-white mb-[3.2rem]">{layoutTitle}</h1>
-      <div className={cn(styles.shows_layout, "relative")}>
+      <div className={styles.shows_layout}>
         {movieData.map((movie) => (
           <ThumbnailCard
             category={movie.category as ShowCategory}

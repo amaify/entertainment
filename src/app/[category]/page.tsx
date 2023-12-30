@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import movieData from "@/data.json";
-import PagesLayout from "@/src/components/layout/pages-layout";
-import ShowsLayoutSkeleton from "@/src/components/layout/shows-layout-skeleton";
+import PagesLayout from "@/src/app/_layout/pages-layout";
+import ShowsLayoutSkeleton from "@/src/app/_layout/shows-layout-skeleton";
 import { authSessionAction } from "@/src/lib/server-actions/auth-session-action";
 import { Show, ShowCategory } from "../page";
 import BookmarkPage from "./bookmark-page";

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import SearchInput from "./search-input";
+import SearchInput from "../../components/ui/search-input";
 interface Props {
   children: ReactNode;
   placeholderText: string;

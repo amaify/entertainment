@@ -3,7 +3,7 @@ import movieData from "@/data.json";
 import { AppContext } from "@/src/app/_components/app-provider";
 import { Show } from "@/src/app/page";
 import { getBookmarkedShows } from "@/src/helpers/get-bookmarked-shows";
-import Thumbnail from "../thumbnail/thumbnail";
+import Thumbnail from "../../components/thumbnail/thumbnail";
 
 export default function TrendingShows() {
   const bookmarkedMovies = useContext(AppContext)?.bkmarkedMovies;

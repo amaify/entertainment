@@ -1,9 +1,9 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import PagesLayout from "../../components/layout/pages-layout";
-import ShowsLayout from "../../components/layout/shows-layout";
-import TrendingShows from "../../components/layout/trending-shows";
+import PagesLayout from "../_layout/pages-layout";
+import ShowsLayout from "../_layout/shows-layout";
+import TrendingShows from "../_layout/trending-shows";
 import type { Show } from "../page";
 import useFilterShows from "./use-filter-shows";
 
