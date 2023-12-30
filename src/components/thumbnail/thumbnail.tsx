@@ -2,9 +2,10 @@
 
 import toast from "react-hot-toast";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import type { Show } from "@/src/app/page";
 import cn from "@/src/helpers/cn";
-import { addMovieToBookmarkAction } from "@/src/lib/server-actions/bookmark-action";
+import { addMovieToBookmarkAction, removeMovieFromBookmarkAction } from "@/src/lib/server-actions/bookmark-action";
 import BookmarkIcon from "./thumbnail-bookmark-icon";
 import ThumbnailDescription from "./thumbnail-description";
 import ThumbnailPlayButton from "./thumbnail-play-button";
@@ -15,10 +16,16 @@ interface Props extends Show {
 
 export default function Thumbnail({ variant, title, thumbnail, category, rating, year, isBookmarked }: Props) {
   const imgSrc = variant === "trending" ? thumbnail.trending?.large : thumbnail.regular.large;
+  const router = useRouter();
 
-  const addMovieToBookmark = async () => {
-    const toastLoadingId = toast.loading("Adding to bookmarks");
-    const { message } = await addMovieToBookmarkAction({ title, category });
+  const onBookmark = async () => {
+    const loadingToastMsg = !isBookmarked ? "Adding" : "Removing";
+    const successToastMsg = !isBookmarked ? "Added to" : "Removed from";
+
+    const toastLoadingId = toast.loading(`${loadingToastMsg} to bookmarks...`);
+    const { message } = !isBookmarked
+      ? await addMovieToBookmarkAction({ title, category })
+      : await removeMovieFromBookmarkAction({ title });
 
     if (message !== "success") {
       toast.error(message);
@@ -26,9 +33,11 @@ export default function Thumbnail({ variant, title, thumbnail, category, rating,
       return;
     }
 
-    toast.success("Added to bookmarks");
+    router.refresh();
+    toast.success(successToastMsg + "Bookmarks");
     toast.dismiss(toastLoadingId);
   };
+
   return (
     <div
       className={cn("w-full relative", {
@@ -40,8 +49,8 @@ export default function Thumbnail({ variant, title, thumbnail, category, rating,
         <Image
           src={imgSrc ?? ""}
           alt={title}
-          width={100}
-          height={100}
+          width={600}
+          height={600}
           className="w-full h-full object-cover block rounded-[0.8rem]"
         />
         <ThumbnailPlayButton />
@@ -49,7 +58,7 @@ export default function Thumbnail({ variant, title, thumbnail, category, rating,
           <ThumbnailDescription category={category} variant={variant} title={title} year={year} rating={rating} />
         )}
       </button>
-      <BookmarkIcon isBookmarked={isBookmarked} onClick={addMovieToBookmark} />
+      <BookmarkIcon isBookmarked={isBookmarked} onClick={onBookmark} />
     </div>
   );
 }
