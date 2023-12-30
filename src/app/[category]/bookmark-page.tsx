@@ -4,6 +4,7 @@ import PagesLayout from "@/src/components/layout/pages-layout";
 import ShowsLayout from "@/src/components/layout/shows-layout";
 import { getUserAction } from "@/src/lib/server-actions/auth-session-action";
 import { createClient } from "@/src/lib/supabase/server";
+import { Show } from "../page";
 
 export default async function BookmarkPage() {
   const supabase = createClient(cookies());
@@ -21,14 +22,14 @@ export default async function BookmarkPage() {
       <PagesLayout placeholderText="Search for bookmarked shows" showSearchQuery>
         <ShowsLayout
           title="Bookmarked Movies"
-          movieData={bookmarkedMovies.filter((bMovie) => bMovie.category === "Movie")}
+          movieData={bookmarkedMovies.filter((bMovie) => bMovie.category === "Movie") as Show[]}
         />
       </PagesLayout>
 
       <PagesLayout placeholderText="" showSearchQuery={false}>
         <ShowsLayout
           title="Bookmarked TV Series"
-          movieData={bookmarkedMovies.filter((bMovie) => bMovie.category === "TV Series")}
+          movieData={bookmarkedMovies.filter((bMovie) => bMovie.category === "TV Series") as Show[]}
         />
       </PagesLayout>
     </div>

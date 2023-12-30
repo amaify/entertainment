@@ -1,8 +1,7 @@
+import type { ShowCategory } from "@/src/app/page";
 import cn from "@/src/helpers/cn";
 import SvgIcon from "../svg/svg";
 import styles from "./thumbnail.module.css";
-
-export type ShowCategory = "Movie" | "TV Series";
 
 interface Props {
   category: ShowCategory;

@@ -1,9 +1,9 @@
 import movieData from "@/data.json";
+import { Show } from "@/src/app/page";
 import Thumbnail from "../thumbnail/thumbnail";
-import { ShowCategory } from "../thumbnail/thumbnail-description";
 
 export default function TrendingShows() {
-  const trendingMovies = movieData.filter((movie) => movie.isTrending);
+  const trendingMovies = movieData.filter((movie) => movie.isTrending) as Show[];
   return (
     <section className="flex flex-col gap-10 mb-16">
       <h1 className="text-heading-lg text-white">Trending</h1>
@@ -12,11 +12,13 @@ export default function TrendingShows() {
           <div className="w-[47rem] flex-shrink-0" key={movie.title}>
             <Thumbnail
               variant="trending"
-              category={movie.category as ShowCategory}
+              category={movie.category}
               rating={movie.rating}
               title={movie.title}
               thumbnail={movie.thumbnail}
               year={movie.year}
+              isBookmarked={movie.isBookmarked}
+              isTrending={movie.isTrending}
             />
           </div>
         ))}

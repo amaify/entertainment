@@ -2,8 +2,8 @@ import { redirect } from "next/navigation";
 import movieData from "@/data.json";
 import PagesLayout from "@/src/components/layout/pages-layout";
 import ShowsLayout from "@/src/components/layout/shows-layout";
-import { ShowCategory } from "@/src/components/thumbnail/thumbnail-description";
 import { authSessionAction } from "@/src/lib/server-actions/auth-session-action";
+import { Show, ShowCategory } from "../page";
 import BookmarkPage from "./bookmark-page";
 
 type CategoryParams = { params: { category: Category } };
@@ -43,7 +43,7 @@ export default async function CategoryPage({ params }: CategoryParams) {
     <PagesLayout placeholderText={queryPlaceholderText[category]} showSearchQuery>
       <ShowsLayout
         title={layoutTitle[category]}
-        movieData={movieData.filter((movie) => movie.category === movieCategory[category])}
+        movieData={movieData.filter((movie) => movie.category === movieCategory[category]) as Show[]}
       />
     </PagesLayout>
   );

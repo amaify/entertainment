@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Input from "@/src/components/ui/input";
+import SearchInput from "./search-input";
 interface Props {
   children: ReactNode;
   placeholderText: string;
@@ -9,11 +9,7 @@ interface Props {
 export default function PagesLayout({ children, showSearchQuery, placeholderText }: Props) {
   return (
     <main className="pt-12">
-      {showSearchQuery && (
-        <div className="pr-[3.2rem] mb-[3.5rem]">
-          <Input variant="searchInput" placeholder={placeholderText} />
-        </div>
-      )}
+      {showSearchQuery && <SearchInput placeholderText={placeholderText} />}
       {children}
     </main>
   );

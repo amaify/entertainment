@@ -2,34 +2,18 @@
 
 import toast from "react-hot-toast";
 import Image from "next/image";
+import type { Show } from "@/src/app/page";
 import cn from "@/src/helpers/cn";
 import { addMovieToBookmarkAction } from "@/src/lib/server-actions/bookmark-action";
 import BookmarkIcon from "./thumbnail-bookmark-icon";
-import ThumbnailDescription, { ShowCategory } from "./thumbnail-description";
+import ThumbnailDescription from "./thumbnail-description";
 import ThumbnailPlayButton from "./thumbnail-play-button";
 
-export type ThumbnailImg = {
-  trending?: {
-    small: string;
-    large: string;
-  };
-  regular: {
-    small: string;
-    medium: string;
-    large: string;
-  };
-};
-
-interface Props {
+interface Props extends Show {
   variant: "trending" | "popular";
-  title: string;
-  thumbnail: ThumbnailImg;
-  category: ShowCategory;
-  rating: string;
-  year: number;
 }
 
-export default function Thumbnail({ variant, title, thumbnail, category, rating, year }: Props) {
+export default function Thumbnail({ variant, title, thumbnail, category, rating, year, isBookmarked }: Props) {
   const imgSrc = variant === "trending" ? thumbnail.trending?.large : thumbnail.regular.large;
 
   const addMovieToBookmark = async () => {
@@ -65,7 +49,7 @@ export default function Thumbnail({ variant, title, thumbnail, category, rating,
           <ThumbnailDescription category={category} variant={variant} title={title} year={year} rating={rating} />
         )}
       </button>
-      <BookmarkIcon isBookmarked={false} onClick={addMovieToBookmark} />
+      <BookmarkIcon isBookmarked={isBookmarked} onClick={addMovieToBookmark} />
     </div>
   );
 }

@@ -1,10 +1,10 @@
+import type { Show, ShowCategory } from "@/src/app/page";
 import ThumbnailCard from "../thumbnail/thumbnail-card";
-import { ShowCategory } from "../thumbnail/thumbnail-description";
 import styles from "./layout.module.css";
 
 interface Props {
   title: string;
-  movieData: any;
+  movieData: Show[];
 }
 
 export default function ShowsLayout({ title, movieData }: Props) {
@@ -12,7 +12,7 @@ export default function ShowsLayout({ title, movieData }: Props) {
     <section className="mt-">
       <h1 className="text-heading-lg text-white mb-[3.2rem]">{title}</h1>
       <div className={styles.shows_layout}>
-        {movieData.map((movie: any) => (
+        {movieData.map((movie) => (
           <ThumbnailCard
             category={movie.category as ShowCategory}
             key={movie.title}
@@ -21,6 +21,7 @@ export default function ShowsLayout({ title, movieData }: Props) {
             isBookmarked={movie.isBookmarked}
             title={movie.title}
             year={movie.year}
+            isTrending={movie.isTrending}
           />
         ))}
       </div>
