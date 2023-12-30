@@ -1,9 +1,14 @@
+import { useContext } from "react";
 import movieData from "@/data.json";
+import { AppContext } from "@/src/app/app-provider";
 import { Show } from "@/src/app/page";
+import { getBookmarkedShows } from "@/src/helpers/get-bookmarked-shows";
 import Thumbnail from "../thumbnail/thumbnail";
 
 export default function TrendingShows() {
+  const bookmarkedMovies = useContext(AppContext)?.bkmarkedMovies;
   const trendingMovies = movieData.filter((movie) => movie.isTrending) as Show[];
+
   return (
     <section className="flex flex-col gap-10 mb-16">
       <h1 className="text-heading-lg text-white">Trending</h1>
@@ -17,7 +22,7 @@ export default function TrendingShows() {
               title={movie.title}
               thumbnail={movie.thumbnail}
               year={movie.year}
-              isBookmarked={movie.isBookmarked}
+              isBookmarked={getBookmarkedShows({ show: movie, bkmarkedShow: bookmarkedMovies })}
               isTrending={movie.isTrending}
             />
           </div>

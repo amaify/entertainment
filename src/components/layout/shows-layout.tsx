@@ -1,4 +1,7 @@
+import { useContext } from "react";
+import { AppContext } from "@/src/app/app-provider";
 import type { Show, ShowCategory } from "@/src/app/page";
+import { getBookmarkedShows } from "@/src/helpers/get-bookmarked-shows";
 import ThumbnailCard from "../thumbnail/thumbnail-card";
 import styles from "./layout.module.css";
 
@@ -8,6 +11,8 @@ interface Props {
 }
 
 export default function ShowsLayout({ title, movieData }: Props) {
+  const bookmarkedMovies = useContext(AppContext)?.bkmarkedMovies;
+
   return (
     <section>
       <h1 className="text-heading-lg text-white mb-[3.2rem]">{title}</h1>
@@ -18,7 +23,7 @@ export default function ShowsLayout({ title, movieData }: Props) {
             key={movie.title}
             thumbnail={movie.thumbnail}
             rating={movie.rating}
-            isBookmarked={movie.isBookmarked}
+            isBookmarked={getBookmarkedShows({ show: movie, bkmarkedShow: bookmarkedMovies })}
             title={movie.title}
             year={movie.year}
             isTrending={movie.isTrending}
