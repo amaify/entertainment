@@ -1,10 +1,12 @@
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import movieData from "@/data.json";
 import PagesLayout from "@/src/components/layout/pages-layout";
-import ShowsLayout from "@/src/components/layout/shows-layout";
+import ShowsLayoutSkeleton from "@/src/components/layout/shows-layout-skeleton";
 import { authSessionAction } from "@/src/lib/server-actions/auth-session-action";
 import { Show, ShowCategory } from "../page";
 import BookmarkPage from "./bookmark-page";
+import ShowspageClient from "./shows-page-client";
 
 type CategoryParams = { params: { category: Category } };
 export type Category = "movies" | "series" | "bookmarks";
@@ -37,13 +39,19 @@ export default async function CategoryPage({ params }: CategoryParams) {
 
   if (!session && category === "bookmarks") redirect("/");
 
-  if (category === "bookmarks") return <BookmarkPage />;
+  if (category === "bookmarks")
+    return (
+      <Suspense fallback={<ShowsLayoutSkeleton />}>
+        <BookmarkPage />
+      </Suspense>
+    );
 
   return (
     <PagesLayout placeholderText={queryPlaceholderText[category]} showSearchQuery>
-      <ShowsLayout
+      <ShowspageClient
         title={layoutTitle[category]}
-        movieData={movieData.filter((movie) => movie.category === movieCategory[category]) as Show[]}
+        category={movieCategory[category]}
+        movieData={movieData as Show[]}
       />
     </PagesLayout>
   );

@@ -9,7 +9,7 @@ interface Props {
 
 export default function ShowsLayout({ title, movieData }: Props) {
   return (
-    <section className="mt-">
+    <section>
       <h1 className="text-heading-lg text-white mb-[3.2rem]">{title}</h1>
       <div className={styles.shows_layout}>
         {movieData.map((movie) => (
