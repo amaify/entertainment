@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
+import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { createClient } from "../lib/supabase/server";
+import { BkmarkedMovies } from "./[category]/bookmark-page";
 import AppProvider from "./app-provider";
 import "./globals.css";
 
@@ -18,10 +20,19 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const supabase = createClient(cookies());
   const { data } = await supabase.auth.getSession();
+  const bkmarkedMovies: PostgrestSingleResponse<BkmarkedMovies[]> | null = data.session
+    ? await supabase
+        .from("bookmarked_movies")
+        .select("title, category")
+        .eq("user_id", data.session?.user?.id)
+    : null;
+
   return (
     <html lang="en">
       <body>
-        <AppProvider session={data.session}>{children}</AppProvider>
+        <AppProvider session={data.session} bkmarkedMovies={bkmarkedMovies?.data ? bkmarkedMovies.data : null}>
+          {children}
+        </AppProvider>
       </body>
     </html>
   );

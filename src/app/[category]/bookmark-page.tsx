@@ -1,19 +1,20 @@
-import { cookies } from "next/headers";
+"use client";
+
+import { useContext } from "react";
 import movieData from "@/data.json";
 import PagesLayout from "@/src/components/layout/pages-layout";
-import { getUserAction } from "@/src/lib/server-actions/auth-session-action";
-import { createClient } from "@/src/lib/supabase/server";
+import { AppContext } from "../app-provider";
 import { Show } from "../page";
 import ShowspageClient from "./shows-page-client";
 
-export default async function BookmarkPage() {
-  const supabase = createClient(cookies());
-  const user = await getUserAction();
+export type BkmarkedMovies = {
+  title: string;
+  category: string;
+};
 
-  const { data: bkmarkedMovies } = await supabase
-    .from("bookmarked_movies")
-    .select("title, category")
-    .eq("user_id", user?.id);
+export default function BookmarkPage() {
+  const appContext = useContext(AppContext);
+  const bkmarkedMovies = appContext?.bkmarkedMovies;
 
   const bookmarkedMovies = movieData.filter(
     (movie) => bkmarkedMovies?.some((bMovie) => bMovie.title === movie.title)

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AuthContext } from "@/src/app/app-provider";
+import { AppContext } from "@/src/app/app-provider";
 import cn from "@/src/helpers/cn";
 import SvgIcon, { IconVariant } from "../svg/svg";
 
@@ -13,7 +13,8 @@ interface NavLinks {
 
 export default function NavigationLinks() {
   const pathname = usePathname();
-  const authSession = useContext(AuthContext);
+  const appContext = useContext(AppContext);
+  const authSession = appContext?.session;
 
   const navLinks: NavLinks[] = [
     { title: "Home", icon: "navHomeIcon", href: "/" },

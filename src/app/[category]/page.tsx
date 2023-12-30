@@ -31,6 +31,7 @@ export default async function CategoryPage({ params }: CategoryParams) {
     series: "Search for TV series",
     bookmarks: "Search for bookmarked shows"
   };
+
   const layoutTitle: Record<Category, string> = {
     movies: "Movies",
     series: "TV series",

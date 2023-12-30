@@ -4,29 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AvatarImage from "@/public/shared/image-avatar.png";
-import { AuthContext, type AuthSession } from "@/src/app/app-provider";
+import { AppContext, type AuthSession } from "@/src/app/app-provider";
 import { logoutAction } from "@/src/lib/server-actions/logout-action";
 import SvgIcon from "../svg/svg";
 
-interface AvatarWrapperProps {
-  children: ReactNode;
-  authSession: AuthSession;
-}
-
-const AvatarWrapper = ({ children, authSession }: AvatarWrapperProps) => {
-  if (authSession) {
-    return <div className="w-16 h-16">{children}</div>;
-  }
-
-  return (
-    <Link href="/login" className="w-16 h-16">
-      {children}
-    </Link>
-  );
-};
-
 export default function NavigationAvatar() {
-  const authSession = useContext(AuthContext);
+  const appContext = useContext(AppContext);
+  const authSession = appContext?.session;
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -52,5 +36,22 @@ export default function NavigationAvatar() {
         <Image src={AvatarImage} alt="Avatar" className="w-full h-full block" />
       </AvatarWrapper>
     </div>
+  );
+}
+
+interface AvatarWrapperProps {
+  children: ReactNode;
+  authSession: AuthSession | undefined;
+}
+
+function AvatarWrapper({ children, authSession }: AvatarWrapperProps) {
+  if (authSession) {
+    return <div className="w-16 h-16">{children}</div>;
+  }
+
+  return (
+    <Link href="/login" className="w-16 h-16">
+      {children}
+    </Link>
   );
 }
