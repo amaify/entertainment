@@ -15,7 +15,7 @@ export async function addMovieToBookmarkAction({ title, category }: BookmarkActi
 
   if (!data.user?.id) return { message: "User not authenticated" };
 
-  const { error } = await supabase.from("bookmarked_movies").insert({ title, category, user_id: data.user?.id });
+  const { error } = await supabase.from("bookmarked_movies").insert({ title, category, user_id: data.user.id });
 
   if (error) {
     return { message: error.message };

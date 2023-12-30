@@ -17,10 +17,14 @@ export default function ShowsLayout({ title, movieData }: Props) {
   const resultText = movieData.length <= 1 ? "result" : "results";
   const layoutTitle = queryParam ? `Found ${movieData.length} ${resultText} for '${queryParam}'` : title;
 
+  const noBookmarkedMovie =
+    movieData.length === 0 && !queryParam ? <h1 className="text-primary text-heading-lg">No shows</h1> : null;
+
   return (
     <section>
       <h1 className="text-heading-lg text-white mb-[3.2rem]">{layoutTitle}</h1>
       <div className={styles.shows_layout}>
+        {noBookmarkedMovie}
         {movieData.map((movie) => (
           <ThumbnailCard
             category={movie.category as ShowCategory}
