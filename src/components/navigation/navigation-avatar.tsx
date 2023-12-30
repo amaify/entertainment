@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AvatarImage from "@/public/shared/image-avatar.png";
-import { AppContext, type AuthSession } from "@/src/app/app-provider";
+import { AppContext, type AuthSession } from "@/src/app/_components/app-provider";
 import { logoutAction } from "@/src/lib/server-actions/logout-action";
 import SvgIcon from "../svg/svg";
 
@@ -33,7 +33,7 @@ export default function NavigationAvatar() {
         </button>
       )}
       <AvatarWrapper authSession={authSession}>
-        <Image src={AvatarImage} alt="Avatar" className="w-full h-full block" />
+        <Image src={AvatarImage} alt="Avatar" className="w-full h-full block" priority />
       </AvatarWrapper>
     </div>
   );

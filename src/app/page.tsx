@@ -1,5 +1,5 @@
 import data from "@/data.json";
-import HomepageClient from "./home-page.client";
+import HomepageClient from "./_components/home-page.client";
 
 export type ShowCategory = "Movie" | "TV Series";
 

@@ -25,7 +25,12 @@ export default function SearchInput({ placeholderText }: Props) {
 
   return (
     <div className="pr-[3.2rem] mb-[3.5rem]">
-      <Input variant="searchInput" placeholder={placeholderText} onChange={onInputChange} />
+      <Input
+        variant="searchInput"
+        placeholder={placeholderText}
+        onChange={onInputChange}
+        value={searchParams.get("show") ?? ""}
+      />
     </div>
   );
 }

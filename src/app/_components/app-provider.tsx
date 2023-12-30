@@ -2,9 +2,9 @@
 
 import { createContext, type ReactNode } from "react";
 import { Session } from "@supabase/supabase-js";
-import AppLayout from "../components/layout/app-layout";
-import Notification from "../components/ui/notification";
-import { BkmarkedMovies } from "./[category]/bookmark-page";
+import AppLayout from "../../components/layout/app-layout";
+import Notification from "../../components/ui/notification";
+import { BkmarkedMovies } from "../[category]/bookmark-page";
 
 export type AuthSession = Session | null;
 

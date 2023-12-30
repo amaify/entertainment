@@ -3,8 +3,8 @@ import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { createClient } from "../lib/supabase/server";
+import AppProvider from "./_components/app-provider";
 import { BkmarkedMovies } from "./[category]/bookmark-page";
-import AppProvider from "./app-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 
   return (
     <html lang="en">
-      <body>
+      <body suppressHydrationWarning>
         <AppProvider session={data.session} bkmarkedMovies={bkmarkedMovies?.data ? bkmarkedMovies.data : null}>
           {children}
         </AppProvider>
