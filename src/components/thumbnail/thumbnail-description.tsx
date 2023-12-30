@@ -15,7 +15,7 @@ export default function ThumbnailDescription({ category, variant, title, year, r
   return (
     <span
       className={cn("text-white text-left", {
-        "absolute left-[2.4rem] bottom-[2.4rem] z-0": variant === "trending",
+        "absolute left-[1.6rem] bottom-[1.6rem] z-0 sm:left-[2.4rem] sm:bottom-[2.4rem]": variant === "trending",
         relative: variant === "popular"
       })}
     >
@@ -28,8 +28,8 @@ export default function ThumbnailDescription({ category, variant, title, year, r
         <span>{rating}</span>
       </span>
       <span
-        className={cn("text-white w-full text-heading-medium-sm capitalize mt-[0.3rem]", {
-          "text-heading-xs": variant === "popular"
+        className={cn("text-white text-body-md w-full capitalize mt-[0.4rem] sm:text-heading-medium-sm", {
+          "text-body-sm-mobile sm:text-heading-xs": variant === "popular"
         })}
       >
         {title}

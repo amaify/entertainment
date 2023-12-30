@@ -8,7 +8,7 @@ interface Props {
 
 export default function PagesLayout({ children, showSearchQuery, placeholderText }: Props) {
   return (
-    <main className="pt-12">
+    <main className="xl:pt-12">
       {showSearchQuery && <SearchInput placeholderText={placeholderText} />}
       {children}
     </main>

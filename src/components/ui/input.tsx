@@ -26,7 +26,7 @@ export default function Input({ variant, inputError, ...props }: Props) {
             onChange={props.onChange}
             onBlur={props.onBlur}
             placeholder={props.placeholder}
-            className="w-full text-heading-light-sm bg-transparent text-white caret-primary placeholder:text-white/50 focus:outline-none"
+            className="w-full bg-transparent text-[1.6rem] font-light text-white caret-primary placeholder:text-white/50 focus:outline-none sm:text-heading-light-sm"
           />
         </label>
       </div>

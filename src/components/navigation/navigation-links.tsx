@@ -24,7 +24,7 @@ export default function NavigationLinks() {
   ];
 
   return (
-    <ul className="flex flex-col items-center gap-16 mb-auto">
+    <ul className="flex flex-row mr-auto items-center gap-10 sm:gap-12 xl:mb-auto xl:mr-0 xl:flex-col xl:gap-16">
       {navLinks.map((link) => (
         <li key={link.title} title={link.title} aria-label={link.title} className="group/links">
           <Link href={link.href}>

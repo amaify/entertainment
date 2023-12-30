@@ -26,7 +26,7 @@ export default function NavigationAvatar() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-10">
+    <div className="flex flex-row items-center gap-8 sm:flex-col sm:gap-10">
       {authSession && (
         <button className="group/logout hover:cursor-pointer" title="Logout" aria-label="Logout" onClick={handleLogout}>
           <SvgIcon variant="logoutIcon" className="transition-all group-hover/logout:fill-white" />
@@ -46,11 +46,11 @@ interface AvatarWrapperProps {
 
 function AvatarWrapper({ children, authSession }: AvatarWrapperProps) {
   if (authSession) {
-    return <div className="w-16 h-16">{children}</div>;
+    return <div className="size-[2.4rem] border rounded-full border-white sm:size-16">{children}</div>;
   }
 
   return (
-    <Link href="/login" className="w-16 h-16">
+    <Link href="/login" className="size-[2.4rem] border rounded-full border-white sm:size-16">
       {children}
     </Link>
   );

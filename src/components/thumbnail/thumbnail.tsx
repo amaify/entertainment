@@ -41,11 +41,16 @@ export default function Thumbnail({ variant, title, thumbnail, category, rating,
   return (
     <div
       className={cn("w-full relative", {
-        "h-[17.4rem]": variant === "popular",
-        "h-[23rem]": variant === "trending"
+        "h-[11rem] sm:h-[17.4rem]": variant === "popular",
+        "h-[14rem] sm:h-[23rem]": variant === "trending"
       })}
     >
-      <button className="w-full h-full rounded-[0.8rem] relative group/play before:transition-all hover:cursor-pointer hover:before:content-[''] hover:before:absolute hover:before:inset-0 hover:before:w-full hover:before:h-full hover:before:rounded-[0.8rem] hover:before:bg-black/50">
+      <button
+        className={cn(
+          "w-full h-full rounded-[0.8rem] relative group/play before:transition-all",
+          "lg:hover:cursor-pointer lg:hover:before:content-[''] lg:hover:before:absolute lg:hover:before:inset-0 lg:hover:before:w-full lg:hover:before:h-full lg:hover:before:rounded-[0.8rem] lg:hover:before:bg-black/50"
+        )}
+      >
         <Image
           src={imgSrc ?? ""}
           alt={title}

@@ -15,7 +15,7 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
   if (session) redirect("/");
 
   return (
-    <section className="flex flex-col items-center gap-[8.3rem] h-screen pt-[7.841rem]">
+    <section className="w-full flex flex-col items-center gap-[5.84rem] h-screen px-[1.6rem] pt-[4.8rem] sm:px-0 sm:pt-[7.841rem] sm:gap-[8.3rem]">
       <Link href="/">
         <SvgIcon variant="logoIcon" />
       </Link>

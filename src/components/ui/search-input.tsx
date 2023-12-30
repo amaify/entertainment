@@ -24,7 +24,7 @@ export default function SearchInput({ placeholderText }: Props) {
   };
 
   return (
-    <div className="pr-[3.2rem] mb-[3.5rem]">
+    <div className="pl-[1.6rem] pr-[1.6rem] mb-[2.4rem] sm:px-[2.4rem] sm:mb-[3.4rem] xl:pl-0 xl:pr-[3.2rem] xl:mb-[3.5rem]">
       <Input
         variant="searchInput"
         placeholder={placeholderText}

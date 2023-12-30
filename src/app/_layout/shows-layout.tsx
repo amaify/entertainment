@@ -21,8 +21,10 @@ export default function ShowsLayout({ title, movieData }: Props) {
     movieData.length === 0 && !queryParam ? <h1 className="text-primary text-heading-lg">No shows</h1> : null;
 
   return (
-    <section>
-      <h1 className="text-heading-lg text-white mb-[3.2rem]">{layoutTitle}</h1>
+    <section className="px-[1.6rem] pb-[1.6rem] sm:px-[2.4rem] sm:pb-[2.4rem] xl:px-0 xl:pb-0">
+      <h1 className="text-heading-lg-mobile text-white mb-[3.2rem] sm:text-heading-lg-tab md:text-heading-lg">
+        {layoutTitle}
+      </h1>
       <div className={styles.shows_layout}>
         {noBookmarkedMovie}
         {movieData.map((movie) => (

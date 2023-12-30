@@ -33,7 +33,7 @@ const defaultInputValue: DefaultInputValue = {
 
 export default async function Signup() {
   return (
-    <main>
+    <main className="w-full">
       <SignupClient defaultInputValue={defaultInputValue} formFields={formFields} />
     </main>
   );
