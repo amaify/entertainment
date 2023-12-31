@@ -56,6 +56,7 @@ export default function Thumbnail({ variant, title, thumbnail, category, rating,
           alt={title}
           width={600}
           height={600}
+          priority
           className="w-full h-full object-cover block rounded-[0.8rem]"
         />
         <ThumbnailPlayButton />
