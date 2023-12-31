@@ -1,5 +1,5 @@
 import type { InputHTMLAttributes } from "react";
-import cn from "@/src/helpers/cn";
+import cn from "@/helpers/cn";
 import SvgIcon from "../svg/svg";
 
 export type FormInputVariant = "searchInput" | "formInput";

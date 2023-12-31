@@ -3,9 +3,9 @@
 import toast from "react-hot-toast";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import type { Show } from "@/src/app/page";
-import cn from "@/src/helpers/cn";
-import { addMovieToBookmarkAction, removeMovieFromBookmarkAction } from "@/src/lib/server-actions/bookmark-action";
+import { Show } from "@/app/page";
+import cn from "@/helpers/cn";
+import { addMovieToBookmarkAction, removeMovieFromBookmarkAction } from "@/lib/server-actions/bookmark-action";
 import BookmarkIcon from "./thumbnail-bookmark-icon";
 import ThumbnailDescription from "./thumbnail-description";
 import ThumbnailPlayButton from "./thumbnail-play-button";

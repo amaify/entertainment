@@ -1,9 +1,9 @@
 "use client";
 
 import { useContext } from "react";
-import movieData from "@/data.json";
-import PagesLayout from "@/src/app/_layout/pages-layout";
+import movieData from "@/src/data.json";
 import { AppContext } from "../_components/app-provider";
+import PagesLayout from "../_layout/pages-layout";
 import { Show } from "../page";
 import ShowspageClient from "./shows-page-client";
 

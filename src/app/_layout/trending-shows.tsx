@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import movieData from "@/data.json";
-import { AppContext } from "@/src/app/_components/app-provider";
-import { Show } from "@/src/app/page";
-import { getBookmarkedShows } from "@/src/helpers/get-bookmarked-shows";
+import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
+import movieData from "@/src/data.json";
 import Thumbnail from "../../components/thumbnail/thumbnail";
+import { AppContext } from "../_components/app-provider";
+import { Show } from "../page";
 
 export default function TrendingShows() {
   const bookmarkedMovies = useContext(AppContext)?.bkmarkedMovies;

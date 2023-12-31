@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import cn from "@/src/helpers/cn";
+import cn from "@/helpers/cn";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {}
 

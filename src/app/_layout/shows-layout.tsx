@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { useSearchParams } from "next/navigation";
-import { AppContext } from "@/src/app/_components/app-provider";
-import type { Show, ShowCategory } from "@/src/app/page";
-import { getBookmarkedShows } from "@/src/helpers/get-bookmarked-shows";
+import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
 import ThumbnailCard from "../../components/thumbnail/thumbnail-card";
+import { AppContext } from "../_components/app-provider";
+import { Show, ShowCategory } from "../page";
 import styles from "./layout.module.css";
 
 interface Props {

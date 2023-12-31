@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
-import movieData from "@/data.json";
-import PagesLayout from "@/src/app/_layout/pages-layout";
-import ShowsLayoutSkeleton from "@/src/app/_layout/shows-layout-skeleton";
-import { authSessionAction } from "@/src/lib/server-actions/auth-session-action";
+import { authSessionAction } from "@/lib/server-actions/auth-session-action";
+import movieData from "@/src/data.json";
+import PagesLayout from "../_layout/pages-layout";
+import ShowsLayoutSkeleton from "../_layout/shows-layout-skeleton";
 import { Show, ShowCategory } from "../page";
 import BookmarkPage from "./bookmark-page";
 import ShowspageClient from "./shows-page-client";

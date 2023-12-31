@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { createClient } from "@/src/lib/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 
 export async function signupAction(formData: FormData) {
   const { email, password, repeatPassword } = Object.fromEntries(formData.entries()) as { [key: string]: string };

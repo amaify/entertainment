@@ -3,9 +3,9 @@ import toast from "react-hot-toast";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { AppContext, type AuthSession } from "@/app/_components/app-provider";
+import { logoutAction } from "@/lib/server-actions/auth-session-action";
 import AvatarImage from "@/public/shared/image-avatar.png";
-import { AppContext, type AuthSession } from "@/src/app/_components/app-provider";
-import { logoutAction } from "@/src/lib/server-actions/logout-action";
 import SvgIcon from "../svg/svg";
 
 export default function NavigationAvatar() {

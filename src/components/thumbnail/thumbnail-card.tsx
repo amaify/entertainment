@@ -1,4 +1,4 @@
-import { Show } from "@/src/app/page";
+import type { Show } from "@/app/page";
 import Thumbnail from "../thumbnail/thumbnail";
 import ThumbnailDescription from "./thumbnail-description";
 

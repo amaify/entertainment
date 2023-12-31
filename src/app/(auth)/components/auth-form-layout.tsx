@@ -1,5 +1,5 @@
 import type { InputHTMLAttributes, ReactNode } from "react";
-import type { FormInputVariant } from "@/src/components/ui/input";
+import { FormInputVariant } from "@/components/ui/input";
 
 export type FormInputName = "email" | "password" | "repeatPassword";
 export type AuthVariant = "signup" | "login";
