@@ -2,10 +2,36 @@ import type { ReactNode } from "react";
 import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { fetchTMDB } from "@/helpers/service-client";
 import { createClient } from "../lib/supabase/server";
 import AppProvider from "./_components/app-provider";
 import { BkmarkedMovies } from "./[category]/bookmark-page";
 import "./globals.css";
+
+export interface Movie {
+  id: number;
+  title: string;
+  overview: string;
+  poster_path: string;
+  backdrop_path: string;
+  release_date: string;
+  vote_average: number;
+  vote_count: number;
+}
+
+export interface TrendingShows {
+  id: number;
+  name: string;
+  title: string;
+  overview: string;
+  poster_path: string;
+  backdrop_path: string;
+  vote_average: number;
+  vote_count: number;
+  media_type: "tv" | "movie";
+  release_date: string;
+  first_air_date: string;
+}
 
 export const metadata: Metadata = {
   title: "Entertainment App",
@@ -27,10 +53,26 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         .eq("user_id", data.session?.user?.id)
     : null;
 
+  const fetchMovieData = await fetchTMDB<Movie>({ path: "movie/popular", method: "GET" });
+  const fetchTrendingShows = await fetchTMDB<TrendingShows>({ path: "trending/all/day", method: "GET" });
+  // console.log("All Movies: ", fetchMovieData);
+  console.log("ALL trending shows: ", fetchTrendingShows);
+
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <AppProvider session={data.session} bkmarkedMovies={bkmarkedMovies?.data ? bkmarkedMovies.data : null}>
+        <AppProvider
+          session={data.session}
+          bkmarkedMovies={bkmarkedMovies?.data ? bkmarkedMovies.data : null}
+          movies={fetchMovieData.results}
+          trendingShows={fetchTrendingShows.results
+            .map((show) => ({
+              ...show,
+              name: show.name || show.title,
+              release_date: show.first_air_date || show.release_date
+            }))
+            .slice(0, 10)}
+        >
           {children}
         </AppProvider>
       </body>

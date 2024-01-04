@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useSearchParams } from "next/navigation";
 import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
+import { getMovieImage } from "@/helpers/service-client";
 import ThumbnailCard from "../../components/thumbnail/thumbnail-card";
 import { AppContext } from "../_components/app-provider";
 import { Show, ShowCategory } from "../page";
@@ -12,7 +13,9 @@ interface Props {
 }
 
 export default function ShowsLayout({ title, movieData }: Props) {
-  const bookmarkedMovies = useContext(AppContext)?.bkmarkedMovies;
+  const appContext = useContext(AppContext);
+  const movies = appContext?.movies;
+  const bookmarkedMovies = appContext?.bkmarkedMovies;
   const queryParam = useSearchParams().get("show");
   const resultText = movieData.length <= 1 ? "result" : "results";
   const layoutTitle = queryParam ? `Found ${movieData.length} ${resultText} for '${queryParam}'` : title;
@@ -27,16 +30,17 @@ export default function ShowsLayout({ title, movieData }: Props) {
       </h1>
       <div className={styles.shows_layout}>
         {noBookmarkedMovie}
-        {movieData.map((movie) => (
+        {movies?.map((movie) => (
           <ThumbnailCard
-            category={movie.category as ShowCategory}
             key={movie.title}
-            thumbnail={movie.thumbnail}
-            rating={movie.rating}
-            isBookmarked={getBookmarkedShows({ show: movie, bkmarkedShow: bookmarkedMovies })}
+            category="movie"
+            thumbnail={getMovieImage({ variant: "desktop", path: movie.backdrop_path })}
+            rating={movie.vote_average}
+            isBookmarked={false}
+            // isBookmarked={getBookmarkedShows({ show: movie, bkmarkedShow: bookmarkedMovies })}
             title={movie.title}
-            year={movie.year}
-            isTrending={movie.isTrending}
+            year={+movie.release_date.split("-")[0]}
+            isTrending={false}
           />
         ))}
       </div>

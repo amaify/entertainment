@@ -1,7 +1,7 @@
 import data from "@/src/data.json";
 import HomepageClient from "./_components/home-page.client";
 
-export type ShowCategory = "Movie" | "TV Series";
+export type ShowCategory = "movie" | "tv";
 
 export type MovieThumbnail = {
   trending?: {
@@ -18,9 +18,10 @@ export interface Show {
   title: string;
   year: number;
   category: ShowCategory;
-  rating: "PG" | "18+" | "E";
+  rating: number;
   isTrending: boolean;
-  thumbnail: MovieThumbnail;
+  thumbnail: string;
+  // thumbnail: MovieThumbnail;
   isBookmarked: boolean;
 }
 

@@ -8,7 +8,7 @@ interface Props {
   variant: "trending" | "popular";
   title: string;
   year: number;
-  rating: string;
+  rating: number;
 }
 
 export default function ThumbnailDescription({ category, variant, title, year, rating }: Props) {
@@ -22,7 +22,7 @@ export default function ThumbnailDescription({ category, variant, title, year, r
       <span className={cn(styles.description)}>
         <span>{year}</span>
         <span className="flex items-center gap-[0.6rem]">
-          <SvgIcon variant={category === "Movie" ? "movieIcon" : "tvSeriesIcon"} fillColour="#FFFFFF" />
+          <SvgIcon variant={category === "movie" ? "movieIcon" : "tvSeriesIcon"} fillColour="#FFFFFF" />
           <span>{category}</span>
         </span>
         <span>{rating}</span>

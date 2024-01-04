@@ -15,7 +15,7 @@ interface Props extends Show {
 }
 
 export default function Thumbnail({ variant, title, thumbnail, category, rating, year, isBookmarked }: Props) {
-  const imgSrc = variant === "trending" ? thumbnail.trending?.large : thumbnail.regular.large;
+  // const imgSrc = variant === "trending" ? thumbnail.trending?.large : thumbnail.regular.large;
   const router = useRouter();
 
   const onBookmark = async () => {
@@ -52,12 +52,12 @@ export default function Thumbnail({ variant, title, thumbnail, category, rating,
         )}
       >
         <Image
-          src={imgSrc ?? ""}
+          src={thumbnail}
           alt={title}
           width={600}
           height={600}
           priority
-          className="w-full h-full object-cover block rounded-[0.8rem]"
+          className="w-full h-full object-cover object-right block rounded-[0.8rem]"
         />
         <ThumbnailPlayButton />
         {variant === "trending" && (
