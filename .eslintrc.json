@@ -16,12 +16,42 @@
   },
   "plugins": ["@typescript-eslint", "simple-import-sort"],
   "rules": {
+    "@typescript-eslint/consistent-type-imports": "error",
     "react-hooks/exhaustive-deps": 0,
     "react/react-in-jsx-scope": 0,
     "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": false }],
     "no-console": ["error", { "allow": ["warn", "error", "info"] }],
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "caseInsensitive": true,
+          "order": "asc"
+        },
+        "groups": ["builtin", "external", "internal"],
+        "newlines-between": "never",
+        "pathGroups": [
+          {
+            "group": "external",
+            "pattern": "react",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"]
+      }
+    ],
+    // "simple-import-sort/imports": "error",
+    // "simple-import-sort/exports": "error",
     "prettier/prettier": [
       "error",
       {
@@ -29,36 +59,13 @@
       }
     ]
   },
-  "overrides": [
-    {
-      "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
-      "rules": {
-        "simple-import-sort/imports": [
-          "error",
-          {
-            "groups": [
-              [
-                // Packages `react` related packages come first.
-                "^react",
-                "^@?\\w",
-                // Internal packages.
-                "^(@|components)(/.*|$)",
-                // Side effect imports.
-                "^\\u0000",
-                // Parent imports. Put `..` last.
-                "^\\.\\.(?!/?$)",
-                "^\\.\\./?$",
-                // Other relative imports. Put same-folder imports and `.` last.
-                "^\\./(?=.*/)(?!/?$)",
-                "^\\.(?!/?$)",
-                "^\\./?$",
-                // Style imports.
-                "^.+\\.?(css)$"
-              ]
-            ]
-          }
-        ]
-      }
+  "overrides": [],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".json", ".ts", ".tsx"]
+      },
+      "typescript": {}
     }
-  ]
+  }
 }

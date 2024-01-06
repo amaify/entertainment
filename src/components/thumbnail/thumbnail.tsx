@@ -1,9 +1,9 @@
 "use client";
 
-import toast from "react-hot-toast";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Show } from "@/app/page";
+import toast from "react-hot-toast";
+import type { Show } from "@/app/page";
 import cn from "@/helpers/cn";
 import { addMovieToBookmarkAction, removeMovieFromBookmarkAction } from "@/lib/server-actions/bookmark-action";
 import BookmarkIcon from "./thumbnail-bookmark-icon";
@@ -40,15 +40,15 @@ export default function Thumbnail({ variant, title, thumbnail, category, rating,
 
   return (
     <div
-      className={cn("w-full relative", {
+      className={cn("relative w-full", {
         "h-[11rem] sm:h-[17.4rem]": variant === "popular",
         "h-[14rem] sm:h-[23rem]": variant === "trending"
       })}
     >
       <button
         className={cn(
-          "w-full h-full rounded-[0.8rem] relative group/play before:transition-all",
-          "lg:hover:cursor-pointer lg:hover:before:content-[''] lg:hover:before:absolute lg:hover:before:inset-0 lg:hover:before:w-full lg:hover:before:h-full lg:hover:before:rounded-[0.8rem] lg:hover:before:bg-black/50"
+          "group/play relative h-full w-full rounded-[0.8rem] before:transition-all",
+          "lg:hover:cursor-pointer lg:hover:before:absolute lg:hover:before:inset-0 lg:hover:before:h-full lg:hover:before:w-full lg:hover:before:rounded-[0.8rem] lg:hover:before:bg-black/50 lg:hover:before:content-['']"
         )}
       >
         <Image
@@ -57,7 +57,7 @@ export default function Thumbnail({ variant, title, thumbnail, category, rating,
           width={600}
           height={600}
           priority
-          className="w-full h-full object-cover object-right block rounded-[0.8rem]"
+          className="block h-full w-full rounded-[0.8rem] object-cover object-right"
         />
         <ThumbnailPlayButton />
         {variant === "trending" && (

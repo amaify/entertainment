@@ -1,7 +1,6 @@
-import data from "@/src/data.json";
 import HomepageClient from "./_components/home-page.client";
 
-export type ShowCategory = "movie" | "tv";
+export type ShowCategory = "Movie" | "TV Series";
 
 export type MovieThumbnail = {
   trending?: {
@@ -25,6 +24,6 @@ export interface Show {
   isBookmarked: boolean;
 }
 
-export default async function Home() {
-  return <HomepageClient data={data as Show[]} />;
+export default function Home() {
+  return <HomepageClient />;
 }

@@ -4,15 +4,12 @@ import { useSearchParams } from "next/navigation";
 import PagesLayout from "../_layout/pages-layout";
 import ShowsLayout from "../_layout/shows-layout";
 import TrendingShows from "../_layout/trending-shows";
-import type { Show } from "../page";
-import useFilterShows from "./use-filter-shows";
+import useFilterShows from "../hooks/use-filter-shows";
+import useShowsProviderContext from "../hooks/use-shows-provider-context";
 
-interface Props {
-  data: Show[];
-}
-
-export default function HomepageClient({ data }: Props) {
-  const filteredShows = useFilterShows(data);
+export default function HomepageClient() {
+  const { movies } = useShowsProviderContext();
+  const filteredShows = useFilterShows(movies);
   const queryParam = useSearchParams().get("show");
 
   return (

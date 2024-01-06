@@ -3,7 +3,7 @@
 import { loginAction } from "../actions/login-action";
 import AuthFormFooter from "../components/auth-form-footer";
 import AuthFormInput from "../components/auth-form-input.client";
-import AuthFormLayout, { DefaultInputValue, FormFields } from "../components/auth-form-layout";
+import AuthFormLayout, { type DefaultInputValue, type FormFields } from "../components/auth-form-layout";
 import useFormSubmitAction from "../use-form-submit-action";
 
 interface Props {
@@ -20,7 +20,7 @@ export default function LoginClient({ formFields, defaultInputValue }: Props) {
 
   return (
     <AuthFormLayout title="login">
-      <form className="w-full h-full mb-[2.4rem]" onSubmit={onSubmit}>
+      <form className="mb-[2.4rem] h-full w-full" onSubmit={onSubmit}>
         <AuthFormInput
           formFields={formFields}
           defaultInputValue={defaultInputValue}

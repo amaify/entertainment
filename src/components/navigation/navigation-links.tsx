@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AppContext } from "@/app/_components/app-provider";
 import cn from "@/helpers/cn";
-import SvgIcon, { IconVariant } from "../svg/svg";
+import SvgIcon, { type IconVariant } from "../svg/svg";
 
 interface NavLinks {
   href: "/" | "/movies" | "/series" | "/bookmarks";
@@ -24,7 +24,7 @@ export default function NavigationLinks() {
   ];
 
   return (
-    <ul className="flex flex-row mr-auto items-center gap-10 sm:gap-12 xl:mb-auto xl:mr-0 xl:flex-col xl:gap-16">
+    <ul className="mr-auto flex flex-row items-center gap-10 sm:gap-12 xl:mb-auto xl:mr-0 xl:flex-col xl:gap-16">
       {navLinks.map((link) => (
         <li key={link.title} title={link.title} aria-label={link.title} className="group/links">
           <Link href={link.href}>

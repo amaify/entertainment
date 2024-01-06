@@ -1,16 +1,19 @@
-import { TMBD_BASE_URI, TMDB_IMAGE_URI } from "./constants";
+import { TMBD_BASE_URI, TMDB_API_KEY, TMDB_IMAGE_URI } from "./constants";
 
 interface FetchParams {
-  path: "movie/popular" | "trending/all/day";
+  path: "movie/popular" | "trending/all/day" | "tv/popular";
   method: "GET" | "POST";
+  pageParam: number;
 }
 
 interface FetchResponse<T> {
   results: T[];
+  total_pages: number;
+  total_results: number;
 }
 
-export async function fetchTMDB<T extends object>({ path, method }: FetchParams): Promise<FetchResponse<T>> {
-  const url = `${TMBD_BASE_URI}/${path}?api_key=${process.env.TMDB_API_KEY}`;
+export async function fetchTMDB<T extends any>({ path, method, pageParam }: FetchParams): Promise<FetchResponse<T>> {
+  const url = `${TMBD_BASE_URI}/${path}?api_key=${TMDB_API_KEY}&page=${pageParam}`;
   const options: RequestInit = {
     method,
     headers: {

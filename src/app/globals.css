@@ -49,3 +49,25 @@ input:-webkit-autofill:active {
 .trending-show-layout::-webkit-scrollbar {
   display: none;
 }
+
+/* Fix Search bar to the top*/
+.search-bar-container {
+  transition: all ease-in-out 0.1s;
+  position: sticky;
+  z-index: 10;
+  top: -1px;
+}
+
+.search-bar-pinned {
+  padding: 0 0 4.5rem 0;
+}
+
+@media only screen and (min-width: 1280px) {
+  .search-bar-pinned {
+    padding: 4rem 0 4.5rem 0;
+  }
+
+  .search-bar-container {
+    top: calc(0px - 3.2rem);
+  }
+}
