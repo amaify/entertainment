@@ -8,9 +8,9 @@ interface Props {
 
 export default function PagesLayout({ children, showSearchQuery, placeholderText }: Props) {
   return (
-    <main className="relative">
+    <div className="relative">
       {showSearchQuery && <SearchInput placeholderText={placeholderText} />}
       {children}
-    </main>
+    </div>
   );
 }

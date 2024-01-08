@@ -34,7 +34,7 @@ export default function AuthFormInput({ formFields, btnTitle, defaultInputValue 
 
   return (
     <>
-      <div className="flex flex-col gap-[2.4rem] mb-[4rem]">
+      <div className="mb-[4rem] flex flex-col gap-[2.4rem]">
         {formFields.map((field) => (
           <Input
             key={field.id}

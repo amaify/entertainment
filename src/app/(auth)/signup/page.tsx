@@ -1,5 +1,5 @@
-import type { DefaultInputValue, FormFields } from "../components/auth-form-layout";
 import SignupClient from "./signup-client";
+import type { DefaultInputValue, FormFields } from "../components/auth-form-layout";
 
 const formFields: FormFields[] = [
   {

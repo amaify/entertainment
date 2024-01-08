@@ -8,7 +8,7 @@ export default function Button({ children, ...props }: Props) {
   return (
     <button
       {...props}
-      className="bg-primary w-full h-[4.8rem] rounded-[0.6rem] text-white text-body-md transition-colors hover:bg-white hover:text-secondary-background"
+      className="h-[4.8rem] w-full rounded-[0.6rem] bg-primary text-body-md text-white transition-colors hover:bg-white hover:text-secondary-background"
     >
       {children}
     </button>

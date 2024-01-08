@@ -1,8 +1,9 @@
-import { ReactNode, useContext } from "react";
-import toast from "react-hot-toast";
+import type { ReactNode } from "react";
+import { useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { AppContext, type AuthSession } from "@/app/_components/app-provider";
 import { logoutAction } from "@/lib/server-actions/auth-session-action";
 import AvatarImage from "@/public/shared/image-avatar.png";
@@ -33,7 +34,7 @@ export default function NavigationAvatar() {
         </button>
       )}
       <AvatarWrapper authSession={authSession}>
-        <Image src={AvatarImage} alt="Avatar" className="w-full h-full block" priority />
+        <Image src={AvatarImage} alt="Avatar" className="block h-full w-full" priority />
       </AvatarWrapper>
     </div>
   );
@@ -46,11 +47,11 @@ interface AvatarWrapperProps {
 
 function AvatarWrapper({ children, authSession }: AvatarWrapperProps) {
   if (authSession) {
-    return <div className="size-[2.4rem] border rounded-full border-white sm:size-16">{children}</div>;
+    return <div className="size-[2.4rem] rounded-full border border-white sm:size-16">{children}</div>;
   }
 
   return (
-    <Link href="/login" className="size-[2.4rem] border rounded-full border-white sm:size-16">
+    <Link href="/login" className="size-[2.4rem] rounded-full border border-white sm:size-16">
       {children}
     </Link>
   );

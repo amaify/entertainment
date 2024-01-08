@@ -1,5 +1,5 @@
 import { type CookieOptions, createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
+import type { cookies } from "next/headers";
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from "@/src/helpers/constants";
 
 export function createClient(cookieStore: ReturnType<typeof cookies>) {

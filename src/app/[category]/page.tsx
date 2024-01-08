@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: CategoryParams) {
   };
 }
 
-export const movieCategory: Record<"movies" | "series", ShowCategory> = {
+const movieCategory: Record<"movies" | "series", ShowCategory> = {
   movies: "Movie",
   series: "TV Series"
 };
