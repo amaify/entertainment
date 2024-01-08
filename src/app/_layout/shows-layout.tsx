@@ -15,6 +15,12 @@ interface Props {
   movieData: Movie[];
 }
 
+interface LayoutWrapper {
+  children: ReactNode;
+  layoutTitle: string;
+  error?: Error | null;
+}
+
 export default function ShowsLayout({ title, movieData }: Props) {
   const { isLoading, error, isFetchingNextPage } = useShowsProviderContext();
 
@@ -27,8 +33,8 @@ export default function ShowsLayout({ title, movieData }: Props) {
 
   if (error)
     return (
-      <ShowsLayoutWrapper layoutTitle={layoutTitle}>
-        <h1 className="text-heading-lg">{error.message}</h1>
+      <ShowsLayoutWrapper layoutTitle={layoutTitle} error={error}>
+        <h1 className="w-full text-heading-medium-sm text-primary">{error.message}</h1>
       </ShowsLayoutWrapper>
     );
 
@@ -65,13 +71,13 @@ export default function ShowsLayout({ title, movieData }: Props) {
   );
 }
 
-function ShowsLayoutWrapper({ children, layoutTitle }: { children: ReactNode; layoutTitle: string }) {
+function ShowsLayoutWrapper({ children, layoutTitle, error }: LayoutWrapper) {
   return (
     <section className="px-[1.6rem] pb-[1.6rem] sm:px-[2.4rem] sm:pb-[2.4rem] xl:px-0 xl:pb-0">
       <h1 className="mb-[3.2rem] text-heading-lg-mobile text-white sm:text-heading-lg-tab md:text-heading-lg">
         {layoutTitle}
       </h1>
-      <div className={cn("relative", styles.shows_layout)}>{children}</div>
+      <div className={cn("relative", !error ? styles.shows_layout : "")}>{children}</div>
     </section>
   );
 }

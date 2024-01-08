@@ -5,11 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Input from "./input";
 
-interface Props {
-  placeholderText: string;
-}
-
-export default function SearchInput({ placeholderText }: Props) {
+export default function SearchInput({ placeholderText }: { placeholderText: string }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -25,28 +21,20 @@ export default function SearchInput({ placeholderText }: Props) {
     if (value === "") router.replace(`${pathname}`);
   };
 
-  const buildThreshold = () => {
-    const thresholdSets = [];
-    for (let i = 0; i < 1; i += 0.01) {
-      thresholdSets.push(+i.toFixed(3));
-    }
-    return thresholdSets;
-  };
-
   useEffect(() => {
-    const el = document.querySelector("#searchField");
+    const searchFieldElement = document.querySelector("#searchField");
     const rootElement = document.querySelector("#showsColumn");
     const observer = new IntersectionObserver(
       ([e]) => {
         e.target.classList.toggle("search-bar-pinned", e.intersectionRatio < 1);
       },
       {
-        threshold: buildThreshold(),
+        threshold: [0, 1],
         root: rootElement
       }
     );
 
-    if (el) observer.observe(el);
+    if (searchFieldElement) observer.observe(searchFieldElement);
   }, []);
 
   return (

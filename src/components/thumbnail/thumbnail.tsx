@@ -53,10 +53,11 @@ export default function Thumbnail({ variant, title, thumbnail, category, rating,
       >
         <Image
           src={thumbnail}
-          alt={title}
+          alt={`Backdrop of ${title}`}
           width={600}
           height={600}
-          priority
+          loading="lazy"
+          placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM83jz5PwAG1ALeWannmwAAAABJRU5ErkJggg=="
           className="block h-full w-full rounded-[0.8rem] object-cover object-right"
         />
         <ThumbnailPlayButton />

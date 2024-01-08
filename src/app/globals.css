@@ -66,8 +66,4 @@ input:-webkit-autofill:active {
   .search-bar-pinned {
     padding: 4rem 0 4.5rem 0;
   }
-
-  .search-bar-container {
-    top: calc(0px - 3.2rem);
-  }
 }

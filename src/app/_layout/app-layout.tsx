@@ -102,9 +102,9 @@ export default function AppLayout({ children }: { children: ReactNode }) {
           </aside>
         )}
 
-        <div className="flex h-screen w-full flex-col overflow-auto md:py-[3.2rem]">
+        <div className="flex h-screen w-full flex-col overflow-auto">
           <div className="overflow-auto" id="showsColumn">
-            {children}
+            <div className="pb-[3.2rem] pt-[6.2rem]">{children}</div>
             <div ref={observerElement} />
           </div>
           {showBackToTopButton && <BackToTopButton onClick={onBackToTopButtonClick} />}
