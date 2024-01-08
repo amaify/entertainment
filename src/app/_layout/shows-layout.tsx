@@ -1,45 +1,83 @@
-import { useContext } from "react";
+"use client";
+
+import type { ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
-import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
-import ThumbnailCard from "../../components/thumbnail/thumbnail-card";
-import { AppContext } from "../_components/app-provider";
-import { Show, ShowCategory } from "../page";
+import cn from "@/helpers/cn";
+import { getMovieImage } from "@/helpers/service-client";
+import Skeleton from "@/src/components/ui/skeleton";
 import styles from "./layout.module.css";
+import ThumbnailCard from "../../components/thumbnail/thumbnail-card";
+import useShowsProviderContext from "../hooks/use-shows-provider-context";
+import type { Movie } from "../layout";
 
 interface Props {
   title: string;
-  movieData: Show[];
+  movieData: Movie[];
+}
+
+interface LayoutWrapper {
+  children: ReactNode;
+  layoutTitle: string;
+  error?: Error | null;
 }
 
 export default function ShowsLayout({ title, movieData }: Props) {
-  const bookmarkedMovies = useContext(AppContext)?.bkmarkedMovies;
+  const { isLoading, error, isFetchingNextPage } = useShowsProviderContext();
+
   const queryParam = useSearchParams().get("show");
   const resultText = movieData.length <= 1 ? "result" : "results";
   const layoutTitle = queryParam ? `Found ${movieData.length} ${resultText} for '${queryParam}'` : title;
 
   const noBookmarkedMovie =
-    movieData.length === 0 && !queryParam ? <h1 className="text-primary text-heading-lg">No shows</h1> : null;
+    movieData.length === 0 && !queryParam ? <h1 className="text-heading-lg text-primary">No shows</h1> : null;
+
+  if (error)
+    return (
+      <ShowsLayoutWrapper layoutTitle={layoutTitle} error={error}>
+        <h1 className="w-full text-heading-medium-sm text-primary">{error.message}</h1>
+      </ShowsLayoutWrapper>
+    );
+
+  if (isLoading)
+    return (
+      <ShowsLayoutWrapper layoutTitle={layoutTitle}>
+        {Array.from({ length: 20 }).map((_, idx) => (
+          <Skeleton key={idx} className="h-[11rem] sm:h-[17.4rem]" />
+        ))}
+      </ShowsLayoutWrapper>
+    );
 
   return (
-    <section className="px-[1.6rem] pb-[1.6rem] sm:px-[2.4rem] sm:pb-[2.4rem] xl:px-0 xl:pb-0">
-      <h1 className="text-heading-lg-mobile text-white mb-[3.2rem] sm:text-heading-lg-tab md:text-heading-lg">
-        {layoutTitle}
-      </h1>
-      <div className={styles.shows_layout}>
-        {noBookmarkedMovie}
-        {movieData.map((movie) => (
+    <ShowsLayoutWrapper layoutTitle={layoutTitle}>
+      {noBookmarkedMovie}
+      {movieData
+        .filter((fMovie) => fMovie.backdrop_path !== null)
+        .map((movie) => (
           <ThumbnailCard
-            category={movie.category as ShowCategory}
-            key={movie.title}
-            thumbnail={movie.thumbnail}
-            rating={movie.rating}
-            isBookmarked={getBookmarkedShows({ show: movie, bkmarkedShow: bookmarkedMovies })}
+            key={movie.id}
+            category={movie.media_type}
+            thumbnail={getMovieImage({ variant: "desktop", path: movie.backdrop_path })}
+            rating={movie.vote_average}
+            isBookmarked={false}
+            // isBookmarked={getBookmarkedShows({ show: movie, bkmarkedShow: bookmarkedMovies })}
             title={movie.title}
-            year={movie.year}
-            isTrending={movie.isTrending}
+            year={+movie.release_date.split("-")[0]}
+            isTrending={false}
           />
         ))}
-      </div>
+      {isFetchingNextPage &&
+        Array.from({ length: 20 }).map((_, idx) => <Skeleton key={idx} className="h-[11rem] sm:h-[17.4rem]" />)}
+    </ShowsLayoutWrapper>
+  );
+}
+
+function ShowsLayoutWrapper({ children, layoutTitle, error }: LayoutWrapper) {
+  return (
+    <section className="px-[1.6rem] pb-[1.6rem] sm:px-[2.4rem] sm:pb-[2.4rem] xl:px-0 xl:pb-0">
+      <h1 className="mb-[3.2rem] text-heading-lg-mobile text-white sm:text-heading-lg-tab md:text-heading-lg">
+        {layoutTitle}
+      </h1>
+      <div className={cn("relative", !error ? styles.shows_layout : "")}>{children}</div>
     </section>
   );
 }

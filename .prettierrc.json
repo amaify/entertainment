@@ -4,5 +4,6 @@
   "bracketSameLine": false,
   "bracketSpacing": true,
   "quoteProps": "as-needed",
-  "trailingComma": "none"
+  "trailingComma": "none",
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

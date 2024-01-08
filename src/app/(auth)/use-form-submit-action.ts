@@ -1,6 +1,6 @@
 import { type FormEvent, useTransition } from "react";
-import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 interface Props {
   formAction: (data: FormData) => Promise<{ message: string }>;

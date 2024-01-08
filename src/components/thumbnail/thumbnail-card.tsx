@@ -1,6 +1,6 @@
 import type { Show } from "@/app/page";
-import Thumbnail from "../thumbnail/thumbnail";
 import ThumbnailDescription from "./thumbnail-description";
+import Thumbnail from "../thumbnail/thumbnail";
 
 export default function ThumbnailCard({ category, title, year, rating, thumbnail, isBookmarked, isTrending }: Show) {
   return (

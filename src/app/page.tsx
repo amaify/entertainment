@@ -1,4 +1,3 @@
-import data from "@/src/data.json";
 import HomepageClient from "./_components/home-page.client";
 
 export type ShowCategory = "Movie" | "TV Series";
@@ -18,12 +17,13 @@ export interface Show {
   title: string;
   year: number;
   category: ShowCategory;
-  rating: "PG" | "18+" | "E";
+  rating: number;
   isTrending: boolean;
-  thumbnail: MovieThumbnail;
+  thumbnail: string;
+  // thumbnail: MovieThumbnail;
   isBookmarked: boolean;
 }
 
-export default async function Home() {
-  return <HomepageClient data={data as Show[]} />;
+export default function Home() {
+  return <HomepageClient />;
 }

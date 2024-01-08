@@ -30,7 +30,7 @@ export default function AuthAvatarInput({ userId }: Props) {
     setUploadStatus("Uploaded");
   };
   return (
-    <div className="text-white flex items-center gap-4">
+    <div className="flex items-center gap-4 text-white">
       <Avatar onChange={uploadeAvatar} />
       <p
         className={cn("text-body-sm", {

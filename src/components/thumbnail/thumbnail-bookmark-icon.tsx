@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes } from "react";
 import SvgIcon from "../svg/svg";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -9,7 +9,7 @@ export default function BookmarkIcon({ isBookmarked, ...props }: Props) {
   return (
     <button
       onClick={props.onClick}
-      className="w-[3.2rem] h-[3.2rem] rounded-full transition-all bg-primary-background/50 group/bookmark absolute top-[1.6rem] right-[1.6rem] hover:cursor-pointer hover:bg-white"
+      className="group/bookmark absolute right-[1.6rem] top-[1.6rem] h-[3.2rem] w-[3.2rem] rounded-full bg-primary-background/50 transition-all hover:cursor-pointer hover:bg-white"
     >
       <SvgIcon
         variant="bookmarkIcon"

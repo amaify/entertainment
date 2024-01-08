@@ -1,12 +1,11 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { authSessionAction } from "@/lib/server-actions/auth-session-action";
-import movieData from "@/src/data.json";
-import PagesLayout from "../_layout/pages-layout";
-import ShowsLayoutSkeleton from "../_layout/shows-layout-skeleton";
-import { Show, ShowCategory } from "../page";
 import BookmarkPage from "./bookmark-page";
 import ShowspageClient from "./shows-page-client";
+import PagesLayout from "../_layout/pages-layout";
+import ShowsLayoutSkeleton from "../_layout/shows-layout-skeleton";
+import type { ShowCategory } from "../page";
 
 type CategoryParams = { params: { category: Category } };
 export type Category = "movies" | "series" | "bookmarks";
@@ -17,7 +16,7 @@ export async function generateMetadata({ params }: CategoryParams) {
   };
 }
 
-export const movieCategory: Record<"movies" | "series", ShowCategory> = {
+const movieCategory: Record<"movies" | "series", ShowCategory> = {
   movies: "Movie",
   series: "TV Series"
 };
@@ -49,11 +48,7 @@ export default async function CategoryPage({ params }: CategoryParams) {
 
   return (
     <PagesLayout placeholderText={queryPlaceholderText[category]} showSearchQuery>
-      <ShowspageClient
-        title={layoutTitle[category]}
-        category={movieCategory[category]}
-        movieData={movieData as Show[]}
-      />
+      <ShowspageClient title={layoutTitle[category]} category={movieCategory[category]} />
     </PagesLayout>
   );
 }

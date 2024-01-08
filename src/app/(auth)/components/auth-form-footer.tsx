@@ -12,7 +12,7 @@ export default function AuthFormFooter({ authVariant }: Props) {
     ...(isLogin ? { href: "/signup", title: "Sign Up" } : { href: "/login", title: "Login" })
   };
   return (
-    <span className="text-white text-body-md flex items-center gap-[0.9rem] justify-center">
+    <span className="flex items-center justify-center gap-[0.9rem] text-body-md text-white">
       <span>{footerText} have an account?</span>
       <span className="text-primary">
         <Link href={footerLink.href}>{footerLink.title}</Link>
