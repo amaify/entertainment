@@ -1,10 +1,10 @@
 "use client";
 
+import PagesLayout from "@/app/_layout/pages-layout";
+import { useAppProviderContext } from "@/app/hooks/use-app-provider-context";
+import useShowsProviderContext from "@/app/hooks/use-shows-provider-context";
+import type { Show } from "@/app/layout";
 import ShowspageClient from "./shows-page-client";
-import PagesLayout from "../_layout/pages-layout";
-import { useAppProviderContext } from "../hooks/use-app-provider-context";
-import useShowsProviderContext from "../hooks/use-shows-provider-context";
-import type { Movie } from "../layout";
 
 export type BkmarkedMovies = {
   title: string;
@@ -17,7 +17,7 @@ export default function BookmarkPage() {
 
   const bookmarkedMovies = movies.filter(
     (movie) => bkmarkedMovies?.some((bMovie) => bMovie.title === movie.title)
-  ) as Movie[];
+  ) as Show[];
 
   return (
     <div className="flex flex-col gap-16">

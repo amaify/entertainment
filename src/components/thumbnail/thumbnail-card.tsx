@@ -1,8 +1,15 @@
-import type { Show } from "@/app/page";
 import ThumbnailDescription from "./thumbnail-description";
-import Thumbnail from "../thumbnail/thumbnail";
+import Thumbnail, { type ThumbnailDetails } from "../thumbnail/thumbnail";
 
-export default function ThumbnailCard({ category, title, year, rating, thumbnail, isBookmarked, isTrending }: Show) {
+export default function ThumbnailCard({
+  category,
+  title,
+  year,
+  rating,
+  thumbnail,
+  isBookmarked,
+  isTrending
+}: ThumbnailDetails) {
   return (
     <div className="flex flex-col gap-[0.8rem]">
       <Thumbnail

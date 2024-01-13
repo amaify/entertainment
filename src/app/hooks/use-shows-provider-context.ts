@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MovieContext } from "../_layout/app-layout";
+import { MovieContext } from "../providers/show-provider";
 
 export default function useShowsProviderContext() {
   const showsContext = useContext(MovieContext);
