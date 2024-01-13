@@ -2,12 +2,12 @@ import type { ReactNode } from "react";
 // import { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 // import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
+import Skeleton from "@/components/ui/skeleton";
 import { fetchTMDB, getMovieImage } from "@/helpers/service-client";
-import Skeleton from "@/src/components/ui/skeleton";
 // import movieData from "@/src/data.json";
 import Thumbnail from "../../components/thumbnail/thumbnail";
 // import { AppContext } from "../_components/app-provider";
-import type { Movie } from "../layout";
+import type { Show } from "../layout";
 // import { Show } from "../page";
 
 export default function TrendingShows() {
@@ -17,7 +17,7 @@ export default function TrendingShows() {
   // const trendingMovies = movieData.filter((movie) => movie.isTrending) as Show[];
 
   const fetchTrendingShows = async () => {
-    const response = await fetchTMDB<Movie>({ path: "trending/all/day", method: "GET", pageParam: 1 });
+    const response = await fetchTMDB<Show>({ path: "trending/all/day", method: "GET", pageParam: 1 });
     return response;
   };
 

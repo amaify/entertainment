@@ -2,17 +2,17 @@
 
 import type { ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
+import ThumbnailCard from "@/components/thumbnail/thumbnail-card";
+import Skeleton from "@/components/ui/skeleton";
 import cn from "@/helpers/cn";
 import { getMovieImage } from "@/helpers/service-client";
-import Skeleton from "@/src/components/ui/skeleton";
 import styles from "./layout.module.css";
-import ThumbnailCard from "../../components/thumbnail/thumbnail-card";
 import useShowsProviderContext from "../hooks/use-shows-provider-context";
-import type { Movie } from "../layout";
+import type { Show } from "../layout";
 
 interface Props {
   title: string;
-  movieData: Movie[];
+  movieData: Show[];
 }
 
 interface LayoutWrapper {

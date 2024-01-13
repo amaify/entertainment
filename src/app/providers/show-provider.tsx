@@ -1,14 +1,14 @@
 import { createContext, useEffect, type ReactNode, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
+import Navigation from "@/components/navigation/navigation";
+import BackToTopButton from "@/components/ui/back-to-top-button";
 import { fetchTMDB } from "@/helpers/service-client";
-import BackToTopButton from "@/src/components/ui/back-to-top-button";
-import Navigation from "../../components/navigation/navigation";
 import useIntersectionObserver from "../hooks/use-observer-intersection";
-import type { Movie } from "../layout";
+import type { Show } from "../layout";
 
 interface MovieContextProps {
-  movies: Movie[];
+  movies: Show[];
   error: Error | null;
   isLoading: boolean;
   isFetchingNextPage: boolean;
@@ -16,8 +16,8 @@ interface MovieContextProps {
 
 const fetchShows = async ({ pageParam }: { pageParam: number }) => {
   const [movies, tvSeries] = await Promise.all([
-    fetchTMDB<Movie>({ path: "movie/popular", method: "GET", pageParam }),
-    fetchTMDB<Movie>({ path: "tv/popular", method: "GET", pageParam })
+    fetchTMDB<Show>({ path: "movie/popular", method: "GET", pageParam }),
+    fetchTMDB<Show>({ path: "tv/popular", method: "GET", pageParam })
   ]);
 
   const allShows = [
@@ -25,13 +25,13 @@ const fetchShows = async ({ pageParam }: { pageParam: number }) => {
       ...movie,
       title: movie.title,
       release_date: movie.release_date,
-      media_type: "Movie" as Movie["media_type"]
+      media_type: "Movie" as Show["media_type"]
     })),
     ...tvSeries.results.map((show) => ({
       ...show,
       title: show.name,
       release_date: show.first_air_date,
-      media_type: "TV Series" as Movie["media_type"]
+      media_type: "TV Series" as Show["media_type"]
     }))
   ].sort(() => Math.random() - 0.5);
 
@@ -40,7 +40,7 @@ const fetchShows = async ({ pageParam }: { pageParam: number }) => {
 
 export const MovieContext = createContext<MovieContextProps | undefined>(undefined);
 
-export default function AppLayout({ children }: { children: ReactNode }) {
+export default function ShowProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const isAuthPage = pathname === "/login" || pathname === "/signup";
   const [showBackToTopButton, setShowBackToTopButton] = useState(false);

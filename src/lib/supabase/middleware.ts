@@ -2,7 +2,7 @@ import type { CookieOptions } from "@supabase/ssr";
 import { createServerClient } from "@supabase/ssr";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { SUPABASE_ANON_KEY, SUPABASE_URL } from "@/src/helpers/constants";
+import { SUPABASE_ANON_KEY, SUPABASE_URL } from "@/helpers/constants";
 
 export function createClient(request: NextRequest) {
   let response = NextResponse.next({ request: { headers: request.headers } });

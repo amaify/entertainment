@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, type ChangeEvent, useState } from "react";
+import { useEffect, type ChangeEvent, useState, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Input from "./input";
@@ -9,16 +9,23 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [inputValue, setInputValue] = useState(searchParams.get("show") ?? "");
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [inputValue, setInputValue] = useState(searchParams.get("q") ?? "");
+
+  let previousPath = "";
+  if (typeof window !== "undefined") {
+    previousPath = sessionStorage.getItem("previousPath") ?? "";
+  }
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    setInputValue(value);
-    const queryParam = new URLSearchParams(searchParams);
-    queryParam.set("show", value);
-    router.replace(`${pathname}?${queryParam.toString()}`);
+    setInputValue(value.toLowerCase());
 
-    if (value === "") router.replace(`${pathname}`);
+    const queryParam = new URLSearchParams(searchParams);
+    queryParam.set("q", value.toLowerCase());
+    router.replace(`/search?${queryParam.toString()}`);
+
+    if (value === "") router.replace(previousPath);
   };
 
   useEffect(() => {
@@ -35,6 +42,12 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
     );
 
     if (searchFieldElement) observer.observe(searchFieldElement);
+    if (pathname.includes("search")) inputRef.current?.focus();
+    if (!pathname.includes("search")) sessionStorage.setItem("previousPath", pathname);
+
+    return () => {
+      if (searchFieldElement) observer.unobserve(searchFieldElement);
+    };
   }, []);
 
   return (
@@ -42,7 +55,15 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
       className="[ search-bar-container ] bg-primary-background pb-[4.4rem] pl-[1.6rem] pr-[1.6rem] sm:px-[2.4rem] xl:pl-0 xl:pr-[3.2rem]"
       id="searchField"
     >
-      <Input variant="searchInput" placeholder={placeholderText} onChange={onInputChange} value={inputValue} />
+      <Input
+        variant="searchInput"
+        placeholder={placeholderText}
+        onChange={onInputChange}
+        value={inputValue}
+        ref={inputRef}
+        showCloseIcon={inputValue !== ""}
+        onClickCloseIcon={() => router.replace(previousPath)}
+      />
     </div>
   );
 }

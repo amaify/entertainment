@@ -3,14 +3,25 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import type { Show } from "@/app/page";
+import type { ShowCategory } from "@/app/layout";
 import cn from "@/helpers/cn";
 import { addMovieToBookmarkAction, removeMovieFromBookmarkAction } from "@/lib/server-actions/bookmark-action";
 import BookmarkIcon from "./thumbnail-bookmark-icon";
 import ThumbnailDescription from "./thumbnail-description";
 import ThumbnailPlayButton from "./thumbnail-play-button";
 
-interface Props extends Show {
+export interface ThumbnailDetails {
+  title: string;
+  year: number;
+  category: ShowCategory;
+  rating: number;
+  isTrending: boolean;
+  thumbnail: string;
+  // thumbnail: MovieThumbnail;
+  isBookmarked: boolean;
+}
+
+interface Props extends ThumbnailDetails {
   variant: "trending" | "popular";
 }
 

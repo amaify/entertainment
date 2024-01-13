@@ -8,6 +8,7 @@
     "start": "next start",
     "check:lint": "eslint ./src --ext .js,.jsx,.ts,.tsx --fix",
     "check:types": "tsc",
+    "check:all": "pnpm check:types && pnpm check:lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "jest"

@@ -23,9 +23,9 @@
       "@/public/*": ["./public/*"],
       "@/lib/*": ["./src/lib/*"],
       "@/helpers/*": ["./src/helpers/*"],
-      "@/src/*": ["./src/*"],
       "@/app/*": ["./src/app/*"],
-      "@/components/*": ["./src/components/*"]
+      "@/components/*": ["./src/components/*"],
+      "@/hooks/*": ["./src/app/hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "/jest.config.ts"],

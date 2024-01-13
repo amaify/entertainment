@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AppContext } from "@/app/_components/app-provider";
+import { AppContext } from "@/app/providers/app-provider";
 import cn from "@/helpers/cn";
 import SvgIcon, { type IconVariant } from "../svg/svg";
 
@@ -30,7 +30,7 @@ export default function NavigationLinks() {
           <Link href={link.href}>
             <SvgIcon
               variant={link.icon}
-              className={cn("group-hover/links:fill-white", { "fill-white": pathname === link.href })}
+              className={cn("group-hover/links:fill-primary", { "fill-white": pathname === link.href })}
             />
           </Link>
         </li>

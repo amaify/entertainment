@@ -6,17 +6,19 @@ export type FormInputVariant = "searchInput" | "formInput";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   variant: FormInputVariant;
+  showCloseIcon?: boolean;
   inputError?: Record<string, string>;
+  onClickCloseIcon?: () => void;
 }
 
-const Input = forwardRef<HTMLInputElement, Props>(({ variant, inputError, ...props }, ref) => {
+const Input = forwardRef<HTMLInputElement, Props>(({ variant, inputError, showCloseIcon, ...props }, ref) => {
   if (variant === "searchInput") {
     return (
       <div className="flex w-full items-center gap-[2.4rem]">
         <SvgIcon variant="searchIcon" />
         <label
           htmlFor={props.id}
-          className="relative w-full focus-within:after:absolute focus-within:after:-bottom-6 focus-within:after:block focus-within:after:h-[1px] focus-within:after:w-full focus-within:after:bg-tertiary-background focus-within:after:content-['']"
+          className="relative flex w-full focus-within:after:absolute focus-within:after:-bottom-6 focus-within:after:block focus-within:after:h-[1px] focus-within:after:w-full focus-within:after:bg-tertiary-background focus-within:after:content-['']"
         >
           <input
             ref={ref}
@@ -29,6 +31,21 @@ const Input = forwardRef<HTMLInputElement, Props>(({ variant, inputError, ...pro
             placeholder={props.placeholder}
             className="w-full bg-transparent text-[1.6rem] font-light text-white caret-primary placeholder:text-white/50 focus:outline-none sm:text-heading-light-sm"
           />
+          <button
+            onClick={props.onClickCloseIcon}
+            className={cn(
+              "group/close-btn relative size-16 rounded-full bg-tertiary-background/20 transition-colors hover:bg-tertiary-background/50",
+              showCloseIcon ? "visible" : "hidden"
+            )}
+          >
+            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <SvgIcon
+                variant="closeIcon"
+                fillColour="white"
+                className={cn("transition-colors group-hover/close-btn:fill-primary")}
+              />
+            </span>
+          </button>
         </label>
       </div>
     );
