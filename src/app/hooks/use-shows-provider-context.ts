@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ShowCategoryContext } from "../(movie-category)/layout";
+import { ShowCategoryContext } from "../(show-category)/layout";
 
 export default function useShowsProviderContext() {
   const showsContext = useContext(ShowCategoryContext);

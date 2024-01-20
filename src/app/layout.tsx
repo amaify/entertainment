@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
-import type { BkmarkedMovies } from "./(movie-category)/[category]/bookmark-page";
+import type { BkmarkedMovies } from "@/app/show-category/bookmark-page";
 import AppProvider from "./app-provider";
 import { createClient } from "../lib/supabase/server";
 import "./globals.css";
