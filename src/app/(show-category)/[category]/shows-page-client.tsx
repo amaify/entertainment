@@ -5,6 +5,7 @@ import ShowsLayout from "@/app/_layout/shows-layout";
 import useIntersectionObserver from "@/app/hooks/use-observer-intersection";
 import useShowsProviderContext from "@/app/hooks/use-shows-provider-context";
 import type { Show, ShowCategory } from "@/app/layout";
+import Button from "@/components/ui/button";
 
 // import { usePathname } from "next/navigation";
 
@@ -24,7 +25,7 @@ export default function ShowspageClient({ title, category, bookmarkedShows }: Pr
     hasNextPage,
     fetchNextPage
   } = useShowsProviderContext();
-  const { observerElement } = useIntersectionObserver({ fetchNextPage, hasNextPage });
+  const { observerElement, showLoadMoreButtoon } = useIntersectionObserver({ fetchNextPage, hasNextPage });
   const shows = bookmarkedShows ? bookmarkedShows : allShows;
   const data = shows.filter((movie) => movie.media_type === category) as Show[];
   // const filteredShows = useFilterShows(data);
@@ -39,6 +40,13 @@ export default function ShowspageClient({ title, category, bookmarkedShows }: Pr
         isFetchingNextPage={isFetchingNextPage}
       />
       <div ref={observerElement} />
+      {showLoadMoreButtoon && (
+        <div className="mt-2 flex justify-center">
+          <div className="w-64">
+            <Button onClick={() => fetchNextPage()}>Load more</Button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

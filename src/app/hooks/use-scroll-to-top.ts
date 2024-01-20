@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
+import useMediaQuery from "./use-media-query";
 
 export default function useScrollToTop() {
   const [showBackToTopButton, setShowBackToTopButton] = useState(false);
+  const isDesktop = useMediaQuery({ query: "(min-width: 1280px)" });
+
+  const scrollContainer = isDesktop ? document.querySelector("#showsColumn") : document.querySelector("html");
 
   const handleScroll = () => {
-    const scrollableElement = document.querySelector("#showsColumn");
-
-    if (scrollableElement && scrollableElement.scrollTop > 1500) {
+    if (scrollContainer && scrollContainer.scrollTop > 1500) {
       setShowBackToTopButton(true);
       return;
     }
@@ -15,25 +17,18 @@ export default function useScrollToTop() {
   };
 
   const onBackToTopButtonClick = () => {
-    const scrollableElement = document.querySelector("#showsColumn");
-    if (scrollableElement) {
-      scrollableElement.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    scrollContainer?.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useEffect(() => {
-    const scrollableElement = document.querySelector("#showsColumn");
+    const scrollListener = isDesktop ? document.querySelector("#showsColumn") : window;
 
-    if (scrollableElement) {
-      scrollableElement.addEventListener("scroll", handleScroll);
-    }
+    scrollListener?.addEventListener("scroll", handleScroll);
 
     return () => {
-      if (scrollableElement) {
-        scrollableElement.removeEventListener("scroll", handleScroll);
-      }
+      scrollListener?.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isDesktop]);
 
   return {
     showBackToTopButton,

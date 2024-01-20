@@ -20,7 +20,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
 
       <div className="flex h-screen w-full flex-col xl:overflow-auto">
         <div className="xl:overflow-auto" id="showsColumn">
-          <div className="pb-[3.2rem] pt-[6.2rem]">{children}</div>
+          <div className="pb-[3.2rem] pt-[1.2rem] xl:pt-[6.2rem]">{children}</div>
         </div>
         {showBackToTopButton && <BackToTopButton onClick={onBackToTopButtonClick} />}
       </div>
