@@ -35,14 +35,13 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
 
   useEffect(() => {
     const searchFieldElement = document.querySelector("#searchField");
-    const rootElement = document.querySelector("#showsColumn");
+
     const observer = new IntersectionObserver(
       ([e]) => {
         e.target.classList.toggle("search-bar-pinned", e.intersectionRatio < 1);
       },
       {
-        threshold: [0, 1],
-        root: rootElement
+        threshold: [0, 1]
       }
     );
 

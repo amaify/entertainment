@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import type { FetchNextPageOptions, InfiniteData, InfiniteQueryObserverResult } from "@tanstack/react-query";
+import { usePathname } from "next/navigation";
 
 interface Props<T> {
   fetchNextPage: (
@@ -10,15 +11,29 @@ interface Props<T> {
 }
 
 export default function useIntersectionObserver<T extends any>({ fetchNextPage, hasNextPage }: Props<T>) {
+  let wasLoadmoreButtonVisible = "no";
+  if (typeof window !== "undefined") {
+    wasLoadmoreButtonVisible = sessionStorage.getItem("wasLoadmoreButtonVisible") ?? "no";
+  }
+  const pathname = usePathname();
   const observerElement = useRef<HTMLDivElement | null>(null);
+  const showLoadMoreButtoon = useRef(false);
 
-  // console.log(!!observerElement);
+  const pathsToUseShowMoreButton = ["/movies", "/series"];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage) {
-          fetchNextPage();
+      ([entry]) => {
+        if (entry.isIntersecting && hasNextPage) fetchNextPage();
+        if (entry.intersectionRatio === 1 && pathsToUseShowMoreButton.includes(pathname)) {
+          if (wasLoadmoreButtonVisible === "no") {
+            showLoadMoreButtoon.current = true;
+            sessionStorage.setItem("wasLoadmoreButtonVisible", "yes");
+          }
+        }
+
+        if (entry.intersectionRatio === 0 && pathsToUseShowMoreButton.includes(pathname)) {
+          showLoadMoreButtoon.current = false;
         }
       },
       { threshold: 1 }
@@ -29,11 +44,10 @@ export default function useIntersectionObserver<T extends any>({ fetchNextPage, 
     }
 
     return () => {
-      if (observerElement.current) {
-        observer.unobserve(observerElement.current);
-      }
+      if (observerElement.current) observer.unobserve(observerElement.current);
+      if (wasLoadmoreButtonVisible === "yes") sessionStorage.setItem("wasLoadmoreButtonVisible", "no");
     };
-  }, [observerElement, hasNextPage]);
+  }, [observerElement, hasNextPage, wasLoadmoreButtonVisible]);
 
-  return { observerElement };
+  return { observerElement, showLoadMoreButtoon: showLoadMoreButtoon.current };
 }
