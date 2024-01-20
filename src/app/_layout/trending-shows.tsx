@@ -1,23 +1,13 @@
 import type { ReactNode } from "react";
-// import { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
-// import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
 import Skeleton from "@/components/ui/skeleton";
 import { fetchTMDB, getMovieImage } from "@/helpers/service-client";
-// import movieData from "@/src/data.json";
 import Thumbnail from "../../components/thumbnail/thumbnail";
-// import { AppContext } from "../_components/app-provider";
 import type { Show } from "../layout";
-// import { Show } from "../page";
 
 export default function TrendingShows() {
-  // const appContext = useContext(AppContext);
-  // const bookmaredMovies = appContext?.bkmarkedMovies;
-  // const trendingShows = appContext?.trendingShows;
-  // const trendingMovies = movieData.filter((movie) => movie.isTrending) as Show[];
-
   const fetchTrendingShows = async () => {
-    const response = await fetchTMDB<Show>({ path: "trending/all/day", method: "GET", pageParam: 1 });
+    const response = await fetchTMDB<Show>({ path: "trending/all/day", method: "GET", pageParam: 1, variant: "shows" });
     return response;
   };
 
@@ -44,9 +34,11 @@ export default function TrendingShows() {
       </TrendingShowWrapper>
     );
 
+  const filteredShows = data?.results.slice(0, 15);
+
   return (
     <TrendingShowWrapper>
-      {data?.results?.slice(0, 15).map((movie) => (
+      {filteredShows?.map((movie) => (
         <div className="w-[24rem] flex-shrink-0 sm:w-[47rem]" key={movie.id}>
           <Thumbnail
             variant="trending"

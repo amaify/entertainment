@@ -1,9 +1,19 @@
+import { redirect } from "next/navigation";
+import SearchPageClient from "./search-page.client";
 import PagesLayout from "../_layout/pages-layout";
 
-export default function SearchPage() {
+interface PageParams {
+  searchParams: {
+    q: string;
+  };
+}
+
+export default function SearchPage({ searchParams: { q } }: PageParams) {
+  if (!q) redirect("/");
+
   return (
     <PagesLayout placeholderText="Search for movies or TV series" showSearchQuery>
-      <h1 className="text-heading-lg text-primary">Search page</h1>
+      <SearchPageClient queryString={q} />
     </PagesLayout>
   );
 }

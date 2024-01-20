@@ -1,4 +1,4 @@
-import type { BkmarkedMovies } from "@/app/[category]/bookmark-page";
+import type { BkmarkedMovies } from "@/app/(movie-category)/[category]/bookmark-page";
 import type { Show } from "@/app/layout";
 
 interface GetBookmarkedShows {

@@ -1,3 +1,4 @@
+import { getMovieImage } from "@/helpers/service-client";
 import ThumbnailDescription from "./thumbnail-description";
 import Thumbnail, { type ThumbnailDetails } from "../thumbnail/thumbnail";
 
@@ -15,7 +16,7 @@ export default function ThumbnailCard({
       <Thumbnail
         variant="popular"
         title={title}
-        thumbnail={thumbnail}
+        thumbnail={getMovieImage({ variant: "desktop", path: thumbnail })}
         category={category}
         rating={rating}
         year={year}

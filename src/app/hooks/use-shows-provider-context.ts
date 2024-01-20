@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { MovieContext } from "../providers/show-provider";
+import { ShowCategoryContext } from "../(movie-category)/layout";
 
 export default function useShowsProviderContext() {
-  const showsContext = useContext(MovieContext);
+  const showsContext = useContext(ShowCategoryContext);
 
   if (!showsContext) {
     throw new Error("useShowsProviderContext must be used within an AppLayout");

@@ -21,24 +21,15 @@ const Input = forwardRef<HTMLInputElement, Props>(({ variant, inputError, showCl
           className="relative flex w-full focus-within:after:absolute focus-within:after:-bottom-6 focus-within:after:block focus-within:after:h-[1px] focus-within:after:w-full focus-within:after:bg-tertiary-background focus-within:after:content-['']"
         >
           <input
+            {...props}
             ref={ref}
-            type={props.type}
-            id={props.id}
-            value={props.value}
-            name={props.name}
-            onChange={props.onChange}
-            onBlur={props.onBlur}
-            placeholder={props.placeholder}
             className="w-full bg-transparent text-[1.6rem] font-light text-white caret-primary placeholder:text-white/50 focus:outline-none sm:text-heading-light-sm"
           />
           <button
             onClick={props.onClickCloseIcon}
-            className={cn(
-              "group/close-btn relative size-16 rounded-full bg-tertiary-background/20 transition-colors hover:bg-tertiary-background/50",
-              showCloseIcon ? "visible" : "hidden"
-            )}
+            className={cn("group/close-btn transition-colors", showCloseIcon ? "visible" : "hidden")}
           >
-            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <span>
               <SvgIcon
                 variant="closeIcon"
                 fillColour="white"
