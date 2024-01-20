@@ -9,12 +9,17 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const inputRef = useRef<HTMLInputElement | null>(null);
   const [inputValue, setInputValue] = useState(searchParams.get("q") ?? "");
+  const [isInputFocused, setIsInputFocused] = useState(false);
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const searchPageMounted = useRef(false);
 
   let previousPath = "";
+  let wasSearchPageVisited = "false";
   if (typeof window !== "undefined") {
     previousPath = sessionStorage.getItem("previousPath") ?? "";
+    wasSearchPageVisited = sessionStorage.getItem("searchPageVisited") ?? "false";
   }
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -42,13 +47,24 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
     );
 
     if (searchFieldElement) observer.observe(searchFieldElement);
-    if (pathname.includes("search")) inputRef.current?.focus();
+    if (pathname.includes("search")) {
+      inputRef.current?.focus();
+      searchPageMounted.current = true;
+    }
+    if (wasSearchPageVisited === "true") inputRef.current?.focus();
     if (!pathname.includes("search")) sessionStorage.setItem("previousPath", pathname);
 
     return () => {
       if (searchFieldElement) observer.unobserve(searchFieldElement);
+      if (searchPageMounted.current) sessionStorage.setItem("searchPageVisited", "true");
     };
   }, []);
+
+  useEffect(() => {
+    if (!isInputFocused && !pathname.includes("search")) {
+      sessionStorage.setItem("searchPageVisited", "false");
+    }
+  }, [isInputFocused]);
 
   return (
     <div
@@ -59,6 +75,8 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
         variant="searchInput"
         placeholder={placeholderText}
         onChange={onInputChange}
+        onFocus={() => setIsInputFocused(true)}
+        onBlur={() => setIsInputFocused(false)}
         value={inputValue}
         ref={inputRef}
         showCloseIcon={inputValue !== ""}

@@ -1,9 +1,13 @@
 import { TMBD_BASE_URI, TMDB_API_KEY, TMDB_IMAGE_URI } from "./constants";
 
+export type FetchVariant = "shows" | "searched-shows";
+
 interface FetchParams {
-  path: "movie/popular" | "trending/all/day" | "tv/popular";
+  variant: FetchVariant;
+  path: "movie/popular" | "trending/all/day" | "tv/popular" | "movie" | "tv";
   method: "GET" | "POST";
   pageParam: number;
+  queryString?: string;
 }
 
 interface FetchResponse<T> {
@@ -12,8 +16,18 @@ interface FetchResponse<T> {
   total_results: number;
 }
 
-export async function fetchTMDB<T extends any>({ path, method, pageParam }: FetchParams): Promise<FetchResponse<T>> {
-  const url = `${TMBD_BASE_URI}/${path}?api_key=${TMDB_API_KEY}&page=${pageParam}`;
+export async function fetchTMDB<T extends any>({
+  variant,
+  path,
+  method,
+  pageParam,
+  queryString
+}: FetchParams): Promise<FetchResponse<T>> {
+  let url = `${TMBD_BASE_URI}/${path}?api_key=${TMDB_API_KEY}&page=${pageParam}`;
+  if (variant === "searched-shows") {
+    url = `${TMBD_BASE_URI}/search/${path}?api_key=${TMDB_API_KEY}&page=${pageParam}&query=${queryString}`;
+  }
+
   const options: RequestInit = {
     method,
     headers: {

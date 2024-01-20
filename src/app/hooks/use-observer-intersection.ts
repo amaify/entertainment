@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import type { FetchNextPageOptions, InfiniteData, InfiniteQueryObserverResult } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
 
 interface Props<T> {
   fetchNextPage: (
@@ -12,17 +11,20 @@ interface Props<T> {
 
 export default function useIntersectionObserver<T extends any>({ fetchNextPage, hasNextPage }: Props<T>) {
   const observerElement = useRef<HTMLDivElement | null>(null);
-  const searchParms = useSearchParams().get("show");
+
+  // console.log(!!observerElement);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !searchParms) fetchNextPage();
+        if (entries[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
       },
       { threshold: 1 }
     );
 
-    if (observerElement.current && hasNextPage && !searchParms) {
+    if (observerElement.current && hasNextPage) {
       observer.observe(observerElement.current);
     }
 
@@ -31,7 +33,7 @@ export default function useIntersectionObserver<T extends any>({ fetchNextPage, 
         observer.unobserve(observerElement.current);
       }
     };
-  }, [observerElement, hasNextPage, searchParms]);
+  }, [observerElement, hasNextPage]);
 
   return { observerElement };
 }

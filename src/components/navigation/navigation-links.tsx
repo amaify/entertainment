@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AppContext } from "@/app/providers/app-provider";
+import { AppContext } from "@/app/app-provider";
 import cn from "@/helpers/cn";
 import SvgIcon, { type IconVariant } from "../svg/svg";
 

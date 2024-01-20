@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AppContext } from "../providers/app-provider";
+import { AppContext } from "../app-provider";
 
 export function useAppProviderContext() {
   const appProvider = useContext(AppContext);

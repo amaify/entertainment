@@ -1,6 +1,6 @@
 "use client";
 
-import ShowProvider from "./providers/show-provider";
+import MainLayout from "./_layout/main-layout";
 
 interface Props {
   error: Error & { digest?: string };
@@ -11,12 +11,12 @@ export default function Error({ error, reset }: Props) {
   return (
     <html lang="en">
       <body>
-        <ShowProvider>
+        <MainLayout>
           <div className="flex h-screen flex-col items-center justify-center">
             <h1 className="text-4xl font-bold text-primary">Error</h1>
-            <p className="text-white">{error.message}</p>
+            <p className="text-body-md text-white">{error.message}</p>
           </div>
-        </ShowProvider>
+        </MainLayout>
       </body>
     </html>
   );

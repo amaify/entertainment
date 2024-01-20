@@ -5,7 +5,7 @@ import ShowsLayoutSkeleton from "@/app/_layout/shows-layout-skeleton";
 import { authSessionAction } from "@/lib/server-actions/auth-session-action";
 import BookmarkPage from "./bookmark-page";
 import ShowspageClient from "./shows-page-client";
-import type { ShowCategory } from "../layout";
+import type { ShowCategory } from "../../layout";
 
 type CategoryParams = { params: { category: Category } };
 export type Category = "movies" | "series" | "bookmarks";
@@ -24,6 +24,7 @@ const movieCategory: Record<"movies" | "series", ShowCategory> = {
 export default async function CategoryPage({ params }: CategoryParams) {
   const { category } = params;
   const session = await authSessionAction();
+  const showCategoryPathname: Category[] = ["movies", "series", "bookmarks"];
 
   const queryPlaceholderText: Record<Category, string> = {
     movies: "Search for movies",
@@ -37,7 +38,7 @@ export default async function CategoryPage({ params }: CategoryParams) {
     bookmarks: "Bookmarked shows"
   };
 
-  if (!session && category === "bookmarks") redirect("/");
+  if ((!session && category === "bookmarks") || !showCategoryPathname.includes(category)) redirect("/");
 
   if (category === "bookmarks")
     return (

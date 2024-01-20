@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import type { AuthSession } from "@/app/providers/app-provider";
+import type { AuthSession } from "@/app/app-provider";
 import { createClient } from "../supabase/server";
 
 type LogoutResponse = { message: "success" | (string & {}) };

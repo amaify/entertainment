@@ -17,7 +17,6 @@ export interface ThumbnailDetails {
   rating: number;
   isTrending: boolean;
   thumbnail: string;
-  // thumbnail: MovieThumbnail;
   isBookmarked: boolean;
 }
 
