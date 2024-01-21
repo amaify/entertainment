@@ -1,4 +1,5 @@
 import type { Show } from "@/app/layout";
+import { TMDB_IMAGE_URI } from "./constants";
 import { fetchTMDB } from "./service-client";
 
 export const fetchShows = async ({ pageParam }: { pageParam: number }): Promise<Show[]> => {
@@ -46,3 +47,18 @@ export const fetchSearchedShows = async ({ pageParam, queryString }: { pageParam
     }))
   ].sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime());
 };
+
+type ImageVariant = {
+  desktop: "w500";
+  tablet: "w342";
+  mobile: "w185";
+};
+
+export function getImageUrl({ variant, path }: { variant: keyof ImageVariant; path: string }) {
+  const imageWidth: Record<keyof ImageVariant, ImageVariant[keyof ImageVariant]> = {
+    mobile: "w185",
+    tablet: "w342",
+    desktop: "w500"
+  };
+  return `${TMDB_IMAGE_URI}/${imageWidth[variant]}${path}`;
+}

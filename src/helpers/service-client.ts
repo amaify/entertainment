@@ -1,4 +1,6 @@
-import { TMBD_BASE_URI, TMDB_API_KEY, TMDB_IMAGE_URI } from "./constants";
+"use server";
+
+import { TMBD_BASE_URI, TMDB_API_KEY } from "./constants";
 
 export type FetchVariant = "shows" | "searched-shows";
 
@@ -44,19 +46,4 @@ export async function fetchTMDB<T extends any>({
     console.error("Error in fetchTMDB: ", error);
     throw error;
   }
-}
-
-type ImageVariant = {
-  desktop: "w500";
-  tablet: "w342";
-  mobile: "w185";
-};
-
-export function getMovieImage({ variant, path }: { variant: keyof ImageVariant; path: string }) {
-  const imageWidth: Record<keyof ImageVariant, ImageVariant[keyof ImageVariant]> = {
-    mobile: "w185",
-    tablet: "w342",
-    desktop: "w500"
-  };
-  return `${TMDB_IMAGE_URI}/${imageWidth[variant]}${path}`;
 }

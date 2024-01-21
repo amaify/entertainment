@@ -34,7 +34,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
                 <SvgIcon
                   variant="closeIcon"
                   fillColour="white"
-                  className={cn("transition-colors group-hover/close-btn:fill-primary")}
+                  className="size-5 transition-colors group-hover/close-btn:fill-primary"
                 />
               </span>
             </button>

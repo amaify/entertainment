@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Skeleton from "@/components/ui/skeleton";
-import { fetchTMDB, getMovieImage } from "@/helpers/service-client";
+import { getImageUrl } from "@/helpers/get-shows";
+import { fetchTMDB } from "@/helpers/service-client";
 import Thumbnail from "../../components/thumbnail/thumbnail";
 import type { Show } from "../layout";
 
@@ -45,7 +46,7 @@ export default function TrendingShows() {
             category={movie.media_type}
             rating={movie.vote_average}
             title={movie.name || movie.title}
-            thumbnail={getMovieImage({ variant: "desktop", path: movie.backdrop_path })}
+            thumbnail={getImageUrl({ variant: "desktop", path: movie.backdrop_path })}
             year={+(movie.release_date || movie.first_air_date).split("-")[0]}
             isBookmarked={false}
             // isBookmarked={getBookmarkedShows({ show: movie, bkmarkedShow: bookmarkedMovies })}
