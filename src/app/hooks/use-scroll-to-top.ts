@@ -5,7 +5,7 @@ export default function useScrollToTop() {
   const [showBackToTopButton, setShowBackToTopButton] = useState(false);
   const isDesktop = useMediaQuery({ query: "(min-width: 1280px)" });
 
-  let scrollContainer = null;
+  let scrollContainer: Element | null = null;
   if (typeof window !== "undefined") {
     scrollContainer = isDesktop ? document.querySelector("#showsColumn") : document.querySelector("html");
   }

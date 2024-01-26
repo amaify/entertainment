@@ -1,11 +1,11 @@
 "use client";
 
-import { createContext, type ReactNode } from "react";
+import { createContext, useContext, type ReactNode } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import type { BkmarkedMovies } from "@/app/show-category/bookmark-page";
+import type { BkmarkedMovies } from "@/app/[category]/bookmark-page";
 import Notification from "@/components/ui/notification";
-import MainLayout from "./_layout/main-layout";
+import ShowProvider from "./show-provider";
 
 export type AuthSession = Session | null;
 
@@ -23,11 +23,21 @@ export default function AppProvider({ children, session, bkmarkedMovies }: Props
   return (
     <QueryClientProvider client={queryClient}>
       <AppContext.Provider value={{ session, bkmarkedMovies }}>
-        <MainLayout>
+        <ShowProvider>
           <Notification />
           {children}
-        </MainLayout>
+        </ShowProvider>
       </AppContext.Provider>
     </QueryClientProvider>
   );
+}
+
+export function useAppProviderContext() {
+  const appProvider = useContext(AppContext);
+
+  if (!appProvider) {
+    throw new Error("useAppProviderContext must be used within an AppProvider");
+  }
+
+  return appProvider;
 }

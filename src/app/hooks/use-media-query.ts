@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 
+type ScreenSize = "640px" | "1280px";
 interface Props {
-  query: "(min-width: 1280px)";
+  query: `(min-width: ${ScreenSize})`;
 }
 export default function useMediaQuery({ query }: Props) {
   const [matches, setMatches] = useState(false);
 
   useEffect(() => {
-    const media = window.matchMedia("(min-width: 1280px)");
+    const media = window.matchMedia(query);
 
     if (media.matches !== matches) setMatches(media.matches);
 
