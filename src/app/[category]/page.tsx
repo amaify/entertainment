@@ -5,7 +5,7 @@ import ShowsLayoutSkeleton from "@/app/_layout/shows-layout-skeleton";
 import { authSessionAction } from "@/lib/server-actions/auth-session-action";
 import BookmarkPage from "./bookmark-page";
 import ShowspageClient from "./shows-page-client";
-import type { ShowCategory } from "../../layout";
+import type { ShowCategory } from "../layout";
 
 type CategoryParams = { params: { category: Category } };
 export type Category = "movies" | "series" | "bookmarks";

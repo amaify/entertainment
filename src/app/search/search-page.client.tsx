@@ -23,7 +23,6 @@ export default function SearchPageClient({ queryString }: Props) {
     initialPageParam: 1,
     getNextPageParam: (_, pages, lastPageParam) => {
       const nextPage = lastPageParam !== 19 ? pages.length + 1 : undefined;
-      // console.log({ nextPage, lastPageParam, pages });
       return nextPage;
     },
     maxPages: 20,

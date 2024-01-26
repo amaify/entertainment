@@ -24,7 +24,7 @@
       "@/lib/*": ["./src/lib/*"],
       "@/helpers/*": ["./src/helpers/*"],
       "@/app/*": ["./src/app/*"],
-      "@/app/show-category/*": ["src/app/(show-category)/[category]/*"],
+      "@/app/show-category/*": ["src/app/[category]/*"],
       "@/components/*": ["./src/components/*"],
       "@/hooks/*": ["./src/app/hooks/*"]
     }

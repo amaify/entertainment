@@ -5,8 +5,10 @@ import { AppContext } from "@/app/app-provider";
 import cn from "@/helpers/cn";
 import SvgIcon, { type IconVariant } from "../svg/svg";
 
+export type AppPath = "/" | "/movies" | "/series" | "/bookmarks";
+
 interface NavLinks {
-  href: "/" | "/movies" | "/series" | "/bookmarks";
+  href: AppPath;
   title: "Home" | "Movies" | "TV series" | "Bookmarks";
   icon: IconVariant;
 }

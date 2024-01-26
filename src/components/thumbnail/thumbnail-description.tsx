@@ -13,6 +13,7 @@ interface Props {
 
 export default function ThumbnailDescription({ category, variant, title, year, rating }: Props) {
   const categoryText = category === "Movie" ? "Movie" : "TV Series";
+
   return (
     <span
       className={cn("text-left text-white", {
@@ -26,7 +27,7 @@ export default function ThumbnailDescription({ category, variant, title, year, r
           <SvgIcon variant={category === "Movie" ? "movieIcon" : "tvSeriesIcon"} fillColour="#FFFFFF" />
           <span>{categoryText}</span>
         </span>
-        <span>{rating}</span>
+        <span>{rating.toFixed(1)}</span>
       </span>
       <span
         className={cn("mt-[0.4rem] w-full text-body-md capitalize text-white sm:text-heading-medium-sm", {

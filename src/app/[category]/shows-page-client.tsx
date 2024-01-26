@@ -1,13 +1,10 @@
 "use client";
 
 import ShowsLayout from "@/app/_layout/shows-layout";
-// import useFilterShows from "@/app/hooks/use-filter-shows";
 import useIntersectionObserver from "@/app/hooks/use-observer-intersection";
-import useShowsProviderContext from "@/app/hooks/use-shows-provider-context";
 import type { Show, ShowCategory } from "@/app/layout";
 import Button from "@/components/ui/button";
-
-// import { usePathname } from "next/navigation";
+import { useShowsProviderContext } from "../show-provider";
 
 interface Props {
   title: string;
@@ -16,7 +13,6 @@ interface Props {
 }
 
 export default function ShowspageClient({ title, category, bookmarkedShows }: Props) {
-  // const pathname = usePathname();
   const {
     shows: allShows,
     error,
@@ -28,7 +24,6 @@ export default function ShowspageClient({ title, category, bookmarkedShows }: Pr
   const { observerElement, showLoadMoreButtoon } = useIntersectionObserver({ fetchNextPage, hasNextPage });
   const shows = bookmarkedShows ? bookmarkedShows : allShows;
   const data = shows.filter((movie) => movie.media_type === category) as Show[];
-  // const filteredShows = useFilterShows(data);
 
   return (
     <>
