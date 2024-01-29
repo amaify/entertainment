@@ -48,6 +48,15 @@ export const fetchSearchedShows = async ({ pageParam, queryString }: { pageParam
   ].sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime());
 };
 
+export const fetchTrendingShows = async () => {
+  const response = await fetchTMDB<Show>({ path: "trending/all/day", method: "GET", pageParam: 1, variant: "shows" });
+  const formattedResult = response.results.map((show) => ({
+    ...show,
+    media_type: (show.media_type === "movie" ? "Movie" : "TV Series") as Show["media_type"]
+  }));
+  return formattedResult;
+};
+
 type ImageVariant = {
   desktop: "w500";
   tablet: "w342";

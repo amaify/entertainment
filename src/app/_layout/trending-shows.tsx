@@ -1,21 +1,12 @@
 import type { ReactNode } from "react";
-import { useQuery } from "@tanstack/react-query";
+import Thumbnail from "@/components/thumbnail/thumbnail";
 import Skeleton from "@/components/ui/skeleton";
-import { getImageUrl } from "@/helpers/get-shows";
-import { fetchTMDB } from "@/helpers/service-client";
-import Thumbnail from "../../components/thumbnail/thumbnail";
+import { fetchTrendingShows, getImageUrl } from "@/helpers/get-shows";
+import useCustomQuery from "../hooks/use-custom-query";
 import type { Show } from "../layout";
 
 export default function TrendingShows() {
-  const fetchTrendingShows = async () => {
-    const response = await fetchTMDB<Show>({ path: "trending/all/day", method: "GET", pageParam: 1, variant: "shows" });
-    return response;
-  };
-
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["trending"],
-    queryFn: fetchTrendingShows
-  });
+  const { data, isLoading, error } = useCustomQuery<Show[]>({ queryFn: fetchTrendingShows, queryKey: ["trending"] });
 
   if (error)
     return (
@@ -35,19 +26,20 @@ export default function TrendingShows() {
       </TrendingShowWrapper>
     );
 
-  const filteredShows = data?.results.slice(0, 15);
+  const slicedData = data?.slice(0, 15);
 
   return (
     <TrendingShowWrapper>
-      {filteredShows?.map((movie) => (
-        <div className="w-[24rem] flex-shrink-0 sm:w-[47rem]" key={movie.id}>
+      {slicedData?.map((show) => (
+        <div className="w-[24rem] flex-shrink-0 sm:w-[47rem]" key={show.id}>
           <Thumbnail
+            id={show.id}
             variant="trending"
-            category={movie.media_type}
-            rating={movie.vote_average}
-            title={movie.name || movie.title}
-            thumbnail={getImageUrl({ variant: "desktop", path: movie.backdrop_path })}
-            year={+(movie.release_date || movie.first_air_date).split("-")[0]}
+            category={show.media_type}
+            rating={show.vote_average}
+            title={show.name || show.title}
+            thumbnail={getImageUrl({ variant: "desktop", path: show.backdrop_path })}
+            year={+(show.release_date || show.first_air_date).split("-")[0]}
             isBookmarked={false}
             // isBookmarked={getBookmarkedShows({ show: movie, bkmarkedShow: bookmarkedMovies })}
             isTrending={false}

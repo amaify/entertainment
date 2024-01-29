@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import type { ShowCategory } from "@/app/layout";
 import cn from "@/helpers/cn";
@@ -11,6 +11,7 @@ import ThumbnailDescription from "./thumbnail-description";
 import ThumbnailPlayButton from "./thumbnail-play-button";
 
 export interface ThumbnailDetails {
+  id: number;
   title: string;
   year: number;
   category: ShowCategory;
@@ -24,9 +25,11 @@ interface Props extends ThumbnailDetails {
   variant: "trending" | "popular";
 }
 
-export default function Thumbnail({ variant, title, thumbnail, category, rating, year, isBookmarked }: Props) {
-  // const imgSrc = variant === "trending" ? thumbnail.trending?.large : thumbnail.regular.large;
+export default function Thumbnail({ id, variant, title, thumbnail, category, rating, year, isBookmarked }: Props) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const getCategory = category === "Movie" ? "movie" : "tv";
 
   const onBookmark = async () => {
     const loadingToastMsg = !isBookmarked ? "Adding" : "Removing";
@@ -48,6 +51,20 @@ export default function Thumbnail({ variant, title, thumbnail, category, rating,
     toast.dismiss(toastLoadingId);
   };
 
+  const onThumbnailClick = () => {
+    const queryParam = new URLSearchParams(searchParams);
+
+    if (pathname === "/search") {
+      queryParam.append("category", `${getCategory}`);
+      queryParam.append("id", `${id}`);
+    }
+
+    queryParam.set("id", `${id}`);
+    queryParam.set("category", `${getCategory}`);
+
+    router.replace(`${pathname}?${queryParam.toString()}`, { scroll: false });
+  };
+
   return (
     <div
       className={cn("relative w-full", {
@@ -60,6 +77,7 @@ export default function Thumbnail({ variant, title, thumbnail, category, rating,
           "group/play relative h-full w-full rounded-[0.8rem] before:transition-all",
           "lg:hover:cursor-pointer lg:hover:before:absolute lg:hover:before:inset-0 lg:hover:before:h-full lg:hover:before:w-full lg:hover:before:rounded-[0.8rem] lg:hover:before:bg-black/50 lg:hover:before:content-['']"
         )}
+        onClick={onThumbnailClick}
       >
         <Image
           src={thumbnail}

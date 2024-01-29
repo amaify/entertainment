@@ -2,7 +2,7 @@
 
 import { TMBD_BASE_URI, TMDB_API_KEY } from "./constants";
 
-export type FetchVariant = "shows" | "searched-shows";
+export type FetchVariant = "shows" | "searched-shows" | "show-details";
 
 interface FetchParams {
   variant: FetchVariant;
@@ -25,10 +25,11 @@ export async function fetchTMDB<T extends any>({
   pageParam,
   queryString
 }: FetchParams): Promise<FetchResponse<T>> {
-  let url = `${TMBD_BASE_URI}/${path}?api_key=${TMDB_API_KEY}&page=${pageParam}`;
-  if (variant === "searched-shows") {
-    url = `${TMBD_BASE_URI}/search/${path}?api_key=${TMDB_API_KEY}&page=${pageParam}&query=${queryString}`;
-  }
+  const url: Record<FetchVariant, string> = {
+    shows: `${TMBD_BASE_URI}/${path}?api_key=${TMDB_API_KEY}&page=${pageParam}`,
+    "searched-shows": `${TMBD_BASE_URI}/search/${path}?api_key=${TMDB_API_KEY}&page=${pageParam}&query=${queryString}`,
+    "show-details": `${TMBD_BASE_URI}/${path}/${queryString}?api_key=${TMDB_API_KEY}`
+  };
 
   const options: RequestInit = {
     method,
@@ -39,7 +40,7 @@ export async function fetchTMDB<T extends any>({
   };
 
   try {
-    const response = await fetch(url, options);
+    const response = await fetch(url[variant], options);
     const result = await response.json();
     return result;
   } catch (error) {

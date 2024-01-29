@@ -44,6 +44,7 @@ export default function ShowsLayout({ title, shows, error, isLoading, isFetching
       {shows.map((movie) => (
         <ThumbnailCard
           key={movie.id}
+          id={movie.id}
           category={movie.media_type}
           thumbnail={movie.backdrop_path}
           rating={movie.vote_average}
