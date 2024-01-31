@@ -3,7 +3,7 @@
 import { useEffect, type ChangeEvent, useState, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import Input from "./input";
+import Input from "../ui/input";
 
 export default function SearchInput({ placeholderText }: { placeholderText: string }) {
   const router = useRouter();
@@ -28,14 +28,13 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
 
     const queryParam = new URLSearchParams(searchParams);
     queryParam.set("q", value.toLowerCase());
-    router.replace(`/search?${queryParam.toString()}`);
+    router.replace(`/search?${queryParam.toString()}`, { scroll: false });
 
     if (value === "") router.replace(previousPath);
   };
 
   useEffect(() => {
     const searchFieldElement = document.querySelector("#searchField");
-
     const observer = new IntersectionObserver(
       ([e]) => {
         e.target.classList.toggle("search-bar-pinned", e.intersectionRatio < 1);

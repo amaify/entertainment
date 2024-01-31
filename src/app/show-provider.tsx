@@ -36,8 +36,9 @@ export default function ShowProvider({ children }: { children: ReactNode }) {
     enabled: isQueryEnabled
   });
 
-  const { observerElement } = useIntersectionObserver({ fetchNextPage, hasNextPage });
   const { showBackToTopButton, onBackToTopButtonClick } = useScrollToTop();
+  const { observerElement } = useIntersectionObserver({ fetchNextPage, hasNextPage });
+
   const uniqueShows = getUniquShows(data?.pages.flat() ?? []);
 
   const value = { shows: uniqueShows, error, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage };

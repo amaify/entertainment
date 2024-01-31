@@ -62,6 +62,7 @@ export default function SearchPageClient({ queryString }: Props) {
     <ShowsLayoutWrapper layoutTitle={layoutTitle} error={null}>
       {uniqueShows.map((uniqueShows) => (
         <ThumbnailCard
+          id={uniqueShows.id}
           key={uniqueShows.id}
           category={uniqueShows.media_type}
           thumbnail={uniqueShows.backdrop_path}
