@@ -1,12 +1,12 @@
 "use client";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
 import ThumbnailCard from "@/components/thumbnail/thumbnail-card";
 import { NoResultFound } from "@/components/ui/no-result-found";
 import Skeleton from "@/components/ui/skeleton";
 import { fetchSearchedShows } from "@/helpers/get-shows";
 import { getUniquShows } from "@/helpers/get-unique-shows";
 import { ShowsLayoutWrapper } from "../_layout/shows-layout";
+import useCustomInfiniteQueryHook from "../hooks/use-custom-infinite-query-hook";
 import useDebounce from "../hooks/use-debounce";
 import useIntersectionObserver from "../hooks/use-observer-intersection";
 
@@ -17,15 +17,9 @@ interface Props {
 export default function SearchPageClient({ queryString }: Props) {
   const value = useDebounce({ value: queryString, delay: 750 });
 
-  const { data, error, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
+  const { data, error, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useCustomInfiniteQueryHook({
     queryKey: ["search", value],
-    queryFn: ({ pageParam }) => fetchSearchedShows({ pageParam, queryString: value }),
-    initialPageParam: 1,
-    getNextPageParam: (_, pages, lastPageParam) => {
-      const nextPage = lastPageParam !== 19 ? pages.length + 1 : undefined;
-      return nextPage;
-    },
-    maxPages: 20,
+    queryFunction: ({ pageParam }) => fetchSearchedShows({ pageParam, queryString: value }),
     enabled: !!value
   });
 
