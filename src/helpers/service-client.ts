@@ -1,4 +1,4 @@
-"use server";
+// "use server";
 
 import { TMBD_BASE_URI, TMDB_API_KEY } from "./constants";
 
@@ -8,23 +8,23 @@ interface FetchParams {
   variant: FetchVariant;
   path: "movie/popular" | "trending/all/day" | "tv/popular" | "movie" | "tv";
   method: "GET" | "POST";
-  pageParam: number;
+  pageParam?: number;
   queryString?: string;
 }
 
 interface FetchResponse<T> {
-  results: T[];
+  results: T;
   total_pages: number;
   total_results: number;
 }
 
-export async function fetchTMDB<T extends any>({
+export async function fetchTMDB<T>({
   variant,
   path,
   method,
   pageParam,
   queryString
-}: FetchParams): Promise<FetchResponse<T>> {
+}: FetchParams): Promise<T extends any[] ? FetchResponse<T> : T> {
   const url: Record<FetchVariant, string> = {
     shows: `${TMBD_BASE_URI}/${path}?api_key=${TMDB_API_KEY}&page=${pageParam}`,
     "searched-shows": `${TMBD_BASE_URI}/search/${path}?api_key=${TMDB_API_KEY}&page=${pageParam}&query=${queryString}`,

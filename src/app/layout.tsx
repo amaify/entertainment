@@ -1,14 +1,11 @@
 import type { ReactNode } from "react";
 import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { cookies } from "next/headers";
 import type { BkmarkedMovies } from "@/app/[category]/bookmark-page";
 import AppProvider from "./app-provider";
 import { createClient } from "../lib/supabase/server";
 import "./globals.css";
-
-const Modal = dynamic(() => import("@/components/modal/modal"), { ssr: false });
 
 export type ShowCategory = "Movie" | "TV Series" | "movie" | "tv";
 
@@ -49,7 +46,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <Modal />
         <AppProvider session={data.session} bkmarkedMovies={bkmarkedMovies?.data ? bkmarkedMovies.data : null}>
           {children}
         </AppProvider>
