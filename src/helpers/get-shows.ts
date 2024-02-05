@@ -1,11 +1,12 @@
 import type { Show } from "@/app/layout";
+import type { ShowDetails } from "@/components/modal/modal";
 import { TMDB_IMAGE_URI } from "./constants";
 import { fetchTMDB } from "./service-client";
 
 export const fetchShows = async ({ pageParam }: { pageParam: number }): Promise<Show[]> => {
   const [movies, tvSeries] = await Promise.all([
-    fetchTMDB<Show>({ variant: "shows", path: "movie/popular", method: "GET", pageParam }),
-    fetchTMDB<Show>({ variant: "shows", path: "tv/popular", method: "GET", pageParam })
+    fetchTMDB<Show[]>({ variant: "shows", path: "movie/popular", method: "GET", pageParam }),
+    fetchTMDB<Show[]>({ variant: "shows", path: "tv/popular", method: "GET", pageParam })
   ]);
 
   const allShows = [
@@ -28,8 +29,8 @@ export const fetchShows = async ({ pageParam }: { pageParam: number }): Promise<
 
 export const fetchSearchedShows = async ({ pageParam, queryString }: { pageParam: number; queryString: string }) => {
   const [movies, tvSeries] = await Promise.all([
-    fetchTMDB<Show>({ variant: "searched-shows", path: "movie", method: "GET", pageParam, queryString }),
-    fetchTMDB<Show>({ variant: "searched-shows", path: "tv", method: "GET", pageParam, queryString })
+    fetchTMDB<Show[]>({ variant: "searched-shows", path: "movie", method: "GET", pageParam, queryString }),
+    fetchTMDB<Show[]>({ variant: "searched-shows", path: "tv", method: "GET", pageParam, queryString })
   ]);
 
   return [
@@ -49,12 +50,22 @@ export const fetchSearchedShows = async ({ pageParam, queryString }: { pageParam
 };
 
 export const fetchTrendingShows = async () => {
-  const response = await fetchTMDB<Show>({ path: "trending/all/day", method: "GET", pageParam: 1, variant: "shows" });
+  const response = await fetchTMDB<Show[]>({ path: "trending/all/day", method: "GET", pageParam: 1, variant: "shows" });
   const formattedResult = response.results.map((show) => ({
     ...show,
     media_type: (show.media_type === "movie" ? "Movie" : "TV Series") as Show["media_type"]
   }));
   return formattedResult;
+};
+
+export const fetchShowDetails = async ({ id, category }: { id: string; category: "movie" | "tv" }) => {
+  const response = await fetchTMDB<ShowDetails>({
+    path: `${category}`,
+    queryString: `${id}`,
+    method: "GET",
+    variant: "show-details"
+  });
+  return response;
 };
 
 type ImageVariant = {
