@@ -71,6 +71,8 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
     >
       <Input
         variant="searchInput"
+        name="search-input"
+        id="search-input"
         placeholder={placeholderText}
         onChange={onInputChange}
         onFocus={() => setIsInputFocused(true)}
