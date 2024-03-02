@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Typography from "@/components/typography/typography";
 import Thumbnail from "@/components/thumbnail/thumbnail";
 import Skeleton from "@/components/ui/skeleton";
 import { fetchTrendingShows, getImageUrl } from "@/helpers/get-shows";
@@ -11,7 +12,9 @@ export default function TrendingShows() {
   if (error)
     return (
       <TrendingShowWrapper>
-        <h1 className="text-heading-lg text-primary">{error.message}</h1>
+        <Typography as="h1" intent="fluid-heading" className="!text-primary">
+          {error.message}
+        </Typography>
       </TrendingShowWrapper>
     );
 
@@ -53,7 +56,9 @@ export default function TrendingShows() {
 function TrendingShowWrapper({ children }: { children: ReactNode }) {
   return (
     <section className="mb-16 flex flex-col gap-10 pl-[1.6rem] sm:pl-[2.4rem] xl:pl-0">
-      <h1 className="text-heading-lg-mobile text-white sm:text-heading-lg-tab md:text-heading-lg">Trending</h1>
+      <Typography as="h1" intent="fluid-heading">
+        Trending
+      </Typography>
       <div className="[ trending-show-layout ] flex w-full flex-shrink gap-16 overflow-x-auto overflow-y-hidden pr-[1.6rem] sm:pr-[3.2rem]">
         {children}
       </div>

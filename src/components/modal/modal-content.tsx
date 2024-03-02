@@ -3,6 +3,7 @@ import { getImageUrl } from "@/helpers/get-shows";
 import type { ShowDetails } from "./modal";
 import ModalSkeleton from "./modal-skeleton";
 import { convertMinsToHrsMins, getYear } from "./modal-utils";
+import Typography from "../typography/typography";
 
 interface Props {
   showDetails: ShowDetails | undefined;
@@ -14,14 +15,19 @@ interface Props {
 export default function ModalContent({ showDetails, variant, isLoading, error }: Props) {
   if (isLoading) return <ModalSkeleton />;
 
-  if (error) return <h1 className="text-heading-lg text-primary-background">{error.message}</h1>;
+  if (error)
+    return (
+      <Typography as="h1" intent="fluid-heading" className="!text-primary-background">
+        {error.message}
+      </Typography>
+    );
 
   if (showDetails) {
     return (
       <div className="flex gap-8">
         <div className="min-h-[43rem] w-1/3">
           <Image
-            src={getImageUrl({ variant: "desktop", path: showDetails.poster_path })}
+            src={getImageUrl({ variant: "original", path: showDetails.poster_path })}
             alt={showDetails.title || showDetails?.name}
             width={500}
             height={500}
@@ -32,20 +38,26 @@ export default function ModalContent({ showDetails, variant, isLoading, error }:
         </div>
         <div className="flex w-[70%] flex-col gap-5">
           <div>
-            <h1 className="text-heading-lg">
+            <Typography as="h1" intent="fluid-heading" className="!text-primary-background">
               {showDetails.title || showDetails.name}{" "}
               <span className="opacity-60">({getYear(showDetails.release_date || showDetails?.first_air_date)})</span>
-            </h1>
+            </Typography>
             <div className="modal-subheading text-body-sm">
               <span>{showDetails.genres.map((genre) => genre.name).join(", ")}</span>
               {variant === "movie" && <span>{convertMinsToHrsMins(showDetails.runtime)}</span>}
             </div>
           </div>
           <div>
-            <h2 className="text-heading-medium-sm">Overview</h2>
-            <p className="text-body-md">{showDetails.overview}</p>
+            <Typography as="h2" intent="heading-medium-sm" className="!text-primary-background">
+              Overview
+            </Typography>
+            <Typography as="p" intent="body-md" className="!text-primary-background">
+              {showDetails.overview}
+            </Typography>
           </div>
-          <p className="text-heading-light-sm italic">{showDetails.tagline}</p>
+          <Typography as="p" intent="heading-light-sm" className="italic !text-primary-background">
+            {showDetails.tagline}
+          </Typography>
         </div>
       </div>
     );

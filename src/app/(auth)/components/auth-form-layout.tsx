@@ -1,4 +1,5 @@
 import type { InputHTMLAttributes, ReactNode } from "react";
+import Typography from "@/components/typography/typography";
 import type { FormInputVariant } from "@/components/ui/input";
 
 export type FormInputName = "email" | "password" | "repeatPassword";
@@ -16,7 +17,9 @@ interface Props {
 export default function AuthFormLayout({ title, children }: Props) {
   return (
     <section className="w-full rounded-[2rem] bg-secondary-background px-[2.4rem] pb-[3.2rem] pt-[3.2rem] sm:mx-auto sm:w-[40rem] sm:p-[3.2rem]">
-      <h1 className="mb-16 text-left text-heading-lg capitalize text-white">{title}</h1>
+      <Typography as="h1" intent="heading-lg" className="mb-16 text-left capitalize">
+        {title}
+      </Typography>
       {children}
     </section>
   );
