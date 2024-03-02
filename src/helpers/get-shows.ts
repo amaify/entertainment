@@ -72,13 +72,15 @@ type ImageVariant = {
   desktop: "w500";
   tablet: "w342";
   mobile: "w185";
+  original: "original";
 };
 
 export function getImageUrl({ variant, path }: { variant: keyof ImageVariant; path: string }) {
   const imageWidth: Record<keyof ImageVariant, ImageVariant[keyof ImageVariant]> = {
     mobile: "w185",
     tablet: "w342",
-    desktop: "w500"
+    desktop: "w500",
+    original: "original"
   };
   return `${TMDB_IMAGE_URI}/${imageWidth[variant]}${path}`;
 }

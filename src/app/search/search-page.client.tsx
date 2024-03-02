@@ -1,5 +1,6 @@
 "use client";
 
+import Typography from "@/components/typography/typography";
 import ThumbnailCard from "@/components/thumbnail/thumbnail-card";
 import { NoResultFound } from "@/components/ui/no-result-found";
 import Skeleton from "@/components/ui/skeleton";
@@ -32,7 +33,9 @@ export default function SearchPageClient({ queryString }: Props) {
   if (error)
     return (
       <ShowsLayoutWrapper layoutTitle={layoutTitle} error={error}>
-        <h1 className="w-full text-heading-medium-sm text-primary">{error.message}</h1>
+        <Typography as="h1" intent="fluid-heading" className="w-full !text-primary">
+          {error.message}
+        </Typography>
       </ShowsLayoutWrapper>
     );
 

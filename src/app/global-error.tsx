@@ -1,5 +1,7 @@
 "use client";
 
+import Typography from "@/components/typography/typography";
+
 interface Props {
   error: Error & { digest?: string };
   reset: () => void;
@@ -10,8 +12,12 @@ export default function GlobalError({ error, reset }: Props) {
     <html lang="en">
       <body>
         <div className="flex h-screen flex-col items-center justify-center">
-          <h1 className="text-4xl font-bold text-primary">Error</h1>
-          <p className="text-body-md text-white">{error.message}</p>
+          <Typography as="h1" intent="heading-error-lg">
+            Error
+          </Typography>
+          <Typography as="p" intent="body-md">
+            {error.message}
+          </Typography>
         </div>
       </body>
     </html>

@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import Typography from "@/components/typography/typography";
 import ThumbnailCard from "@/components/thumbnail/thumbnail-card";
 import Skeleton from "@/components/ui/skeleton";
 import cn from "@/helpers/cn";
@@ -25,7 +26,9 @@ export default function ShowsLayout({ title, shows, error, isLoading, isFetching
   if (error)
     return (
       <ShowsLayoutWrapper layoutTitle={title} error={error}>
-        <h1 className="w-full text-heading-medium-sm text-primary">{error.message}</h1>
+        <Typography as="h1" intent="fluid-heading" className="w-full !text-primary">
+          {error.message}
+        </Typography>
       </ShowsLayoutWrapper>
     );
 
@@ -66,9 +69,9 @@ export default function ShowsLayout({ title, shows, error, isLoading, isFetching
 export function ShowsLayoutWrapper({ children, layoutTitle, error }: LayoutWrapper) {
   return (
     <section className="px-[1.6rem] pb-[1.6rem] sm:px-[2.4rem] sm:pb-[2.4rem] xl:px-0 xl:pb-0">
-      <h1 className="mb-[3.2rem] text-heading-lg-mobile text-white sm:text-heading-lg-tab md:text-heading-lg">
+      <Typography as="h1" intent="fluid-heading" className="mb-[3.2rem]">
         {layoutTitle}
-      </h1>
+      </Typography>
       <div className={cn(!error ? styles.shows_layout : "")}>{children}</div>
     </section>
   );

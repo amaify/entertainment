@@ -12,13 +12,14 @@ const config: Config = {
       fontSize: {
         "heading-xs": ["1.8rem", { fontWeight: "500" }],
         "heading-light-sm": ["2.4rem", { fontWeight: "300" }],
-        "heading-medium-sm": ["2.4rem", { fontWeight: "500" }],
+        "heading-medium-sm": ["2.4rem", { fontWeight: "400" }],
         "heading-lg": ["3.6rem", { fontWeight: "300" }],
         "heading-lg-tab": ["3.2rem", { fontWeight: "300" }],
         "heading-lg-mobile": ["2rem", { fontWeight: "300" }],
         "body-sm": ["1.3rem", { fontWeight: "300" }],
         "body-sm-mobile": ["1.4rem", { fontWeight: "500" }],
-        "body-md": ["1.5rem", { fontWeight: "300" }]
+        "body-md": ["1.5rem", { fontWeight: "300" }],
+        "fluid-heading": ["var(--heading-lg)", { fontWeight: "300" }]
       },
 
       colors: {
