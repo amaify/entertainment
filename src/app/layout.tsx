@@ -37,10 +37,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const supabase = createClient(cookies());
   const { data } = await supabase.auth.getSession();
   const bkmarkedMovies: PostgrestSingleResponse<BkmarkedMovies[]> | null = data.session
-    ? await supabase
-        .from("bookmarked_movies")
-        .select("title, category")
-        .eq("user_id", data.session?.user?.id)
+    ? await supabase.from("bookmarked_movies").select("title, category").eq("user_id", data.session?.user?.id)
     : null;
 
   return (

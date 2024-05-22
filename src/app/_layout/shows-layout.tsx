@@ -1,8 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Typography from "@/components/typography/typography";
 import ThumbnailCard from "@/components/thumbnail/thumbnail-card";
+import Typography from "@/components/typography/typography";
 import Skeleton from "@/components/ui/skeleton";
 import cn from "@/helpers/cn";
 import styles from "./layout.module.css";
