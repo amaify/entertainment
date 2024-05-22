@@ -25,7 +25,7 @@ const defaultInputValue: DefaultInputValue = {
 
 export default function Login() {
   return (
-    <main className="w-full">
+    <main className="w-full text-white">
       <LoginClient defaultInputValue={defaultInputValue} formFields={formFields} />
     </main>
   );

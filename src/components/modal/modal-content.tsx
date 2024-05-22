@@ -21,7 +21,7 @@ export default function ModalContent({ showDetails, variant, isLoading, error }:
       <div className="flex gap-8">
         <div className="min-h-[43rem] w-1/3">
           <Image
-            src={getImageUrl({ variant: "desktop", path: showDetails.poster_path })}
+            src={getImageUrl({ variant: "original", path: showDetails.poster_path })}
             alt={showDetails.title || showDetails?.name}
             width={500}
             height={500}
