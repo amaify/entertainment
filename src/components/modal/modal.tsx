@@ -31,7 +31,7 @@ export default function Modal() {
   const showCategory = searchParams.get("category") as "movie" | "tv";
 
   const { data, isLoading, error } = useCustomQuery({
-    queryKey: [showCategory],
+    queryKey: [showId],
     queryFn: () => fetchShowDetails({ id: showId ?? "", category: showCategory }),
     enabled: !!showId
   });
