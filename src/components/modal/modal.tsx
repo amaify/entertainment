@@ -1,6 +1,6 @@
 "use client";
 
-import { Dialog } from "@headlessui/react";
+import { Dialog, DialogPanel } from "@headlessui/react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import useCustomQuery from "@/app/hooks/use-custom-query";
@@ -45,13 +45,13 @@ export default function Modal() {
 
   return (
     <Dialog open={!!showId} onClose={handlCloseModal}>
-      <Dialog.Backdrop className="fixed inset-0 z-20 bg-black/50 backdrop-blur" onClick={handlCloseModal} />
-      <Dialog.Panel className="fixed left-1/2 top-1/2 z-30 w-[60%] -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white px-10 py-12">
+      <div className="fixed inset-0 z-20 bg-black/50 backdrop-blur" onClick={handlCloseModal} />
+      <DialogPanel className="fixed left-1/2 top-1/2 z-30 w-[60%] -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white px-10 py-12">
         <button className="absolute right-10 top-8" onClick={handlCloseModal}>
           <SvgIcon variant="closeIcon" />
         </button>
         <ModalContent showDetails={data} isLoading={isLoading} error={error} variant="movie" />
-      </Dialog.Panel>
+      </DialogPanel>
     </Dialog>
   );
 }

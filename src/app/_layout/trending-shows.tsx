@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import Typography from "@/components/typography/typography";
 import Thumbnail from "@/components/thumbnail/thumbnail";
+import Typography from "@/components/typography/typography";
 import Skeleton from "@/components/ui/skeleton";
 import { fetchTrendingShows, getImageUrl } from "@/helpers/get-shows";
 import useCustomQuery from "../hooks/use-custom-query";

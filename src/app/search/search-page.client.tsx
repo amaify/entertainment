@@ -1,7 +1,7 @@
 "use client";
 
-import Typography from "@/components/typography/typography";
 import ThumbnailCard from "@/components/thumbnail/thumbnail-card";
+import Typography from "@/components/typography/typography";
 import { NoResultFound } from "@/components/ui/no-result-found";
 import Skeleton from "@/components/ui/skeleton";
 import { fetchSearchedShows } from "@/helpers/get-shows";
