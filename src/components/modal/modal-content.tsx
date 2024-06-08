@@ -1,4 +1,6 @@
+import { clsx } from "clsx";
 import Image from "next/image";
+import useMediaQuery from "@/app/hooks/use-media-query";
 import { getImageUrl } from "@/helpers/get-shows";
 import type { ShowDetails } from "./modal";
 import ModalSkeleton from "./modal-skeleton";
@@ -13,6 +15,7 @@ interface Props {
 }
 
 export default function ModalContent({ showDetails, variant, isLoading, error }: Props) {
+  const isTablet = useMediaQuery({ query: "(min-width: 768px)" });
   if (isLoading) return <ModalSkeleton />;
 
   if (error)
@@ -24,19 +27,22 @@ export default function ModalContent({ showDetails, variant, isLoading, error }:
 
   if (showDetails) {
     return (
-      <div className="flex gap-8">
-        <div className="min-h-[43rem] w-1/3">
+      <div className="flex flex-col gap-8 md:flex-row">
+        <div className={clsx("h-[30rem] w-full", "md:h-auto md:min-h-[43rem] md:w-1/3")}>
           <Image
-            src={getImageUrl({ variant: "original", path: showDetails.poster_path })}
+            src={getImageUrl({
+              variant: "original",
+              path: !isTablet ? showDetails.backdrop_path : showDetails.poster_path
+            })}
             alt={showDetails.title || showDetails?.name}
             width={500}
-            height={500}
+            height={700}
             loading="lazy"
             placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM83jz5PwAG1ALeWannmwAAAABJRU5ErkJggg=="
-            className="h-full w-full rounded-xl object-cover"
+            className="size-full object-cover md:rounded-xl"
           />
         </div>
-        <div className="flex w-[70%] flex-col gap-5">
+        <div className="flex w-full flex-col gap-5 px-10 pb-12 md:w-[70%] md:px-0 md:pb-0">
           <div>
             <Typography as="h1" intent="fluid-heading" className="!text-primary-background">
               {showDetails.title || showDetails.name}{" "}
@@ -52,7 +58,7 @@ export default function ModalContent({ showDetails, variant, isLoading, error }:
               Overview
             </Typography>
             <Typography as="p" intent="body-md" className="!text-primary-background">
-              {showDetails.overview}
+              {showDetails.overview !== "" ? showDetails.overview : "No overview available"}
             </Typography>
           </div>
           <Typography as="p" intent="heading-light-sm" className="italic !text-primary-background">

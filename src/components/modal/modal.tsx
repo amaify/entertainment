@@ -1,9 +1,11 @@
 "use client";
 
 import { Dialog, DialogPanel } from "@headlessui/react";
+import { clsx } from "clsx";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import useCustomQuery from "@/app/hooks/use-custom-query";
+import useMediaQuery from "@/app/hooks/use-media-query";
 import { fetchShowDetails } from "@/helpers/get-shows";
 import ModalContent from "./modal-content";
 import SvgIcon from "../svg/svg";
@@ -18,6 +20,7 @@ export interface ShowDetails {
   release_date: string;
   first_air_date: string;
   poster_path: string;
+  backdrop_path: string;
   runtime: number;
   genres: { id: number; name: string }[];
 }
@@ -26,6 +29,7 @@ export default function Modal() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
+  const isMobile = useMediaQuery({ query: "(min-width: 768px)" });
 
   const showId = searchParams.get("id") as string;
   const showCategory = searchParams.get("category") as "movie" | "tv";
@@ -46,11 +50,26 @@ export default function Modal() {
   return (
     <Dialog open={!!showId} onClose={handlCloseModal}>
       <div className="fixed inset-0 z-20 bg-black/50 backdrop-blur" onClick={handlCloseModal} />
-      <DialogPanel className="fixed left-1/2 top-1/2 z-30 w-[60%] -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white px-10 py-12">
-        <button className="absolute right-10 top-8" onClick={handlCloseModal}>
-          <SvgIcon variant="closeIcon" />
-        </button>
-        <ModalContent showDetails={data} isLoading={isLoading} error={error} variant="movie" />
+      <DialogPanel
+        className={clsx(
+          "max-h-[70%] min-h-[70%] w-[90%] overflow-y-auto rounded-xl bg-white",
+          "fixed left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2",
+          "md:max-h-full md:min-h-0 md:w-[80%] md:px-10 md:py-12",
+          "xl:w-[60%]"
+        )}
+      >
+        <div className={clsx("absolute right-10 top-8 z-10")}>
+          <button
+            className={clsx({
+              "flex size-16 items-center justify-center rounded-full bg-primary transition-colors hover:bg-primary/60":
+                !isMobile
+            })}
+            onClick={handlCloseModal}
+          >
+            <SvgIcon variant="closeIcon" />
+          </button>
+        </div>
+        <ModalContent showDetails={data} isLoading={isLoading} error={error} variant={showCategory} />
       </DialogPanel>
     </Dialog>
   );

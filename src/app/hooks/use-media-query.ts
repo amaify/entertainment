@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-type ScreenSize = "640px" | "1280px";
+type ScreenSize = "640px" | "768px" | "1280px";
 interface Props {
   query: `(min-width: ${ScreenSize})`;
 }
