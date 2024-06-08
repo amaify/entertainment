@@ -1,4 +1,4 @@
-// "use server";
+"use server";
 
 import { TMBD_BASE_URI, TMDB_API_KEY } from "./constants";
 
