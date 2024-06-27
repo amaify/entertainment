@@ -39,8 +39,12 @@ export async function fetchTMDB<T>({
     }
   };
 
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), 8000);
+
   try {
-    const response = await fetch(url[variant], options);
+    const response = await fetch(url[variant], { ...options, signal: controller.signal });
+    clearTimeout(id);
     const result = await response.json();
     return result;
   } catch (error) {
