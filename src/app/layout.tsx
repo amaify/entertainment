@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import type { BkmarkedMovies } from "@/app/[category]/bookmark-page";
 import { getUserAction } from "@/lib/server-actions/auth-session-action";
 import AppProvider from "./app-provider";
@@ -35,7 +34,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  const supabase = createClient(cookies());
+  const supabase = createClient();
   const user = await getUserAction();
 
   const bkmarkedMovies: PostgrestSingleResponse<BkmarkedMovies[]> | null = user

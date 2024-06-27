@@ -1,7 +1,6 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
 import { createClient } from "../supabase/server";
 
 interface ActionResponse {
@@ -9,7 +8,7 @@ interface ActionResponse {
 }
 
 export async function logoutAction(): Promise<ActionResponse> {
-  const supabase = createClient(cookies());
+  const supabase = createClient();
   const { error } = await supabase.auth.signOut();
 
   if (error) {

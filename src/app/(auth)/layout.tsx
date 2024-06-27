@@ -1,12 +1,11 @@
 import type { ReactNode } from "react";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import SvgIcon from "@/components/svg/svg";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function AuthLayout({ children }: { children: ReactNode }) {
-  const supabase = createClient(cookies());
+  const supabase = await createClient();
 
   const {
     data: { session }
