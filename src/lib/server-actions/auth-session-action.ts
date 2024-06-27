@@ -1,10 +1,11 @@
 "use server";
 
+import type { Session } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import type { AuthSession } from "@/app/app-provider";
 import { createClient } from "../supabase/server";
 
 type LogoutResponse = { message: "success" | (string & {}) };
+type AuthSession = Session | null;
 
 export async function authSessionAction(): Promise<AuthSession> {
   const supabase = createClient(cookies());

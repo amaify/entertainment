@@ -1,18 +1,15 @@
 "use client";
 
 import { createContext, useContext, type ReactNode } from "react";
-import type { Session } from "@supabase/supabase-js";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { BkmarkedMovies } from "@/app/[category]/bookmark-page";
 import Modal from "@/components/modal/modal";
 import Notification from "@/components/ui/notification";
 import ShowProvider from "./show-provider";
 
-export type AuthSession = Session | null;
-
 interface Props {
   children: ReactNode;
-  session: AuthSession;
+  userId: string | undefined;
   bkmarkedMovies: BkmarkedMovies[] | null;
 }
 
@@ -20,10 +17,10 @@ const queryClient = new QueryClient();
 
 export const AppContext = createContext<Omit<Props, "children"> | null>(null);
 
-export default function AppProvider({ children, session, bkmarkedMovies }: Props) {
+export default function AppProvider({ children, userId, bkmarkedMovies }: Props) {
   return (
     <QueryClientProvider client={queryClient}>
-      <AppContext.Provider value={{ session, bkmarkedMovies }}>
+      <AppContext.Provider value={{ userId, bkmarkedMovies }}>
         <Modal />
         <ShowProvider>
           <Notification />

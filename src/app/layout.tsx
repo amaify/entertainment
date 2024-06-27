@@ -3,6 +3,7 @@ import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import type { BkmarkedMovies } from "@/app/[category]/bookmark-page";
+import { getUserAction } from "@/lib/server-actions/auth-session-action";
 import AppProvider from "./app-provider";
 import { createClient } from "../lib/supabase/server";
 import "./globals.css";
@@ -35,15 +36,16 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const supabase = createClient(cookies());
-  const { data } = await supabase.auth.getSession();
-  const bkmarkedMovies: PostgrestSingleResponse<BkmarkedMovies[]> | null = data.session
-    ? await supabase.from("bookmarked_movies").select("title, category").eq("user_id", data.session?.user?.id)
+  const user = await getUserAction();
+
+  const bkmarkedMovies: PostgrestSingleResponse<BkmarkedMovies[]> | null = user
+    ? await supabase.from("bookmarked_movies").select("title, category").eq("user_id", user.id)
     : null;
 
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <AppProvider session={data.session} bkmarkedMovies={bkmarkedMovies?.data ? bkmarkedMovies.data : null}>
+        <AppProvider userId={user?.id} bkmarkedMovies={bkmarkedMovies?.data ? bkmarkedMovies.data : null}>
           {children}
         </AppProvider>
       </body>

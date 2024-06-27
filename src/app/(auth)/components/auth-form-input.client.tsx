@@ -10,9 +10,10 @@ interface Props {
   formFields: FormFields[];
   btnTitle: string;
   defaultInputValue: DefaultInputValue;
+  pending: boolean;
 }
 
-export default function AuthFormInput({ formFields, btnTitle, defaultInputValue }: Props) {
+export default function AuthFormInput({ formFields, btnTitle, pending, defaultInputValue }: Props) {
   const [inputValue, setInputValue] = useState(defaultInputValue);
   const [inputError, setInputError] = useState<Record<string, string>>({});
   const isError = Object.values(inputError).some((value) => value);
@@ -50,7 +51,7 @@ export default function AuthFormInput({ formFields, btnTitle, defaultInputValue 
           />
         ))}
       </div>
-      <Button type="submit" title={btnTitle} aria-disabled={isError}>
+      <Button type="submit" disabled={pending} title={btnTitle} aria-disabled={isError}>
         {btnTitle}
       </Button>
     </>

@@ -14,13 +14,13 @@ interface NavLinks {
 
 export default function NavigationLinks() {
   const pathname = usePathname();
-  const { session: authSession } = useAppProviderContext();
+  const { userId } = useAppProviderContext();
 
   const navLinks: NavLinks[] = [
     { title: "Home", icon: "navHomeIcon", href: "/" },
     { title: "Movies", icon: "navMovieIcon", href: "/movies" },
     { title: "TV series", icon: "navTvSeriesIcon", href: "/series" },
-    ...(authSession ? [{ title: "Bookmarks", icon: "navBookmarkIcon", href: "/bookmarks" } as NavLinks] : [])
+    ...(userId ? [{ title: "Bookmarks", icon: "navBookmarkIcon", href: "/bookmarks" } as NavLinks] : [])
   ];
 
   return (
