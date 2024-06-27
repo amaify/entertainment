@@ -1,6 +1,5 @@
 "use server";
 
-import { cookies } from "next/headers";
 import { createClient } from "../supabase/server";
 
 export interface BookmarkAction {
@@ -10,7 +9,7 @@ export interface BookmarkAction {
 
 export type BookmarkActionResponse = { message: "success" | (string & {}) };
 export async function addMovieToBookmarkAction({ title, category }: BookmarkAction): Promise<BookmarkActionResponse> {
-  const supabase = createClient(cookies());
+  const supabase = createClient();
   const { data } = await supabase.auth.getUser();
 
   if (!data.user?.id) return { message: "User not authenticated" };
@@ -27,7 +26,7 @@ export async function addMovieToBookmarkAction({ title, category }: BookmarkActi
 export async function removeMovieFromBookmarkAction({
   title
 }: Pick<BookmarkAction, "title">): Promise<BookmarkActionResponse> {
-  const supabase = createClient(cookies());
+  const supabase = createClient();
   const { data } = await supabase.auth.getUser();
 
   if (!data.user?.id) return { message: "User not authenticated" };
