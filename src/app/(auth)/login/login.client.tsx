@@ -24,6 +24,7 @@ export default function LoginClient({ formFields, defaultInputValue }: Props) {
         <AuthFormInput
           formFields={formFields}
           defaultInputValue={defaultInputValue}
+          pending={pending}
           btnTitle={pending ? "Logging in..." : "Login to your account"}
         />
       </form>

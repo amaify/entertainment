@@ -13,7 +13,8 @@ export type IconVariant =
   | "navBookmarkIcon"
   | "logoutIcon"
   | "upArrowIcon"
-  | "closeIcon";
+  | "closeIcon"
+  | "noAvatar";
 
 interface Props {
   variant: IconVariant;
@@ -22,7 +23,7 @@ interface Props {
 }
 
 export default function SvgIcon({ variant, className, fillColour }: Props) {
-  const svgIcons: Record<typeof variant, ReactNode> = {
+  const svgIcons: Record<IconVariant, ReactNode> = {
     searchIcon: (
       <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" data-icon="searchIcon" className={className}>
         <path
@@ -160,6 +161,83 @@ export default function SvgIcon({ variant, className, fillColour }: Props) {
       >
         <g id="SVGRepo_iconCarrier">
           <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55 c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55 c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505 c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55 l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719 c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z" />
+        </g>
+      </svg>
+    ),
+    noAvatar: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
+        version="1.1"
+        width="256"
+        height="256"
+        viewBox="0 0 256 256"
+        xmlSpace="preserve"
+        className={className}
+      >
+        <defs></defs>
+        <g
+          style={{
+            stroke: "none",
+            strokeWidth: 0,
+            strokeDasharray: "none",
+            strokeLinecap: "butt",
+            strokeLinejoin: "miter",
+            strokeMiterlimit: 10,
+            fill: "none",
+            fillRule: "nonzero",
+            opacity: 1
+          }}
+          transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+        >
+          <path
+            d="M 45 88 c -11.049 0 -21.18 -2.003 -29.021 -8.634 C 6.212 71.105 0 58.764 0 45 C 0 20.187 20.187 0 45 0 c 24.813 0 45 20.187 45 45 c 0 13.765 -6.212 26.105 -15.979 34.366 C 66.181 85.998 56.049 88 45 88 z"
+            style={{
+              stroke: "none",
+              strokeWidth: 1,
+              strokeDasharray: "none",
+              strokeLinecap: "butt",
+              strokeLinejoin: "miter",
+              strokeMiterlimit: 10,
+              fill: "rgb(214,214,214)",
+              fillRule: "nonzero",
+              opacity: 1
+            }}
+            transform=" matrix(1 0 0 1 0 0) "
+            strokeLinecap="round"
+          />
+          <path
+            d="M 45 60.71 c -11.479 0 -20.818 -9.339 -20.818 -20.817 c 0 -11.479 9.339 -20.818 20.818 -20.818 c 11.479 0 20.817 9.339 20.817 20.818 C 65.817 51.371 56.479 60.71 45 60.71 z"
+            style={{
+              stroke: "none",
+              strokeWidth: 1,
+              strokeDasharray: "none",
+              strokeLinecap: "butt",
+              strokeLinejoin: "miter",
+              strokeMiterlimit: 10,
+              fill: "rgb(165,164,164)",
+              fillRule: "nonzero",
+              opacity: 1
+            }}
+            transform=" matrix(1 0 0 1 0 0) "
+            strokeLinecap="round"
+          />
+          <path
+            d="M 45 90 c -10.613 0 -20.922 -3.773 -29.028 -10.625 c -0.648 -0.548 -0.88 -1.444 -0.579 -2.237 C 20.034 64.919 31.933 56.71 45 56.71 s 24.966 8.209 29.607 20.428 c 0.301 0.793 0.069 1.689 -0.579 2.237 C 65.922 86.227 55.613 90 45 90 z"
+            style={{
+              stroke: "none",
+              strokeWidth: 1,
+              strokeDasharray: "none",
+              strokeLinecap: "butt",
+              strokeLinejoin: "miter",
+              strokeMiterlimit: 10,
+              fill: "rgb(165,164,164)",
+              fillRule: "nonzero",
+              opacity: 1
+            }}
+            transform=" matrix(1 0 0 1 0 0) "
+            strokeLinecap="round"
+          />
         </g>
       </svg>
     )

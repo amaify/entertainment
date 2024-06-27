@@ -25,6 +25,7 @@ export default function SignupClient({ formFields, defaultInputValue }: Props) {
         <AuthFormInput
           formFields={formFields}
           defaultInputValue={defaultInputValue}
+          pending={pending}
           btnTitle={pending ? "Creating account..." : "Create an account"}
         />
       </form>
