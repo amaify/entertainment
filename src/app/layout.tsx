@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { PostgrestSingleResponse } from "@supabase/supabase-js";
+import type { PostgrestSingleResponse, User } from "@supabase/supabase-js";
 import type { Metadata } from "next";
 import type { BkmarkedMovies } from "@/app/[category]/bookmark-page";
 import { getUserAction } from "@/lib/server-actions/auth-session-action";
@@ -33,18 +33,46 @@ export const metadata: Metadata = {
   }
 };
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
+async function getUserAvatarUrl(user: User | null): Promise<string | null> {
+  if (!user) return null;
+
   const supabase = createClient();
+
+  try {
+    const { data } = await supabase.from("users_profile").select("avatar_url").eq("id", user.id);
+    const avatarUrl = data[0]?.avatar_url;
+    return avatarUrl;
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+}
+
+async function getBookmarkedMovies(user: User | null): Promise<BkmarkedMovies[] | null> {
+  if (!user) return null;
+  const supabase = createClient();
+
+  try {
+    const bookmarkedMovies: PostgrestSingleResponse<BkmarkedMovies[]> | null = await supabase
+      .from("bookmarked_movies")
+      .select("title, category")
+      .eq("user_id", user.id);
+
+    return bookmarkedMovies;
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+}
+
+export default async function RootLayout({ children }: { children: ReactNode }) {
   const user = await getUserAction();
 
-  const bkmarkedMovies: PostgrestSingleResponse<BkmarkedMovies[]> | null = user
-    ? await supabase.from("bookmarked_movies").select("title, category").eq("user_id", user.id)
-    : null;
+  const avatarUrl = await getUserAvatarUrl(user);
+  const bookmarkedMovies = await getBookmarkedMovies(user);
 
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <AppProvider userId={user?.id} bkmarkedMovies={bkmarkedMovies?.data ? bkmarkedMovies.data : null}>
+        <AppProvider userId={user?.id} avatarUrl={avatarUrl ?? ""} bkmarkedMovies={bookmarkedMovies ?? null}>
           {children}
         </AppProvider>
       </body>

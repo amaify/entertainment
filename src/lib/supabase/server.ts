@@ -11,7 +11,12 @@ export function createClient() {
         return cookieStore.getAll();
       },
       setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
+        try {
+          cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
+        } catch (error) {
+          console.error("-- Set coookie error ---> ", (error as Error).message);
+          cookieStore.delete(cookiesToSet[0].name);
+        }
       }
     }
   });

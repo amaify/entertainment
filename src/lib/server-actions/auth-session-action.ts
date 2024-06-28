@@ -26,8 +26,12 @@ export async function logoutAction(): Promise<LogoutResponse> {
 }
 
 export async function getUserAction() {
-  const supabase = createClient();
-  const { data } = await supabase.auth.getUser();
+  try {
+    const supabase = createClient();
+    const { data } = await supabase.auth.getUser();
 
-  return data.user;
+    return data.user;
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
 }
