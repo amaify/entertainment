@@ -10,6 +10,7 @@ import ShowProvider from "./show-provider";
 interface Props {
   children: ReactNode;
   userId: string | undefined;
+  avatarUrl: string;
   bkmarkedMovies: BkmarkedMovies[] | null;
 }
 
@@ -17,10 +18,10 @@ const queryClient = new QueryClient();
 
 export const AppContext = createContext<Omit<Props, "children"> | null>(null);
 
-export default function AppProvider({ children, userId, bkmarkedMovies }: Props) {
+export default function AppProvider({ children, userId, avatarUrl, bkmarkedMovies }: Props) {
   return (
     <QueryClientProvider client={queryClient}>
-      <AppContext.Provider value={{ userId, bkmarkedMovies }}>
+      <AppContext.Provider value={{ userId, bkmarkedMovies, avatarUrl }}>
         <Modal />
         <ShowProvider>
           <Notification />

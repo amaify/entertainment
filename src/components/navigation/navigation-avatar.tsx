@@ -4,24 +4,27 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useAppProviderContext } from "@/app/app-provider";
-import { logoutAction } from "@/lib/server-actions/auth-session-action";
-import AvatarImage from "@/public/shared/image-avatar.png";
+import useDownloadUserAvatar from "@/app/hooks/use-download-user-avatar";
+import { createClient } from "@/lib/supabase/client";
 import SvgIcon from "../svg/svg";
 
 export default function NavigationAvatar() {
-  const { userId } = useAppProviderContext();
   const router = useRouter();
+  const { userId } = useAppProviderContext();
+  const { data } = useDownloadUserAvatar();
 
   const handleLogout = async () => {
-    const { message } = await logoutAction();
+    const supabase = createClient();
+    const { error } = await supabase.auth.signOut();
 
-    if (message !== "success") {
-      toast.error(message);
+    if (!error) {
+      router.replace("/");
+      router.refresh();
+      toast.success("Logout successful");
       return;
     }
 
-    toast.success("Logout successful");
-    router.push("/");
+    toast.error(error.message);
   };
 
   return (
@@ -32,7 +35,11 @@ export default function NavigationAvatar() {
         </button>
       )}
       <AvatarWrapper userId={userId}>
-        <Image src={AvatarImage} alt="Avatar" className="block h-full w-full" priority />
+        {userId && data ? (
+          <Image src={data} alt="Avatar" width={500} height={500} className="block size-full rounded-full" priority />
+        ) : (
+          <SvgIcon variant="noAvatar" className="size-full rounded-full" />
+        )}
       </AvatarWrapper>
     </div>
   );

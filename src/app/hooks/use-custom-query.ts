@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 interface Props<T> {
-  queryKey: string[];
+  queryKey: Array<string>;
   queryFn: () => Promise<T>;
   enabled?: boolean;
 }

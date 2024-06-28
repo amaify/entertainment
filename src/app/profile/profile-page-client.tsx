@@ -1,24 +1,18 @@
 "use client";
 
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Button from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import PreviewAvatar from "./preview-avatar";
 import { useAppProviderContext } from "../app-provider";
 
-export default function ProfilePageClient({ avatarUrl }: { avatarUrl: string }) {
-  const [imageSource, setImageSource] = useState("");
+export default function ProfilePageClient() {
+  const router = useRouter();
   const [file, setFile] = useState<File>();
-
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const { userId } = useAppProviderContext();
-
-  const downloadAvatar = async () => {
-    const supabase = createClient();
-    const { data } = await supabase.storage.from("entertainment-avatars").download(avatarUrl);
-    const dataUrl = URL.createObjectURL(data!);
-    setImageSource(dataUrl);
-  };
 
   const handleAvatarUpload = async () => {
     if (!file) {
@@ -26,19 +20,23 @@ export default function ProfilePageClient({ avatarUrl }: { avatarUrl: string }) 
       return;
     }
 
+    setUploadingAvatar(true);
+
     const fileExtension = file.name.split(".").pop();
     const fileName = `${Math.random()}.${fileExtension}`;
-
     const supabase = createClient();
-
     const uploadFilePath = `${userId}/${fileName}`;
     const { error } = await supabase.storage.from("entertainment-avatars").upload(uploadFilePath, file);
 
     if (error) {
       toast.error(error.message);
+      setUploadingAvatar(false);
       return;
     }
+
     toast.success("Avatar uploaded");
+    setUploadingAvatar(false);
+    setFile(undefined);
 
     const { error: updateError } = await supabase
       .from("users_profile")
@@ -50,35 +48,19 @@ export default function ProfilePageClient({ avatarUrl }: { avatarUrl: string }) 
       return;
     }
 
+    router.refresh();
     toast.success("User profile updated!");
   };
 
-  const handleChooseAvatar = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files![0];
-    setFile(file);
-    setImageSource(URL.createObjectURL(file));
-  };
-
-  useEffect(() => {
-    downloadAvatar();
-  }, []);
+  const buttonText = uploadingAvatar ? "Uploading..." : "Upload avatar";
 
   return (
-    <div>
-      <div className="mb-16 size-48">
-        <PreviewAvatar imageSource={imageSource} />
-        <label
-          htmlFor="selectImage"
-          className="mt-2 block rounded-md bg-white text-center text-body-md transition-colors hover:bg-white/80"
-        >
-          {imageSource === "" ? "Choose file" : "Update avatar"}
-        </label>
-        <input type="file" id="selectImage" onChange={handleChooseAvatar} className="invisible absolute size-1" />
-      </div>
+    <>
+      <PreviewAvatar setFile={setFile} />
 
-      <Button onClick={handleAvatarUpload} disabled={!file}>
-        Upload avatar
+      <Button onClick={handleAvatarUpload} disabled={!file || uploadingAvatar}>
+        {buttonText}
       </Button>
-    </div>
+    </>
   );
 }
