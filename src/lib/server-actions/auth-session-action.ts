@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { createClient } from "../supabase/server";
 
 type LogoutResponse = { message: "success" | (string & {}) };
@@ -15,14 +16,19 @@ export async function authSessionAction() {
 }
 
 export async function logoutAction(): Promise<LogoutResponse> {
-  const supabase = createClient();
-  const { error } = await supabase.auth.signOut();
+  try {
+    const supabase = createClient();
+    const { error } = await supabase.auth.signOut();
 
-  if (error) {
-    return { message: error.message };
+    if (error) {
+      return { message: error.message };
+    }
+
+    revalidatePath("/");
+    return { message: "success" };
+  } catch (error) {
+    throw new Error((error as Error).message);
   }
-
-  return { message: "success" };
 }
 
 export async function getUserAction() {

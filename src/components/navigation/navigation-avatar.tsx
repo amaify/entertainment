@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -7,11 +7,12 @@ import { useAppProviderContext } from "@/app/app-provider";
 import useDownloadUserAvatar from "@/app/hooks/use-download-user-avatar";
 import { createClient } from "@/lib/supabase/client";
 import SvgIcon from "../svg/svg";
+import Skeleton from "../ui/skeleton";
 
 export default function NavigationAvatar() {
   const router = useRouter();
-  const { userId } = useAppProviderContext();
-  const { data } = useDownloadUserAvatar();
+  const { userId, avatarUrl } = useAppProviderContext();
+  const { data: userAvatar, isLoading } = useDownloadUserAvatar({ userId, avatarUrl });
 
   const handleLogout = async () => {
     const supabase = createClient();
@@ -27,6 +28,8 @@ export default function NavigationAvatar() {
     toast.error(error.message);
   };
 
+  if (isLoading) return <Skeleton className="size-[2.4rem] rounded-full border border-white sm:size-16" />;
+
   return (
     <div className="flex flex-row items-center gap-8 xl:flex-col xl:gap-10">
       {userId && (
@@ -35,8 +38,14 @@ export default function NavigationAvatar() {
         </button>
       )}
       <AvatarWrapper userId={userId}>
-        {userId && data ? (
-          <Image src={data} alt="Avatar" width={500} height={500} className="block size-full rounded-full" priority />
+        {userId && userAvatar ? (
+          <Image
+            src={userAvatar}
+            alt="Avatar"
+            width={500}
+            height={500}
+            className="block size-full rounded-full object-cover"
+          />
         ) : (
           <SvgIcon variant="noAvatar" className="size-full rounded-full" />
         )}

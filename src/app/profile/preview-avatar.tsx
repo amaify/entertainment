@@ -1,8 +1,9 @@
 import type { ChangeEvent } from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import PreviewAvatarSkeleton from "./preview-avatar-skeleton";
 import UserAvatar from "./user-avatar";
+import { useAppProviderContext } from "../app-provider";
 import useDownloadUserAvatar from "../hooks/use-download-user-avatar";
 
 interface Props {
@@ -10,8 +11,11 @@ interface Props {
 }
 
 export default function PreviewAvatar({ setFile }: Props) {
-  const { data, error, isLoading } = useDownloadUserAvatar();
+  const { avatarUrl, userId } = useAppProviderContext();
+  const { data, error, isLoading } = useDownloadUserAvatar({ avatarUrl, userId });
   const [selectedImage, setSelectedImage] = useState("");
+
+  const isErrorSet = useRef(false);
 
   const handleChooseAvatar = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files![0];
@@ -20,8 +24,9 @@ export default function PreviewAvatar({ setFile }: Props) {
   };
 
   if (isLoading) return <PreviewAvatarSkeleton />;
-  if (error) {
+  if (error && !isErrorSet.current) {
     toast.error(error.message);
+    isErrorSet.current = true;
   }
 
   const imageSource = selectedImage ? selectedImage : data;

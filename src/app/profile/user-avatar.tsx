@@ -7,7 +7,9 @@ interface Props {
 
 export default function UserAvatar({ imageSource }: Props) {
   if (imageSource) {
-    return <Image src={imageSource} alt="Avatar" className="size-full" width={500} height={500} />;
+    return (
+      <Image src={imageSource} alt="Avatar" className="size-full rounded-lg object-cover" width={500} height={500} />
+    );
   }
   return <SvgIcon variant="noAvatar" className="size-full" />;
 }

@@ -2,12 +2,22 @@
 
 import { createClient } from "@/lib/supabase/client";
 import useCustomQuery from "./use-custom-query";
-import { useAppProviderContext } from "../app-provider";
 
-async function downloadAvatar(avatarUrl: string) {
+async function downloadAvatar(userId: string) {
   try {
     const supabase = createClient();
-    const { data } = await supabase.storage.from("entertainment-avatars").download(avatarUrl);
+
+    const { data: avatarUrl, error: avatarUrlError } = await supabase
+      .from("users_profile")
+      .select("avatar_url")
+      .eq("id", userId);
+    if (avatarUrlError) throw new Error(avatarUrlError.message);
+
+    const url = avatarUrl ? avatarUrl[0].avatar_url : "";
+
+    const { data, error } = await supabase.storage.from("entertainment-avatars").download(url);
+    if (error) throw new Error("User avatar not found");
+
     const dataUrl = URL.createObjectURL(data!);
     return dataUrl;
   } catch (error) {
@@ -15,12 +25,16 @@ async function downloadAvatar(avatarUrl: string) {
   }
 }
 
-export default function useDownloadUserAvatar() {
-  const { avatarUrl, userId } = useAppProviderContext();
+interface Props {
+  avatarUrl: string; // This helps us to know if the user has an avatar so we can trigger the network request.
+  userId: string | undefined;
+}
+
+export default function useDownloadUserAvatar({ avatarUrl, userId }: Props) {
   const { data, error, isLoading } = useCustomQuery({
-    queryFn: () => downloadAvatar(avatarUrl),
-    queryKey: ["avatarUrl"],
-    enabled: userId !== undefined
+    queryFn: () => downloadAvatar(userId ?? ""),
+    queryKey: [avatarUrl],
+    enabled: !!avatarUrl
   });
 
   return {

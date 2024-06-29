@@ -1,9 +1,8 @@
 import type { ReactNode } from "react";
-import type { PostgrestSingleResponse, User } from "@supabase/supabase-js";
+import type { User } from "@supabase/supabase-js";
 import type { Metadata } from "next";
-import type { BkmarkedMovies } from "@/app/[category]/bookmark-page";
 import { getUserAction } from "@/lib/server-actions/auth-session-action";
-import AppProvider from "./app-provider";
+import AppProvider, { type BookmarkedMovieResponse } from "./app-provider";
 import { createClient } from "../lib/supabase/server";
 import "./globals.css";
 
@@ -40,19 +39,19 @@ async function getUserAvatarUrl(user: User | null): Promise<string | null> {
 
   try {
     const { data } = await supabase.from("users_profile").select("avatar_url").eq("id", user.id);
-    const avatarUrl = data[0]?.avatar_url;
+    const avatarUrl = data ? data[0].avatar_url : "";
     return avatarUrl;
   } catch (error) {
     throw new Error((error as Error).message);
   }
 }
 
-async function getBookmarkedMovies(user: User | null): Promise<BkmarkedMovies[] | null> {
+async function getBookmarkedMovies(user: User | null): Promise<BookmarkedMovieResponse> {
   if (!user) return null;
   const supabase = createClient();
 
   try {
-    const bookmarkedMovies: PostgrestSingleResponse<BkmarkedMovies[]> | null = await supabase
+    const bookmarkedMovies: BookmarkedMovieResponse = await supabase
       .from("bookmarked_movies")
       .select("title, category")
       .eq("user_id", user.id);

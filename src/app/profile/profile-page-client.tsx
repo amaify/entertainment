@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Button from "@/components/ui/button";
@@ -9,18 +10,13 @@ import PreviewAvatar from "./preview-avatar";
 import { useAppProviderContext } from "../app-provider";
 
 export default function ProfilePageClient() {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const [file, setFile] = useState<File>();
-  const [uploadingAvatar, setUploadingAvatar] = useState(false);
-  const { userId } = useAppProviderContext();
+  const { userId, avatarUrl } = useAppProviderContext();
 
   const handleAvatarUpload = async () => {
-    if (!file) {
-      toast.error("You must select an image to upload");
-      return;
-    }
-
-    setUploadingAvatar(true);
+    if (!file) throw new Error("You must select an image to upload");
 
     const fileExtension = file.name.split(".").pop();
     const fileName = `${Math.random()}.${fileExtension}`;
@@ -28,37 +24,38 @@ export default function ProfilePageClient() {
     const uploadFilePath = `${userId}/${fileName}`;
     const { error } = await supabase.storage.from("entertainment-avatars").upload(uploadFilePath, file);
 
-    if (error) {
-      toast.error(error.message);
-      setUploadingAvatar(false);
-      return;
-    }
-
-    toast.success("Avatar uploaded");
-    setUploadingAvatar(false);
-    setFile(undefined);
+    if (error) throw new Error(error.message);
 
     const { error: updateError } = await supabase
       .from("users_profile")
       .update({ avatar_url: uploadFilePath })
       .eq("id", userId);
 
-    if (updateError) {
-      toast.error(updateError.message);
-      return;
-    }
-
-    router.refresh();
-    toast.success("User profile updated!");
+    if (updateError) throw new Error(updateError.message);
   };
 
-  const buttonText = uploadingAvatar ? "Uploading..." : "Upload avatar";
+  const { isPending, mutate } = useMutation({
+    mutationFn: handleAvatarUpload,
+    onSuccess: () => {
+      toast.success("Avatar uploaded");
+      toast.success("User profile updated!");
+      setFile(undefined);
+      queryClient.invalidateQueries({ queryKey: [avatarUrl] });
+
+      if (!avatarUrl) router.refresh();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    }
+  });
+
+  const buttonText = isPending ? "Uploading..." : "Upload avatar";
 
   return (
     <>
       <PreviewAvatar setFile={setFile} />
 
-      <Button onClick={handleAvatarUpload} disabled={!file || uploadingAvatar}>
+      <Button onClick={() => mutate()} disabled={!file || isPending}>
         {buttonText}
       </Button>
     </>
