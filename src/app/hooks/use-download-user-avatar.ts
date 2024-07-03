@@ -11,6 +11,8 @@ async function downloadAvatar(userId: string) {
       .from("users_profile")
       .select("avatar_url")
       .eq("id", userId);
+
+    if (!avatarUrl![0].avatar_url) return null;
     if (avatarUrlError) throw new Error(avatarUrlError.message);
 
     const url = avatarUrl ? avatarUrl[0].avatar_url : "";
@@ -26,15 +28,17 @@ async function downloadAvatar(userId: string) {
 }
 
 interface Props {
-  avatarUrl: string; // This helps us to know if the user has an avatar so we can trigger the network request.
+  avatarUrl: string;
   userId: string | undefined;
 }
 
 export default function useDownloadUserAvatar({ avatarUrl, userId }: Props) {
+  const getQueryKey = avatarUrl !== "" ? avatarUrl : "newUser";
+
   const { data, error, isLoading } = useCustomQuery({
     queryFn: () => downloadAvatar(userId ?? ""),
-    queryKey: [avatarUrl],
-    enabled: !!avatarUrl
+    queryKey: [getQueryKey],
+    enabled: !!userId
   });
 
   return {

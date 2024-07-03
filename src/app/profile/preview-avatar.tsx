@@ -12,7 +12,7 @@ interface Props {
 
 export default function PreviewAvatar({ setFile }: Props) {
   const { avatarUrl, userId } = useAppProviderContext();
-  const { data, error, isLoading } = useDownloadUserAvatar({ avatarUrl, userId });
+  const { data: userAvatar, error, isLoading } = useDownloadUserAvatar({ avatarUrl, userId });
   const [selectedImage, setSelectedImage] = useState("");
 
   const isErrorSet = useRef(false);
@@ -29,7 +29,7 @@ export default function PreviewAvatar({ setFile }: Props) {
     isErrorSet.current = true;
   }
 
-  const imageSource = selectedImage ? selectedImage : data;
+  const imageSource = selectedImage ? selectedImage : userAvatar;
 
   return (
     <div className="mb-16 size-48">

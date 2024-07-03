@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Button from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
@@ -11,7 +10,6 @@ import { useAppProviderContext } from "../app-provider";
 
 export default function ProfilePageClient() {
   const queryClient = useQueryClient();
-  const router = useRouter();
   const [file, setFile] = useState<File>();
   const { userId, avatarUrl } = useAppProviderContext();
 
@@ -40,9 +38,12 @@ export default function ProfilePageClient() {
       toast.success("Avatar uploaded");
       toast.success("User profile updated!");
       setFile(undefined);
-      queryClient.invalidateQueries({ queryKey: [avatarUrl] });
 
-      if (!avatarUrl) router.refresh();
+      if (!avatarUrl) {
+        queryClient.invalidateQueries({ queryKey: ["newUser"] });
+      } else {
+        queryClient.invalidateQueries({ queryKey: [avatarUrl] });
+      }
     },
     onError: (error) => {
       toast.error(error.message);
