@@ -12,6 +12,7 @@ async function downloadAvatar(userId: string) {
       .select("avatar_url")
       .eq("id", userId);
 
+    if (avatarUrl.length === 0) return null;
     if (!avatarUrl![0].avatar_url) return null;
     if (avatarUrlError) throw new Error(avatarUrlError.message);
 

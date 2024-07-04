@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import SvgIcon from "@/components/svg/svg";
 import Typography from "@/components/typography/typography";
 import { getUserAction } from "@/lib/server-actions/auth-session-action";
-import ProfilePageClient from "./profile-page-client";
+import ProfilePageClient from "./page-client";
 
 export default async function UserProfile() {
   const user = await getUserAction();

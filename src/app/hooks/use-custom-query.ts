@@ -12,7 +12,8 @@ export default function useCustomQuery<T extends any>({ queryFn, queryKey, enabl
   const { data, isLoading, error } = useQuery({
     queryKey,
     queryFn,
-    enabled
+    enabled,
+    retry: 1
   });
 
   return {
