@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NavigationAvatar from "./navigation-avatar";
+import NavigationAuth from "./navigation-auth";
 import NavigationLinks from "./navigation-links";
 import SvgIcon from "../svg/svg";
 
@@ -11,7 +11,7 @@ export default function Navigation() {
       </Link>
 
       <NavigationLinks />
-      <NavigationAvatar />
+      <NavigationAuth />
     </nav>
   );
 }

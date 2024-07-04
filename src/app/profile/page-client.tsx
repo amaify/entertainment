@@ -45,6 +45,7 @@ export default function ProfilePageClient() {
         queryClient.invalidateQueries({ queryKey: [avatarUrl] });
       }
     },
+    mutationKey: ["uploadAvatar"],
     onError: (error) => {
       toast.error(error.message);
     }

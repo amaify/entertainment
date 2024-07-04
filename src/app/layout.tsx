@@ -39,7 +39,7 @@ async function getUserAvatarUrl(user: User | null): Promise<string | null> {
 
   try {
     const { data } = await supabase.from("users_profile").select("avatar_url").eq("id", user.id);
-    const avatarUrl = data ? data[0].avatar_url : "";
+    const avatarUrl = data.length > 0 ? data[0].avatar_url : "";
     return avatarUrl;
   } catch (error) {
     throw new Error((error as Error).message);
