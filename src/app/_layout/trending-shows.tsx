@@ -1,12 +1,17 @@
+"use client";
+
 import type { ReactNode } from "react";
 import Thumbnail from "@/components/thumbnail/thumbnail";
 import Typography from "@/components/typography/typography";
 import Skeleton from "@/components/ui/skeleton";
+import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
 import { fetchTrendingShows, getImageUrl } from "@/helpers/get-shows";
 import useCustomQuery from "../hooks/use-custom-query";
 import type { Show } from "../layout";
+import { useShowsProviderContext } from "../show-provider";
 
 export default function TrendingShows() {
+  const { bookmarkedMovies } = useShowsProviderContext();
   const { data, isLoading, error } = useCustomQuery<Show[]>({ queryFn: fetchTrendingShows, queryKey: ["trending"] });
 
   if (error)
@@ -43,8 +48,7 @@ export default function TrendingShows() {
             title={show.name || show.title}
             thumbnail={getImageUrl({ variant: "desktop", path: show.backdrop_path })}
             year={+(show.release_date || show.first_air_date).split("-")[0]}
-            isBookmarked={false}
-            // isBookmarked={getBookmarkedShows({ show: movie, bkmarkedShow: bookmarkedMovies })}
+            isBookmarked={getBookmarkedShows({ show: show, bookmarkedShow: bookmarkedMovies })}
             isTrending={false}
           />
         </div>

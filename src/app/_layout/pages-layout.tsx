@@ -1,3 +1,5 @@
+"use client";
+
 import { type ReactNode } from "react";
 import SearchInput from "@/components/search-input/search-input";
 interface Props {

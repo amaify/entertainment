@@ -5,15 +5,12 @@ import ThumbnailCard from "@/components/thumbnail/thumbnail-card";
 import Typography from "@/components/typography/typography";
 import Skeleton from "@/components/ui/skeleton";
 import cn from "@/helpers/cn";
+import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
 import styles from "./layout.module.css";
-import type { Show } from "../layout";
+import { useShowsProviderContext } from "../show-provider";
 
 interface Props {
   title: string;
-  shows: Show[];
-  error: Error | null;
-  isLoading: boolean;
-  isFetchingNextPage: boolean;
 }
 
 interface LayoutWrapper {
@@ -22,7 +19,9 @@ interface LayoutWrapper {
   error?: Error | null;
 }
 
-export default function ShowsLayout({ title, shows, error, isLoading, isFetchingNextPage }: Props) {
+export default function ShowsLayout({ title }: Props) {
+  const { shows, error, isLoading, isFetchingNextPage, bookmarkedMovies } = useShowsProviderContext();
+
   if (error)
     return (
       <ShowsLayoutWrapper layoutTitle={title} error={error}>
@@ -43,7 +42,6 @@ export default function ShowsLayout({ title, shows, error, isLoading, isFetching
 
   return (
     <ShowsLayoutWrapper layoutTitle={title}>
-      {/* {noBookmarkedMovie} */}
       {shows.map((movie) => (
         <ThumbnailCard
           key={movie.id}
@@ -51,14 +49,12 @@ export default function ShowsLayout({ title, shows, error, isLoading, isFetching
           category={movie.media_type}
           thumbnail={movie.backdrop_path}
           rating={movie.vote_average}
-          isBookmarked={false}
-          // isBookmarked={getBookmarkedShows({ show: movie, bkmarkedShow: bookmarkedMovies })}
+          isBookmarked={getBookmarkedShows({ show: movie, bookmarkedShow: bookmarkedMovies })}
           title={movie.title}
           year={+movie.release_date.split("-")[0]}
           isTrending={false}
         />
       ))}
-      {/* <div ref={observerElement} /> */}
 
       {isFetchingNextPage &&
         Array.from({ length: 20 }).map((_, idx) => <Skeleton key={idx} className="h-[11rem] sm:h-[17.4rem]" />)}

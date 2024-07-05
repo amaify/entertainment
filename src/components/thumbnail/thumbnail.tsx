@@ -2,10 +2,8 @@
 
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import toast from "react-hot-toast";
 import type { ShowCategory } from "@/app/layout";
 import cn from "@/helpers/cn";
-import { addMovieToBookmarkAction, removeMovieFromBookmarkAction } from "@/lib/server-actions/bookmark-action";
 import BookmarkIcon from "./thumbnail-bookmark-icon";
 import ThumbnailDescription from "./thumbnail-description";
 import ThumbnailPlayButton from "./thumbnail-play-button";
@@ -30,26 +28,6 @@ export default function Thumbnail({ id, variant, title, thumbnail, category, rat
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const getCategory = category === "Movie" ? "movie" : "tv";
-
-  const onBookmark = async () => {
-    const loadingToastMsg = !isBookmarked ? "Adding" : "Removing";
-    const successToastMsg = !isBookmarked ? "Added to" : "Removed from";
-
-    const toastLoadingId = toast.loading(`${loadingToastMsg} to bookmarks...`);
-    const { message } = !isBookmarked
-      ? await addMovieToBookmarkAction({ title, category })
-      : await removeMovieFromBookmarkAction({ title });
-
-    if (message !== "success") {
-      toast.error(message);
-      toast.dismiss(toastLoadingId);
-      return;
-    }
-
-    router.refresh();
-    toast.success(successToastMsg + "Bookmarks");
-    toast.dismiss(toastLoadingId);
-  };
 
   const onThumbnailClick = () => {
     const queryParam = new URLSearchParams(searchParams);
@@ -93,7 +71,7 @@ export default function Thumbnail({ id, variant, title, thumbnail, category, rat
           <ThumbnailDescription category={category} variant={variant} title={title} year={year} rating={rating} />
         )}
       </button>
-      <BookmarkIcon isBookmarked={isBookmarked} onClick={onBookmark} />
+      <BookmarkIcon isBookmarked={isBookmarked} title={title} category={category} />
     </div>
   );
 }

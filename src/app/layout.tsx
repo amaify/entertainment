@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import type { User } from "@supabase/supabase-js";
 import type { Metadata } from "next";
 import { getUserAction } from "@/lib/server-actions/auth-session-action";
-import AppProvider, { type BookmarkedMovieResponse } from "./app-provider";
+import AppProvider from "./app-provider";
 import { createClient } from "../lib/supabase/server";
 import "./globals.css";
 
@@ -46,32 +46,14 @@ async function getUserAvatarUrl(user: User | null): Promise<string | null> {
   }
 }
 
-async function getBookmarkedMovies(user: User | null): Promise<BookmarkedMovieResponse> {
-  if (!user) return null;
-  const supabase = createClient();
-
-  try {
-    const bookmarkedMovies: BookmarkedMovieResponse = await supabase
-      .from("bookmarked_movies")
-      .select("title, category")
-      .eq("user_id", user.id);
-
-    return bookmarkedMovies;
-  } catch (error) {
-    throw new Error((error as Error).message);
-  }
-}
-
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const user = await getUserAction();
-
   const avatarUrl = await getUserAvatarUrl(user);
-  const bookmarkedMovies = await getBookmarkedMovies(user);
 
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <AppProvider userId={user?.id} avatarUrl={avatarUrl ?? ""} bkmarkedMovies={bookmarkedMovies ?? null}>
+        <AppProvider userId={user?.id} avatarUrl={avatarUrl ?? ""}>
           {children}
         </AppProvider>
       </body>

@@ -6,7 +6,11 @@ import type { AppPath } from "@/components/navigation/navigation-links";
 import BackToTopButton from "@/components/ui/back-to-top-button";
 import { fetchShows } from "@/helpers/get-shows";
 import { getUniquShows } from "@/helpers/get-unique-shows";
+import { createClient } from "@/lib/supabase/client";
+import type { BookmarkedMovies } from "./[category]/bookmark-page";
+import { useAppProviderContext } from "./app-provider";
 import useCustomInfiniteQueryHook from "./hooks/use-custom-infinite-query-hook";
+import useCustomQuery from "./hooks/use-custom-query";
 import useIntersectionObserver from "./hooks/use-observer-intersection";
 import useScrollToTop from "./hooks/use-scroll-to-top";
 import type { Show } from "./layout";
@@ -20,6 +24,26 @@ interface ShowsContextProps {
     value?: FetchNextPageOptions
   ) => Promise<InfiniteQueryObserverResult<InfiniteData<Show[], unknown>, Error>>;
   hasNextPage: boolean;
+  bookmarkedMovies: BookmarkedMovies[] | undefined;
+}
+
+async function fetchBookmarkedMovies(userId: string | undefined) {
+  if (userId === "") return;
+  const supabase = createClient();
+
+  try {
+    const { data, error } = await supabase
+      .from("bookmarked_movies")
+      .select("title, category")
+      .eq("user_id", userId)
+      .returns<Array<BookmarkedMovies>>();
+
+    if (error) throw new Error(error.message);
+
+    return data;
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
 }
 
 export const ShowContext = createContext<ShowsContextProps | null>(null);
@@ -27,8 +51,16 @@ export const ShowContext = createContext<ShowsContextProps | null>(null);
 export default function ShowProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const isAuthPage = pathname === "/login" || pathname === "/signup";
-  const pathsToMakeQuery: AppPath[] = ["/", "/bookmarks", "/series", "/movies"];
+  const pathsToMakeQuery: Array<AppPath> = ["/", "/bookmarks", "/series", "/movies"];
   const isQueryEnabled = pathsToMakeQuery.includes(pathname as AppPath);
+
+  const { userId } = useAppProviderContext();
+
+  const { data: bookmarkedMovies } = useCustomQuery({
+    queryKey: ["bookmarkedMovies"],
+    queryFn: () => fetchBookmarkedMovies(userId),
+    enabled: !!userId
+  });
 
   const { data, error, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useCustomInfiniteQueryHook({
     queryKey: ["shows"],
@@ -41,7 +73,15 @@ export default function ShowProvider({ children }: { children: ReactNode }) {
 
   const uniqueShows = getUniquShows(data?.pages.flat() ?? []);
 
-  const value = { shows: uniqueShows, error, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage };
+  const value = {
+    shows: uniqueShows,
+    error,
+    isLoading,
+    isFetchingNextPage,
+    hasNextPage,
+    bookmarkedMovies,
+    fetchNextPage
+  };
 
   return (
     <ShowContext.Provider value={value}>
