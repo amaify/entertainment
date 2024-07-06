@@ -52,7 +52,7 @@ export default function Modal() {
       <div className="fixed inset-0 z-20 bg-black/50 backdrop-blur" onClick={handlCloseModal} />
       <DialogPanel
         className={clsx(
-          "w-[90%] overflow-y-auto rounded-xl bg-white",
+          "max-h-[70%] w-[90%] overflow-y-auto rounded-xl bg-white",
           "fixed left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2",
           "md:max-h-full md:min-h-0 md:w-[80%] md:px-10 md:py-12",
           "xl:w-[60%] 2xl:max-w-[128rem]"
