@@ -4,12 +4,14 @@ import ThumbnailCard from "@/components/thumbnail/thumbnail-card";
 import Typography from "@/components/typography/typography";
 import { NoResultFound } from "@/components/ui/no-result-found";
 import Skeleton from "@/components/ui/skeleton";
+import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
 import { fetchSearchedShows } from "@/helpers/get-shows";
 import { getUniquShows } from "@/helpers/get-unique-shows";
 import { ShowsLayoutWrapper } from "../_layout/shows-layout";
 import useCustomInfiniteQueryHook from "../hooks/use-custom-infinite-query-hook";
 import useDebounce from "../hooks/use-debounce";
 import useIntersectionObserver from "../hooks/use-observer-intersection";
+import { useShowsProviderContext } from "../show-provider";
 
 interface Props {
   queryString: string;
@@ -17,6 +19,7 @@ interface Props {
 
 export default function SearchPageClient({ queryString }: Props) {
   const value = useDebounce({ value: queryString, delay: 750 });
+  const { bookmarkedMovies } = useShowsProviderContext();
 
   const { data, error, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useCustomInfiniteQueryHook({
     queryKey: ["search", value],
@@ -64,8 +67,7 @@ export default function SearchPageClient({ queryString }: Props) {
           category={uniqueShows.media_type}
           thumbnail={uniqueShows.backdrop_path}
           rating={uniqueShows.vote_average}
-          isBookmarked={false}
-          // isBookmarked={getBookmarkedShows({ show: movie, bkmarkedShow: bookmarkedMovies })}
+          isBookmarked={getBookmarkedShows({ show: uniqueShows, bookmarkedShow: bookmarkedMovies })}
           title={uniqueShows.title}
           year={+uniqueShows.release_date.split("-")[0]}
           isTrending={false}

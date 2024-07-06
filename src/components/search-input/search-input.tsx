@@ -14,9 +14,11 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const searchPageMounted = useRef(false);
+  const queryParam = new URLSearchParams(searchParams);
 
   let previousPath = "";
   let wasSearchPageVisited = "false";
+
   if (typeof window !== "undefined") {
     previousPath = sessionStorage.getItem("previousPath") ?? "";
     wasSearchPageVisited = sessionStorage.getItem("searchPageVisited") ?? "false";
@@ -26,11 +28,22 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
     const { value } = event.target;
     setInputValue(value.toLowerCase());
 
-    const queryParam = new URLSearchParams(searchParams);
     queryParam.set("q", value.toLowerCase());
-    router.replace(`/search?${queryParam.toString()}`, { scroll: false });
 
-    if (value === "") router.replace(previousPath);
+    switch (pathname) {
+      case "/bookmarks":
+        router.replace(`/bookmarks?${queryParam.toString()}`, { scroll: false });
+        if (value === "") {
+          queryParam.delete("q");
+          router.replace(`/bookmarks?${queryParam.toString()}`, { scroll: false });
+        }
+        break;
+
+      default:
+        router.replace(`/search?${queryParam.toString()}`, { scroll: false });
+        if (value === "") router.replace(previousPath);
+        break;
+    }
   };
 
   useEffect(() => {
@@ -64,6 +77,20 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
     }
   }, [isInputFocused]);
 
+  const onClickCloseIcon = () => {
+    switch (pathname) {
+      case "/bookmarks":
+        queryParam.delete("q");
+        router.replace(`/bookmarks?${queryParam.toString()}`, { scroll: false });
+        setInputValue("");
+        break;
+
+      default:
+        router.replace(previousPath);
+        break;
+    }
+  };
+
   return (
     <div
       className="[ search-bar-container ] bg-primary-background pb-[4.4rem] pl-[1.6rem] pr-[1.6rem] sm:px-[2.4rem] xl:pl-0 xl:pr-[3.2rem]"
@@ -80,7 +107,7 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
         value={inputValue}
         ref={inputRef}
         showCloseIcon={inputValue !== ""}
-        onClickCloseIcon={() => router.replace(previousPath)}
+        onClickCloseIcon={onClickCloseIcon}
       />
     </div>
   );

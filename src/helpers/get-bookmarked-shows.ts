@@ -2,7 +2,7 @@ import type { BookmarkedMovies } from "@/app/[category]/bookmark-page";
 import type { Show } from "@/app/layout";
 
 interface GetBookmarkedShows {
-  show: Show;
+  show: Show | BookmarkedMovies;
   bookmarkedShow: BookmarkedMovies[] | undefined;
 }
 

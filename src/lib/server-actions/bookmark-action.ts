@@ -1,21 +1,26 @@
 "use server";
 
+import type { ShowCategory } from "@/app/layout";
 import { createClient } from "../supabase/server";
 
 export interface BookmarkAction {
+  category: ShowCategory;
   title: string;
-  category?: string;
+  show_id: number;
+  year: number;
+  rating: number;
+  thumbnail: string;
 }
 
 export type BookmarkActionResponse = { message: "success" | (string & {}) };
-export async function addMovieToBookmarkAction({ title, category }: BookmarkAction): Promise<BookmarkActionResponse> {
+export async function addMovieToBookmarkAction(props: BookmarkAction): Promise<BookmarkActionResponse> {
   try {
     const supabase = createClient();
     const { data } = await supabase.auth.getUser();
 
     if (!data.user?.id) return { message: "User not authenticated" };
 
-    const { error } = await supabase.from("bookmarked_movies").insert({ title, category, user_id: data.user.id });
+    const { error } = await supabase.from("bookmarked_movies").insert({ ...props, user_id: data.user.id });
 
     if (error) {
       return { message: error.message };

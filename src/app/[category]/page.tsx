@@ -7,7 +7,7 @@ import BookmarkPage from "./bookmark-page";
 import ShowspageClient from "./shows-page-client";
 import type { ShowCategory } from "../layout";
 
-type CategoryParams = { params: { category: Category } };
+type CategoryParams = { params: { category: Category }; searchParams: { q: string } };
 export type Category = "movies" | "series" | "bookmarks";
 
 export async function generateMetadata({ params }: CategoryParams) {
@@ -21,7 +21,7 @@ const movieCategory: Record<"movies" | "series", ShowCategory> = {
   series: "TV Series"
 };
 
-export default async function CategoryPage({ params }: CategoryParams) {
+export default async function CategoryPage({ params, searchParams }: CategoryParams) {
   const { category } = params;
   const session = await authSessionAction();
   const showCategoryPathname: Category[] = ["movies", "series", "bookmarks"];
@@ -43,7 +43,7 @@ export default async function CategoryPage({ params }: CategoryParams) {
   if (category === "bookmarks")
     return (
       <Suspense fallback={<ShowsLayoutSkeleton />}>
-        <BookmarkPage />
+        <BookmarkPage searchParams={searchParams} />
       </Suspense>
     );
 

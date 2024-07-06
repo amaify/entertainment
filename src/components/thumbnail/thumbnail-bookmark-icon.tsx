@@ -10,19 +10,34 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   isBookmarked: boolean;
   category: ShowCategory;
   title: string;
+  show_id: number;
+  year: number;
+  rating: number;
+  thumbnail: string;
 }
 
-export default function BookmarkIcon({ isBookmarked, title, category }: Props) {
+export interface BookmarkProperties {
+  category: ShowCategory;
+  title: string;
+  show_id: number;
+  year: number;
+  rating: number;
+  thumbnail: string;
+}
+
+export default function BookmarkIcon({ isBookmarked, title, category, show_id, year, rating, thumbnail }: Props) {
   const queryClient = useQueryClient();
   const { userId } = useAppProviderContext();
 
   const loadingToastMsg = !isBookmarked ? "Adding" : "Removing";
   const successToastMsg = !isBookmarked ? "Added to" : "Removed from";
 
+  const bookmarkProperties = { show_id, title, category, year, rating, thumbnail };
+
   const onBookmark = async () => {
     const toastLoadingId = toast.loading(`${loadingToastMsg} to bookmarks...`);
     const { message } = !isBookmarked
-      ? await addMovieToBookmarkAction({ title, category })
+      ? await addMovieToBookmarkAction(bookmarkProperties)
       : await removeMovieFromBookmarkAction({ title });
 
     if (message !== "success") {

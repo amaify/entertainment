@@ -24,7 +24,7 @@ interface ShowsContextProps {
     value?: FetchNextPageOptions
   ) => Promise<InfiniteQueryObserverResult<InfiniteData<Show[], unknown>, Error>>;
   hasNextPage: boolean;
-  bookmarkedMovies: BookmarkedMovies[] | undefined;
+  bookmarkedMovies: Array<BookmarkedMovies> | undefined;
 }
 
 async function fetchBookmarkedMovies(userId: string | undefined) {
@@ -34,7 +34,7 @@ async function fetchBookmarkedMovies(userId: string | undefined) {
   try {
     const { data, error } = await supabase
       .from("bookmarked_movies")
-      .select("title, category")
+      .select("title, category, rating, year, thumbnail, show_id")
       .eq("user_id", userId)
       .returns<Array<BookmarkedMovies>>();
 

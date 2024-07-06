@@ -2,13 +2,13 @@ import { redirect } from "next/navigation";
 import SearchPageClient from "./search-page.client";
 import PagesLayout from "../_layout/pages-layout";
 
-interface PageParams {
+export interface PageQueryParams {
   searchParams: {
     q: string;
   };
 }
 
-export default function SearchPage({ searchParams: { q } }: PageParams) {
+export default function SearchPage({ searchParams: { q } }: PageQueryParams) {
   if (!q) redirect("/");
 
   return (

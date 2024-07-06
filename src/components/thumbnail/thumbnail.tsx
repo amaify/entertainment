@@ -71,7 +71,15 @@ export default function Thumbnail({ id, variant, title, thumbnail, category, rat
           <ThumbnailDescription category={category} variant={variant} title={title} year={year} rating={rating} />
         )}
       </button>
-      <BookmarkIcon isBookmarked={isBookmarked} title={title} category={category} />
+      <BookmarkIcon
+        isBookmarked={isBookmarked}
+        title={title}
+        category={category}
+        show_id={id}
+        year={year}
+        rating={rating}
+        thumbnail={thumbnail}
+      />
     </div>
   );
 }
