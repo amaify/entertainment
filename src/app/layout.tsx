@@ -6,6 +6,8 @@ import { createClient } from "@/lib/supabase/server";
 import AppProvider from "./app-provider";
 import "./globals.css";
 
+export const dynamic = "force-dynamic";
+
 export type ShowCategory = "Movie" | "TV Series" | "movie" | "tv";
 
 export interface Show {
