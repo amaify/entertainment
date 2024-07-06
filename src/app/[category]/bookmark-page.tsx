@@ -53,7 +53,7 @@ export default function BookmarkPage({ searchParams: { q } }: PageQueryParams) {
         )}
       </PagesLayout>
 
-      {/* <PagesLayout placeholderText="" showSearchQuery={false}>
+      <PagesLayout placeholderText="" showSearchQuery={false}>
         <ShowsLayoutWrapper layoutTitle="Bookmarked TV Series">
           {_bookmarkedSeries?.map((movie) => (
             <ThumbnailCard
@@ -74,7 +74,7 @@ export default function BookmarkPage({ searchParams: { q } }: PageQueryParams) {
             No bookmarked TV Series
           </Typography>
         )}
-      </PagesLayout> */}
+      </PagesLayout>
     </div>
   );
 }
