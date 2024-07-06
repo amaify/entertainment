@@ -27,5 +27,7 @@ jobs:
     - name: Install dependencies
       run: pnpm install
 
-    - name: Run tests
+    - name: Run check all
+      env:
+        CI: true
       run: pnpm check:all
