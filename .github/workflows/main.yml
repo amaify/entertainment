@@ -3,7 +3,10 @@ name: Continous Integration
 on:
   push:
     branches: 
-      - "*/**"
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
@@ -18,16 +21,16 @@ jobs:
         with:
           version: 8
 
-     - name: Use latest version of Node
-       uses: actions/setup-node@v4
-       with:
-         node-version: "20"
-         cache: pnpm
+      - name: Setup node version
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
     
-    - name: Install dependencies
-      run: pnpm install
+      - name: Install dependencies
+        run: pnpm install
 
-    - name: Run check all
-      env:
-        CI: true
-      run: pnpm check:all
+      - name: Run check all
+        env:
+          CI: true
+        run: pnpm check:all
