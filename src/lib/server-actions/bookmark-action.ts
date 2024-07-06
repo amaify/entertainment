@@ -1,7 +1,7 @@
 "use server";
 
-import type { ShowCategory } from "@/app/layout";
-import { createClient } from "../supabase/server";
+import { createClient } from "@/lib/supabase/server";
+import type { ShowCategory } from "src/app/layout";
 
 export interface BookmarkAction {
   category: ShowCategory;

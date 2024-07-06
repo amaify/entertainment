@@ -1,9 +1,9 @@
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { useAppProviderContext } from "@/app/app-provider";
+import SvgIcon from "@/components/svg/svg";
 import { createClient } from "@/lib/supabase/client";
+import { useAppProviderContext } from "src/app/app-provider";
 import NavigationAvatar from "./navigation-avatar";
-import SvgIcon from "../svg/svg";
 
 export default function NavigationAuth() {
   const router = useRouter();

@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useAppProviderContext } from "@/app/app-provider";
-import useDownloadUserAvatar from "@/app/hooks/use-download-user-avatar";
-import SvgIcon from "../svg/svg";
-import Skeleton from "../ui/skeleton";
+import SvgIcon from "@/components/svg/svg";
+import Skeleton from "@/components/ui/skeleton";
+import useDownloadUserAvatar from "@/hooks/use-download-user-avatar";
+import { useAppProviderContext } from "src/app/app-provider";
 
 export default function NavigationAvatar() {
   const { userId, avatarUrl } = useAppProviderContext();

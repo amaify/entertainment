@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import type { ShowCategory } from "@/app/layout";
 import cn from "@/helpers/cn";
+import type { ShowCategory } from "src/app/layout";
 import BookmarkIcon from "./thumbnail-bookmark-icon";
 import ThumbnailDescription from "./thumbnail-description";
 import ThumbnailPlayButton from "./thumbnail-play-button";

@@ -1,4 +1,4 @@
-import type { Show } from "@/app/layout";
+import type { Show } from "src/app/layout";
 
 export function getUniquShows(shows: Show[]) {
   const ids = shows.map(({ id }) => id);

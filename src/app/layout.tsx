@@ -2,8 +2,8 @@ import type { ReactNode } from "react";
 import type { User } from "@supabase/supabase-js";
 import type { Metadata } from "next";
 import { getUserAction } from "@/lib/server-actions/auth-session-action";
+import { createClient } from "@/lib/supabase/server";
 import AppProvider from "./app-provider";
-import { createClient } from "../lib/supabase/server";
 import "./globals.css";
 
 export type ShowCategory = "Movie" | "TV Series" | "movie" | "tv";

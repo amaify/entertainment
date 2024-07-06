@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useAppProviderContext } from "@/app/app-provider";
+import SvgIcon, { type IconVariant } from "@/components/svg/svg";
 import cn from "@/helpers/cn";
-import SvgIcon, { type IconVariant } from "../svg/svg";
+import { useAppProviderContext } from "src/app/app-provider";
 
 export type AppPath = "/" | "/movies" | "/series" | "/bookmarks";
 

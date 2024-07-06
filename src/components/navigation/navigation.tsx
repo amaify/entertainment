@@ -1,7 +1,7 @@
 import Link from "next/link";
+import SvgIcon from "@/components/svg/svg";
 import NavigationAuth from "./navigation-auth";
 import NavigationLinks from "./navigation-links";
-import SvgIcon from "../svg/svg";
 
 export default function Navigation() {
   return (

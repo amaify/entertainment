@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import type { Show } from "../layout";
+import type { Show } from "src/app/layout";
 
 interface Props {
   queryKey: string[];

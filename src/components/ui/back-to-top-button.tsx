@@ -1,6 +1,6 @@
 import { type ButtonHTMLAttributes } from "react";
+import SvgIcon from "@/components/svg/svg";
 import cn from "@/helpers/cn";
-import SvgIcon from "../svg/svg";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {}
 export default function BackToTopButton({ ...props }: Props) {

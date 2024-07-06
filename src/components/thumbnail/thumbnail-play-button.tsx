@@ -1,4 +1,4 @@
-import SvgIcon from "../svg/svg";
+import SvgIcon from "@/components/svg/svg";
 
 export default function ThumbnailPlayButton() {
   return (

@@ -2,10 +2,10 @@ import type { ChangeEvent } from "react";
 import { useRef, useState } from "react";
 import { useMutationState } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import useDownloadUserAvatar from "@/hooks/use-download-user-avatar";
+import { useAppProviderContext } from "src/app/app-provider";
 import PreviewAvatarSkeleton from "./preview-avatar-skeleton";
 import UserAvatar from "./preview-user-avatar";
-import { useAppProviderContext } from "../app-provider";
-import useDownloadUserAvatar from "../hooks/use-download-user-avatar";
 
 interface Props {
   setFile: (file: File | undefined) => void;
@@ -27,6 +27,11 @@ export default function PreviewAvatar({ setFile }: Props) {
     }
   });
 
+  const handleIsError = (error: Error) => {
+    toast.error(error.message);
+    isErrorSet.current = true;
+  };
+
   const handleChooseAvatar = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files![0];
     setFile(file);
@@ -34,10 +39,7 @@ export default function PreviewAvatar({ setFile }: Props) {
   };
 
   if (isLoading) return <PreviewAvatarSkeleton />;
-  if (error && !isErrorSet.current) {
-    toast.error(error.message);
-    isErrorSet.current = true;
-  }
+  if (error && !isErrorSet.current) handleIsError(error);
 
   const imageSource = selectedImage ? selectedImage : userAvatar;
 

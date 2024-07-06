@@ -1,6 +1,6 @@
-import PagesLayout from "./_layout/pages-layout";
-import ShowsLayout from "./_layout/shows-layout";
-import TrendingShows from "./_layout/trending-shows";
+import PagesLayout from "@/_layout/pages-layout";
+import ShowsLayout from "@/_layout/shows-layout";
+import TrendingShows from "@/_layout/trending-shows";
 
 export default function Home() {
   return (

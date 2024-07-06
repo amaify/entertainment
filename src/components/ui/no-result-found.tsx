@@ -1,6 +1,6 @@
 import Image from "next/image";
+import Typography from "@/components/typography/typography";
 import NoResultFoundIllustration from "@/public/shared/no-result-found-illustration.svg";
-import Typography from "../typography/typography";
 
 export function NoResultFound({ title }: { title: string }) {
   return (

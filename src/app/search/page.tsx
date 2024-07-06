@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
+import PagesLayout from "@/_layout/pages-layout";
 import SearchPageClient from "./search-page.client";
-import PagesLayout from "../_layout/pages-layout";
 
 export interface PageQueryParams {
   searchParams: {

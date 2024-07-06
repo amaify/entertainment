@@ -1,11 +1,11 @@
 import { clsx } from "clsx";
 import Image from "next/image";
-import useMediaQuery from "@/app/hooks/use-media-query";
+import Typography from "@/components/typography/typography";
 import { getImageUrl } from "@/helpers/get-shows";
+import useMediaQuery from "@/hooks/use-media-query";
 import type { ShowDetails } from "./modal";
 import ModalSkeleton from "./modal-skeleton";
 import { convertMinsToHrsMins, getYear } from "./modal-utils";
-import Typography from "../typography/typography";
 
 interface Props {
   showDetails: ShowDetails | undefined;

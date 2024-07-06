@@ -1,5 +1,6 @@
 "use client";
 
+import { ShowsLayoutWrapper } from "@/_layout/shows-layout";
 import ThumbnailCard from "@/components/thumbnail/thumbnail-card";
 import Typography from "@/components/typography/typography";
 import { NoResultFound } from "@/components/ui/no-result-found";
@@ -7,11 +8,10 @@ import Skeleton from "@/components/ui/skeleton";
 import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
 import { fetchSearchedShows } from "@/helpers/get-shows";
 import { getUniquShows } from "@/helpers/get-unique-shows";
-import { ShowsLayoutWrapper } from "../_layout/shows-layout";
-import useCustomInfiniteQueryHook from "../hooks/use-custom-infinite-query-hook";
-import useDebounce from "../hooks/use-debounce";
-import useIntersectionObserver from "../hooks/use-observer-intersection";
-import { useShowsProviderContext } from "../show-provider";
+import useCustomInfiniteQueryHook from "@/hooks/use-custom-infinite-query-hook";
+import useDebounce from "@/hooks/use-debounce";
+import useIntersectionObserver from "@/hooks/use-observer-intersection";
+import { useShowsProviderContext } from "src/app/show-provider";
 
 interface Props {
   queryString: string;

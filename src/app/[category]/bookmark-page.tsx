@@ -1,13 +1,13 @@
 "use client";
 
-import PagesLayout from "@/app/_layout/pages-layout";
-import type { ShowCategory } from "@/app/layout";
+import PagesLayout from "@/_layout/pages-layout";
+import { ShowsLayoutWrapper } from "@/_layout/shows-layout";
 import ThumbnailCard from "@/components/thumbnail/thumbnail-card";
 import Typography from "@/components/typography/typography";
 import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
-import { ShowsLayoutWrapper } from "../_layout/shows-layout";
-import type { PageQueryParams } from "../search/page";
-import { useShowsProviderContext } from "../show-provider";
+import type { ShowCategory } from "src/app/layout";
+import type { PageQueryParams } from "src/app/search/page";
+import { useShowsProviderContext } from "src/app/show-provider";
 
 export type BookmarkedMovies = {
   category: ShowCategory;

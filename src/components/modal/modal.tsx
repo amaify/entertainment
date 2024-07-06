@@ -4,11 +4,11 @@ import { Dialog, DialogPanel } from "@headlessui/react";
 import { clsx } from "clsx";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import useCustomQuery from "@/app/hooks/use-custom-query";
-import useMediaQuery from "@/app/hooks/use-media-query";
+import SvgIcon from "@/components/svg/svg";
 import { fetchShowDetails } from "@/helpers/get-shows";
+import useCustomQuery from "@/hooks/use-custom-query";
+import useMediaQuery from "@/hooks/use-media-query";
 import ModalContent from "./modal-content";
-import SvgIcon from "../svg/svg";
 
 export interface ShowDetails {
   id: number;

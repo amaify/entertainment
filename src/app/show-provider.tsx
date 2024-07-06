@@ -1,13 +1,13 @@
 import { createContext, useContext, type ReactNode } from "react";
 import type { FetchNextPageOptions, InfiniteData, InfiniteQueryObserverResult } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
+import type { BookmarkedMovies } from "@/app/show-category/bookmark-page";
 import Navigation from "@/components/navigation/navigation";
 import type { AppPath } from "@/components/navigation/navigation-links";
 import BackToTopButton from "@/components/ui/back-to-top-button";
 import { fetchShows } from "@/helpers/get-shows";
 import { getUniquShows } from "@/helpers/get-unique-shows";
 import { createClient } from "@/lib/supabase/client";
-import type { BookmarkedMovies } from "./[category]/bookmark-page";
 import { useAppProviderContext } from "./app-provider";
 import useCustomInfiniteQueryHook from "./hooks/use-custom-infinite-query-hook";
 import useCustomQuery from "./hooks/use-custom-query";

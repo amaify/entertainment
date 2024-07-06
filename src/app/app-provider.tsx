@@ -1,14 +1,10 @@
 "use client";
 
 import { createContext, useContext, type ReactNode } from "react";
-import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import type { BookmarkedMovies } from "@/app/[category]/bookmark-page";
 import Modal from "@/components/modal/modal";
 import Notification from "@/components/ui/notification";
 import ShowProvider from "./show-provider";
-
-export type BookmarkedMovieResponse = PostgrestSingleResponse<Array<BookmarkedMovies>> | null;
 
 interface Props {
   children: ReactNode;

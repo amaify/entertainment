@@ -1,5 +1,5 @@
-import type { Show } from "@/app/layout";
 import type { ShowDetails } from "@/components/modal/modal";
+import type { Show } from "src/app/layout";
 import { TMDB_IMAGE_URI } from "./constants";
 import { fetchTMDB } from "./service-client";
 

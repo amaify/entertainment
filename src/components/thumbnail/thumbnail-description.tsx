@@ -1,7 +1,7 @@
-import type { ShowCategory } from "@/app/layout";
+import SvgIcon from "@/components/svg/svg";
 import cn from "@/helpers/cn";
+import type { ShowCategory } from "src/app/layout";
 import styles from "./thumbnail.module.css";
-import SvgIcon from "../svg/svg";
 
 interface Props {
   category: ShowCategory;
