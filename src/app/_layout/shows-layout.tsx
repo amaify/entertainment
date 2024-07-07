@@ -1,22 +1,14 @@
 "use client";
 
-import type { ReactNode } from "react";
+import ShowsLayoutWrapper from "@/_layout/shows-layout-wrapper";
 import ThumbnailCard from "@/components/thumbnail/thumbnail-card";
 import Typography from "@/components/typography/typography";
 import Skeleton from "@/components/ui/skeleton";
-import cn from "@/helpers/cn";
 import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
-import styles from "./layout.module.css";
-import { useShowsProviderContext } from "../show-provider";
+import useShowsProviderContext from "@/hooks/use-shows-provider-context";
 
 interface Props {
   title: string;
-}
-
-interface LayoutWrapper {
-  children: ReactNode;
-  layoutTitle: string;
-  error?: Error | null;
 }
 
 export default function ShowsLayout({ title }: Props) {
@@ -59,16 +51,5 @@ export default function ShowsLayout({ title }: Props) {
       {isFetchingNextPage &&
         Array.from({ length: 20 }).map((_, idx) => <Skeleton key={idx} className="h-[11rem] sm:h-[17.4rem]" />)}
     </ShowsLayoutWrapper>
-  );
-}
-
-export function ShowsLayoutWrapper({ children, layoutTitle, error }: LayoutWrapper) {
-  return (
-    <section className="px-[1.6rem] pb-[1.6rem] sm:px-[2.4rem] sm:pb-[2.4rem] xl:px-0 xl:pb-0">
-      <Typography as="h1" intent="fluid-heading" className="mb-[3.2rem]">
-        {layoutTitle}
-      </Typography>
-      <div className={cn(!error ? styles.shows_layout : "")}>{children}</div>
-    </section>
   );
 }

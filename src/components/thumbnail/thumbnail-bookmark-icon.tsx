@@ -2,8 +2,8 @@ import type { ButtonHTMLAttributes } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import SvgIcon from "@/components/svg/svg";
+import useAppProviderContext from "@/hooks/use-app-provider-context";
 import { addMovieToBookmarkAction, removeMovieFromBookmarkAction } from "@/lib/server-actions/bookmark-action";
-import { useAppProviderContext } from "src/app/app-provider";
 import type { ShowCategory } from "src/app/layout";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {

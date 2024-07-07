@@ -1,8 +1,8 @@
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import SvgIcon from "@/components/svg/svg";
+import useAppProviderContext from "@/hooks/use-app-provider-context";
 import { createClient } from "@/lib/supabase/client";
-import { useAppProviderContext } from "src/app/app-provider";
 import NavigationAvatar from "./navigation-avatar";
 
 export default function NavigationAuth() {

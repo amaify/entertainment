@@ -1,14 +1,14 @@
 "use client";
 
-import type { ReactNode } from "react";
+import TrendingShowWrapper from "@/_layout/trending-shows-wrapper";
 import Thumbnail from "@/components/thumbnail/thumbnail";
 import Typography from "@/components/typography/typography";
 import Skeleton from "@/components/ui/skeleton";
 import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
 import { fetchTrendingShows, getImageUrl } from "@/helpers/get-shows";
-import useCustomQuery from "../hooks/use-custom-query";
-import type { Show } from "../layout";
-import { useShowsProviderContext } from "../show-provider";
+import useCustomQuery from "@/hooks/use-custom-query";
+import useShowsProviderContext from "@/hooks/use-shows-provider-context";
+import type { Show } from "src/app/layout";
 
 export default function TrendingShows() {
   const { bookmarkedMovies } = useShowsProviderContext();
@@ -54,18 +54,5 @@ export default function TrendingShows() {
         </div>
       ))}
     </TrendingShowWrapper>
-  );
-}
-
-function TrendingShowWrapper({ children }: { children: ReactNode }) {
-  return (
-    <section className="mb-16 flex flex-col gap-10 pl-[1.6rem] sm:pl-[2.4rem] xl:pl-0">
-      <Typography as="h1" intent="fluid-heading">
-        Trending
-      </Typography>
-      <div className="[ trending-show-layout ] flex w-full flex-shrink gap-16 overflow-x-auto overflow-y-hidden pr-[1.6rem] sm:pr-[3.2rem]">
-        {children}
-      </div>
-    </section>
   );
 }

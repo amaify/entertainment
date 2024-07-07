@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, Suspense, type ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Modal from "@/components/modal/modal";
 import Notification from "@/components/ui/notification";
@@ -20,7 +20,9 @@ export default function AppProvider({ children, userId, avatarUrl }: Props) {
   return (
     <QueryClientProvider client={queryClient}>
       <AppContext.Provider value={{ userId, avatarUrl }}>
-        <Modal />
+        <Suspense>
+          <Modal />
+        </Suspense>
         <ShowProvider>
           <Notification />
           {children}
@@ -28,14 +30,4 @@ export default function AppProvider({ children, userId, avatarUrl }: Props) {
       </AppContext.Provider>
     </QueryClientProvider>
   );
-}
-
-export function useAppProviderContext() {
-  const appProvider = useContext(AppContext);
-
-  if (!appProvider) {
-    throw new Error("useAppProviderContext must be used within an AppProvider");
-  }
-
-  return appProvider;
 }

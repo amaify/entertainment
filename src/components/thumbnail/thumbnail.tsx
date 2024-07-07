@@ -32,15 +32,19 @@ export default function Thumbnail({ id, variant, title, thumbnail, category, rat
   const onThumbnailClick = () => {
     const queryParam = new URLSearchParams(searchParams);
 
-    if (pathname === "/search") {
-      queryParam.append("category", `${getCategory}`);
-      queryParam.append("id", `${id}`);
+    switch (pathname) {
+      case "/search":
+        queryParam.append("category", `${getCategory}`);
+        queryParam.append("id", `${id}`);
+        router.replace(`${pathname}?${queryParam.toString()}`, { scroll: false });
+        break;
+
+      default:
+        queryParam.set("id", `${id}`);
+        queryParam.set("category", `${getCategory}`);
+        router.replace(`${pathname}?${queryParam.toString()}`, { scroll: false });
+        break;
     }
-
-    queryParam.set("id", `${id}`);
-    queryParam.set("category", `${getCategory}`);
-
-    router.replace(`${pathname}?${queryParam.toString()}`, { scroll: false });
   };
 
   return (

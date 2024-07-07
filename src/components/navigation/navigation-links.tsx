@@ -2,7 +2,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SvgIcon, { type IconVariant } from "@/components/svg/svg";
 import cn from "@/helpers/cn";
-import { useAppProviderContext } from "src/app/app-provider";
+import useAppProviderContext from "@/hooks/use-app-provider-context";
 
 export type AppPath = "/" | "/movies" | "/series" | "/bookmarks";
 

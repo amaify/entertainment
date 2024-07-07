@@ -1,12 +1,11 @@
 import type { ReactNode } from "react";
 import type { User } from "@supabase/supabase-js";
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { getUserAction } from "@/lib/server-actions/auth-session-action";
 import { createClient } from "@/lib/supabase/server";
 import AppProvider from "./app-provider";
 import "./globals.css";
-
-export const dynamic = "force-dynamic";
 
 export type ShowCategory = "Movie" | "TV Series" | "movie" | "tv";
 
@@ -36,8 +35,9 @@ export const metadata: Metadata = {
 
 async function getUserAvatarUrl(user: User | null): Promise<string | null> {
   if (!user) return null;
+  const cookieStore = cookies();
 
-  const supabase = createClient();
+  const supabase = await createClient(cookieStore);
 
   try {
     const { data } = await supabase.from("users_profile").select("avatar_url").eq("id", user.id);

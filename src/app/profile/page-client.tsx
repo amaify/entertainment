@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import Button from "@/components/ui/button";
+import useAppProviderContext from "@/hooks/use-app-provider-context";
 import { createClient } from "@/lib/supabase/client";
 import PreviewAvatar from "./preview-avatar";
-import { useAppProviderContext } from "../app-provider";
 
 export default function ProfilePageClient() {
   const queryClient = useQueryClient();

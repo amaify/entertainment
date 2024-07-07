@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import SearchInput from "@/components/search-input/search-input";
 interface Props {
   children: ReactNode;
@@ -11,7 +11,11 @@ interface Props {
 export default function PagesLayout({ children, showSearchQuery, placeholderText }: Props) {
   return (
     <div>
-      {showSearchQuery && <SearchInput placeholderText={placeholderText} />}
+      {showSearchQuery && (
+        <Suspense>
+          <SearchInput placeholderText={placeholderText} />
+        </Suspense>
+      )}
       {children}
     </div>
   );

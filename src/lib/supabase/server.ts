@@ -1,10 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
+import type { cookies } from "next/headers";
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from "@/helpers/constants";
 
-export function createClient() {
-  const cookieStore = cookies();
-
+export async function createClient(cookieStore: ReturnType<typeof cookies>) {
   return createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     cookies: {
       getAll() {
