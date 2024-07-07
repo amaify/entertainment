@@ -1,12 +1,12 @@
 "use client";
 
-import { ShowsLayoutWrapper } from "@/_layout/shows-layout";
+import ShowsLayoutWrapper from "@/_layout/shows-layout-wrapper";
 import ThumbnailCard from "@/components/thumbnail/thumbnail-card";
 import Button from "@/components/ui/button";
 import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
 import useIntersectionObserver from "@/hooks/use-observer-intersection";
+import useShowsProviderContext from "@/hooks/use-shows-provider-context";
 import type { Show, ShowCategory } from "src/app/layout";
-import { useShowsProviderContext } from "../show-provider";
 
 interface Props {
   title: string;

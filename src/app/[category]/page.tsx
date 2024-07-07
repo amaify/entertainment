@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import PagesLayout from "@/_layout/pages-layout";
 import ShowsLayoutSkeleton from "@/_layout/shows-layout-skeleton";
-import { authSessionAction } from "@/lib/server-actions/auth-session-action";
+import { getUserAction } from "@/lib/server-actions/auth-session-action";
 import BookmarkPage from "./bookmark-page";
 import ShowspageClient from "./shows-page-client";
 import type { ShowCategory } from "../layout";
@@ -23,7 +23,7 @@ const movieCategory: Record<"movies" | "series", ShowCategory> = {
 
 export default async function CategoryPage({ params, searchParams }: CategoryParams) {
   const { category } = params;
-  const session = await authSessionAction();
+  const session = await getUserAction();
   const showCategoryPathname: Category[] = ["movies", "series", "bookmarks"];
 
   const queryPlaceholderText: Record<Category, string> = {

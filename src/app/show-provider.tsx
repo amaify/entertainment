@@ -1,4 +1,4 @@
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, type ReactNode } from "react";
 import type { FetchNextPageOptions, InfiniteData, InfiniteQueryObserverResult } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import type { BookmarkedMovies } from "@/app/show-category/bookmark-page";
@@ -7,8 +7,8 @@ import type { AppPath } from "@/components/navigation/navigation-links";
 import BackToTopButton from "@/components/ui/back-to-top-button";
 import { fetchShows } from "@/helpers/get-shows";
 import { getUniquShows } from "@/helpers/get-unique-shows";
+import useAppProviderContext from "@/hooks/use-app-provider-context";
 import { createClient } from "@/lib/supabase/client";
-import { useAppProviderContext } from "./app-provider";
 import useCustomInfiniteQueryHook from "./hooks/use-custom-infinite-query-hook";
 import useCustomQuery from "./hooks/use-custom-query";
 import useIntersectionObserver from "./hooks/use-observer-intersection";
@@ -102,12 +102,4 @@ export default function ShowProvider({ children }: { children: ReactNode }) {
       </main>
     </ShowContext.Provider>
   );
-}
-
-export function useShowsProviderContext() {
-  const showsContext = useContext(ShowContext);
-
-  if (!showsContext) throw new Error("useShowsProviderContext must be used within an AppLayout");
-
-  return showsContext;
 }

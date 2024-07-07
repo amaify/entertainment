@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "analyze": "ANALYZE=true next build",
     "check:lint": "eslint ./src --ext .js,.jsx,.ts,.tsx --fix",
     "check:types": "tsc",
     "check:all": "pnpm check:types && pnpm check:lint && pnpm test",
@@ -16,6 +17,7 @@
   "dependencies": {
     "@headlessui/react": "^2.1.1",
     "@heroicons/react": "^2.1.3",
+    "@next/bundle-analyzer": "^14.2.4",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.44.0",
     "@tanstack/react-query": "^5.50.1",

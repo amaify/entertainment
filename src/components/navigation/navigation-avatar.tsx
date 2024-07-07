@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import SvgIcon from "@/components/svg/svg";
 import Skeleton from "@/components/ui/skeleton";
+import useAppProviderContext from "@/hooks/use-app-provider-context";
 import useDownloadUserAvatar from "@/hooks/use-download-user-avatar";
-import { useAppProviderContext } from "src/app/app-provider";
 
 export default function NavigationAvatar() {
   const { userId, avatarUrl } = useAppProviderContext();

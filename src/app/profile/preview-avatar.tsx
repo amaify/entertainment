@@ -2,8 +2,8 @@ import type { ChangeEvent } from "react";
 import { useRef, useState } from "react";
 import { useMutationState } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import useAppProviderContext from "@/hooks/use-app-provider-context";
 import useDownloadUserAvatar from "@/hooks/use-download-user-avatar";
-import { useAppProviderContext } from "src/app/app-provider";
 import PreviewAvatarSkeleton from "./preview-avatar-skeleton";
 import UserAvatar from "./preview-user-avatar";
 

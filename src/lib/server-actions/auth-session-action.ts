@@ -1,23 +1,16 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { createClient } from "../supabase/server";
+import { cookies } from "next/headers";
+import { createClient } from "@/lib/supabase/server";
 
 type LogoutResponse = { message: "success" | (string & {}) };
 
-export async function authSessionAction() {
-  const supabase = createClient();
-
-  const {
-    data: { session }
-  } = await supabase.auth.getSession();
-
-  return session;
-}
-
 export async function logoutAction(): Promise<LogoutResponse> {
+  const cookieStore = cookies();
+
   try {
-    const supabase = createClient();
+    const supabase = await createClient(cookieStore);
     const { error } = await supabase.auth.signOut();
 
     if (error) {
@@ -32,8 +25,9 @@ export async function logoutAction(): Promise<LogoutResponse> {
 }
 
 export async function getUserAction() {
+  const cookieStore = cookies();
   try {
-    const supabase = createClient();
+    const supabase = await createClient(cookieStore);
     const { data } = await supabase.auth.getUser();
 
     return data.user;
