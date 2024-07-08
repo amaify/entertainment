@@ -6,12 +6,14 @@ import Typography from "@/components/typography/typography";
 import Skeleton from "@/components/ui/skeleton";
 import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
 import { fetchTrendingShows, getImageUrl } from "@/helpers/get-shows";
+import useAppProviderContext from "@/hooks/use-app-provider-context";
 import useCustomQuery from "@/hooks/use-custom-query";
-import useShowsProviderContext from "@/hooks/use-shows-provider-context";
+import useFetchBookmarkedMovies from "@/hooks/use-fetch-bookmarked-movies";
 import type { Show } from "src/app/layout";
 
 export default function TrendingShows() {
-  const { bookmarkedMovies } = useShowsProviderContext();
+  const { userId } = useAppProviderContext();
+  const bookmarkedMovies = useFetchBookmarkedMovies(userId);
   const { data, isLoading, error } = useCustomQuery<Show[]>({ queryFn: fetchTrendingShows, queryKey: ["trending"] });
 
   if (error)
@@ -45,7 +47,7 @@ export default function TrendingShows() {
             variant="trending"
             category={show.media_type}
             rating={show.vote_average}
-            title={show.name || show.title}
+            title={show.title}
             thumbnail={getImageUrl({ variant: "desktop", path: show.backdrop_path })}
             year={+(show.release_date || show.first_air_date).split("-")[0]}
             isBookmarked={getBookmarkedShows({ show: show, bookmarkedShow: bookmarkedMovies })}

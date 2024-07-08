@@ -8,10 +8,11 @@ import Skeleton from "@/components/ui/skeleton";
 import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
 import { fetchSearchedShows } from "@/helpers/get-shows";
 import { getUniquShows } from "@/helpers/get-unique-shows";
+import useAppProviderContext from "@/hooks/use-app-provider-context";
 import useCustomInfiniteQueryHook from "@/hooks/use-custom-infinite-query-hook";
 import useDebounce from "@/hooks/use-debounce";
+import useFetchBookmarkedMovies from "@/hooks/use-fetch-bookmarked-movies";
 import useIntersectionObserver from "@/hooks/use-observer-intersection";
-import useShowsProviderContext from "@/hooks/use-shows-provider-context";
 
 interface Props {
   queryString: string;
@@ -19,7 +20,8 @@ interface Props {
 
 export default function SearchPageClient({ queryString }: Props) {
   const value = useDebounce({ value: queryString, delay: 750 });
-  const { bookmarkedMovies } = useShowsProviderContext();
+  const { userId } = useAppProviderContext();
+  const bookmarkedMovies = useFetchBookmarkedMovies(userId);
 
   const { data, error, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useCustomInfiniteQueryHook({
     queryKey: ["search", value],

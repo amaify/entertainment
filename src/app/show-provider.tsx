@@ -8,9 +8,8 @@ import BackToTopButton from "@/components/ui/back-to-top-button";
 import { fetchShows } from "@/helpers/get-shows";
 import { getUniquShows } from "@/helpers/get-unique-shows";
 import useAppProviderContext from "@/hooks/use-app-provider-context";
-import { createClient } from "@/lib/supabase/client";
+import useFetchBookmarkedMovies from "@/hooks/use-fetch-bookmarked-movies";
 import useCustomInfiniteQueryHook from "./hooks/use-custom-infinite-query-hook";
-import useCustomQuery from "./hooks/use-custom-query";
 import useIntersectionObserver from "./hooks/use-observer-intersection";
 import useScrollToTop from "./hooks/use-scroll-to-top";
 import type { Show } from "./layout";
@@ -27,25 +26,6 @@ interface ShowsContextProps {
   bookmarkedMovies: Array<BookmarkedMovies> | undefined;
 }
 
-async function fetchBookmarkedMovies(userId: string | undefined) {
-  if (userId === "") return;
-  const supabase = createClient();
-
-  try {
-    const { data, error } = await supabase
-      .from("bookmarked_movies")
-      .select("title, category, rating, year, thumbnail, show_id")
-      .eq("user_id", userId)
-      .returns<Array<BookmarkedMovies>>();
-
-    if (error) throw new Error(error.message);
-
-    return data;
-  } catch (error) {
-    throw new Error((error as Error).message);
-  }
-}
-
 export const ShowContext = createContext<ShowsContextProps | null>(null);
 
 export default function ShowProvider({ children }: { children: ReactNode }) {
@@ -55,12 +35,7 @@ export default function ShowProvider({ children }: { children: ReactNode }) {
   const isQueryEnabled = pathsToMakeQuery.includes(pathname as AppPath);
 
   const { userId } = useAppProviderContext();
-
-  const { data: bookmarkedMovies } = useCustomQuery({
-    queryKey: ["bookmarkedMovies"],
-    queryFn: () => fetchBookmarkedMovies(userId),
-    enabled: !!userId
-  });
+  const bookmarkedMovies = useFetchBookmarkedMovies(userId);
 
   const { data, error, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useCustomInfiniteQueryHook({
     queryKey: ["shows"],

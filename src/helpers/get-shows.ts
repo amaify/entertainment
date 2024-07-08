@@ -53,6 +53,7 @@ export const fetchTrendingShows = async () => {
   const response = await fetchTMDB<Show[]>({ path: "trending/all/day", method: "GET", pageParam: 1, variant: "shows" });
   const formattedResult = response.results.map((show) => ({
     ...show,
+    title: show.title || show.name,
     media_type: (show.media_type === "movie" ? "Movie" : "TV Series") as Show["media_type"]
   }));
   return formattedResult;
