@@ -10,6 +10,11 @@ import type { ShowCategory } from "../layout";
 type CategoryParams = { params: { category: Category }; searchParams: { q: string } };
 export type Category = "movies" | "series" | "bookmarks";
 
+export async function generateStaticParams() {
+  const categories: Category[] = ["movies", "series", "bookmarks"];
+  return categories.map((category) => ({ category }));
+}
+
 export async function generateMetadata({ params }: CategoryParams) {
   return {
     title: `Entertainment App | ${params.category.charAt(0).toUpperCase() + params.category.slice(1)}`
