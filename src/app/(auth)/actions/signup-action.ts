@@ -9,20 +9,15 @@ export async function signupAction(formData: FormData) {
   const cookieStore = cookies();
   const supabase = await createClient(cookieStore);
 
-  if (password !== repeatPassword) {
-    return { message: "Passwords do not match" };
+  try {
+    if (password !== repeatPassword) throw new Error("Passwords do not match");
+
+    const { error } = await supabase.auth.signUp({ email, password });
+
+    if (error) throw new Error(error.message);
+
+    return { message: "success" };
+  } catch (error) {
+    if (error instanceof Error) throw new Error(error.message);
   }
-
-  // try {
-
-  // } catch (error) {
-
-  // }
-  const { error } = await supabase.auth.signUp({ email, password });
-
-  if (error) {
-    return { message: error.message };
-  }
-
-  return { message: "success" };
 }
