@@ -51,11 +51,14 @@ export const fetchSearchedShows = async ({ pageParam, queryString }: { pageParam
 
 export const fetchTrendingShows = async () => {
   const response = await fetchTMDB<Show[]>({ path: "trending/all/day", method: "GET", pageParam: 1, variant: "shows" });
-  const formattedResult = response.results.map((show) => ({
-    ...show,
-    title: show.title || show.name,
-    media_type: (show.media_type === "movie" ? "Movie" : "TV Series") as Show["media_type"]
-  }));
+  const formattedResult = response.results
+    .map((show) => ({
+      ...show,
+      title: show.title || show.name,
+      media_type: (show.media_type === "movie" ? "Movie" : "TV Series") as Show["media_type"]
+    }))
+    .filter((show) => !show.release_date || !show.first_air_date || !show.vote_average);
+
   return formattedResult;
 };
 
