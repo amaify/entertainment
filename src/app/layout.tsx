@@ -16,28 +16,29 @@ export const metadata: Metadata = {
     },
 };
 
-async function getUserAvatarUrl(user: User | null): Promise<string | null> {
-    if (!user) return null;
+async function getUserAvatarUrl(user: User | { error: string }): Promise<string | null> {
+    if ("error" in user) return null;
 
     const supabase = await createClient();
+    const { data, error } = await supabase.from("users_profile").select("avatar_url").eq("id", user.id);
 
-    try {
-        const { data } = await supabase.from("users_profile").select("avatar_url").eq("id", user.id);
-        const avatarUrl = data ? data.length > 0 && data[0].avatar_url : "";
-        return avatarUrl;
-    } catch (error) {
-        throw new Error((error as Error).message);
+    if (error) {
+        throw error;
     }
+
+    const avatarUrl = data.length > 0 && data[0].avatar_url;
+    return avatarUrl;
 }
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
     const user = await getUserAction();
     const avatarUrl = await getUserAvatarUrl(user);
+    const userId = "id" in user ? user.id : undefined;
 
     return (
         <html lang="en">
             <body suppressHydrationWarning>
-                <AppProvider userId={user?.id} avatarUrl={avatarUrl ?? ""}>
+                <AppProvider userId={userId} avatarUrl={avatarUrl ?? ""}>
                     {children}
                 </AppProvider>
             </body>
