@@ -12,7 +12,7 @@ import useFetchBookmarkedMovies from "@/hooks/use-fetch-bookmarked-movies";
 import useCustomInfiniteQueryHook from "./hooks/use-custom-infinite-query-hook";
 import useIntersectionObserver from "./hooks/use-observer-intersection";
 import useScrollToTop from "./hooks/use-scroll-to-top";
-import type { Show } from "./layout";
+import type { Show } from "./types";
 
 interface ShowsContextProps {
     shows: Show[];

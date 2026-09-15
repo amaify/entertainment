@@ -1,4 +1,4 @@
-import type { ShowCategory } from "src/app/layout";
+import type { ShowCategory } from "@/app/types";
 import SvgIcon from "@/components/svg/svg";
 import cn from "@/helpers/cn";
 import styles from "./thumbnail.module.css";

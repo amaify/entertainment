@@ -1,5 +1,5 @@
 import type { Show } from "@/app/types";
-import type { ShowDetails } from "@/components/modal/modal";
+import type { ShowDetails } from "@/components/modal/modal-utils";
 import { env } from "./env";
 import { fetchTMDB } from "./service-client";
 

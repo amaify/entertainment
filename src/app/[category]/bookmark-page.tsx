@@ -6,8 +6,8 @@ import ThumbnailCard from "@/components/thumbnail/thumbnail-card";
 import Typography from "@/components/typography/typography";
 import { getBookmarkedShows } from "@/helpers/get-bookmarked-shows";
 import useShowsProviderContext from "@/hooks/use-shows-provider-context";
-import type { ShowCategory } from "../layout";
 import type { PageQueryParams } from "../search/page";
+import type { ShowCategory } from "../types";
 
 export type BookmarkedMovies = {
     category: ShowCategory;
