@@ -7,10 +7,10 @@
         "build": "next build",
         "start": "next start",
         "analyze": "ANALYZE=true next build",
-        "check:all": "bun check:types && bun check:lint && pnpm test",
+        "check:all": "bun check:types && bun check:lint && bun test",
         "test": "jest",
         "check:types": "tsc",
-        "check:lint": "biome check ./src --fix",
+        "check:lint": "biome check ./src",
         "check:write": "biome check --write ./src",
         "format": "biome format --write ./src"
     },
