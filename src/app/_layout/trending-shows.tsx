@@ -19,7 +19,7 @@ export default function TrendingShows() {
     if (error)
         return (
             <TrendingShowWrapper>
-                <Typography as="h1" intent="fluid-heading" className="!text-primary">
+                <Typography as="h1" intent="fluid-heading" className="text-primary!">
                     {error.message}
                 </Typography>
             </TrendingShowWrapper>
@@ -29,8 +29,8 @@ export default function TrendingShows() {
         return (
             <TrendingShowWrapper>
                 {Array.from({ length: 15 }).map((_, idx) => (
-                    <div className="w-[24rem] flex-shrink-0 sm:w-[47rem]" key={idx}>
-                        <Skeleton className="h-[14rem] w-full sm:h-[23rem]" />
+                    <div className="w-[24rem] shrink-0 sm:w-188" key={idx}>
+                        <Skeleton className="h-60 w-full sm:h-92" />
                     </div>
                 ))}
             </TrendingShowWrapper>
@@ -41,7 +41,7 @@ export default function TrendingShows() {
     return (
         <TrendingShowWrapper>
             {slicedData?.map((show) => (
-                <div className="w-[24rem] flex-shrink-0 sm:w-[47rem]" key={show.id}>
+                <div className="w-[24rem] shrink-0 sm:w-188" key={show.id}>
                     <Thumbnail
                         id={show.id}
                         variant="trending"

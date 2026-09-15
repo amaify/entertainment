@@ -1,13 +1,11 @@
 "use server";
 
-import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 
 export async function loginAction(formData: FormData) {
     const { email, password } = Object.fromEntries(formData.entries()) as { [key: string]: string };
-    const cookieStore = cookies();
 
-    const supabase = await createClient(cookieStore);
+    const supabase = await createClient();
 
     try {
         const { error } = await supabase.auth.signInWithPassword({ email, password });

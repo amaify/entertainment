@@ -1,8 +1,42 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;500&family=Ubuntu:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;500&family=Ubuntu:wght@300;400;500;700&display=swap")
+    layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+    --font-*: initial;
+    --font-outfit: Outfit;
+
+    --text-heading-xs: 1.8rem;
+    --text-heading-xs--font-weight: 500;
+    --text-heading-light-sm: 2.4rem;
+    --text-heading-light-sm--font-weight: 300;
+    --text-heading-medium-sm: 2.4rem;
+    --text-heading-medium-sm--font-weight: 400;
+    --text-heading-lg: 3.6rem;
+    --text-heading-lg--font-weight: 300;
+    --text-heading-lg-tab: 3.2rem;
+    --text-heading-lg-tab--font-weight: 300;
+    --text-heading-lg-mobile: 2rem;
+    --text-heading-lg-mobile--font-weight: 300;
+    --text-body-sm: 1.3rem;
+    --text-body-sm--font-weight: 300;
+    --text-body-sm-mobile: 1.4rem;
+    --text-body-sm-mobile--font-weight: 500;
+    --text-body-md: 1.5rem;
+    --text-body-md--font-weight: 300;
+}
+
+/* Tokens that reference runtime CSS variables defined in :root */
+@theme inline {
+    --text-fluid-heading: var(--heading-lg);
+    --text-fluid-heading--font-weight: 300;
+
+    --color-primary: rgb(var(--primary));
+    --color-primary-background: rgb(var(--primary-background));
+    --color-secondary-background: rgb(var(--secondary-background));
+    --color-tertiary-background: rgb(var(--tertiary-background));
+}
 
 :root {
     --primary: 252 71 71;
@@ -17,8 +51,6 @@
 *::after,
 *::before {
     box-sizing: border-box;
-    padding: 0;
-    margin: 0;
     min-width: 0;
 }
 
@@ -85,4 +117,11 @@ input:-webkit-autofill:active {
     border-radius: 50%;
     margin: 0 0.8rem;
     background: rgb(var(--primary-background));
+}
+
+@utility shows-layout {
+    @apply grid grid-cols-[repeat(auto-fill,minmax(16.4rem,1fr))] gap-x-6 gap-y-[1.6rem] pr-0;
+    @apply sm:grid-cols-[repeat(auto-fill,minmax(22rem,1fr))] sm:gap-x-[2.4rem] sm:gap-y-[2.9rem];
+    @apply xl:grid-cols-[repeat(auto-fill,minmax(28rem,1fr))] xl:gap-x-16 xl:gap-y-[3.2rem] xl:pr-[3.2rem];
+    @apply 2xl:grid-cols-[repeat(auto-fill,minmax(34rem,1fr))];
 }

@@ -17,7 +17,7 @@ export default function ShowsLayout({ title }: Props) {
     if (error)
         return (
             <ShowsLayoutWrapper layoutTitle={title} error={error}>
-                <Typography as="h1" intent="fluid-heading" className="w-full !text-primary">
+                <Typography as="h1" intent="fluid-heading" className="w-full text-primary!">
                     {error.message}
                 </Typography>
             </ShowsLayoutWrapper>
@@ -27,7 +27,13 @@ export default function ShowsLayout({ title }: Props) {
         return (
             <ShowsLayoutWrapper layoutTitle={title}>
                 {Array.from({ length: 20 }).map((_, idx) => (
-                    <Skeleton key={idx} className="h-[11rem] sm:h-[17.4rem]" />
+                    <div key={idx} className="flex flex-col gap-2">
+                        <Skeleton className="h-44 sm:h-92" />
+                        <div className="flex flex-col gap-1.5">
+                            <Skeleton className="w-1/3 h-4 sm:h-5" />
+                            <Skeleton className="w-3/5 h-6 sm:h-8" />
+                        </div>
+                    </div>
                 ))}
             </ShowsLayoutWrapper>
         );
@@ -49,7 +55,7 @@ export default function ShowsLayout({ title }: Props) {
             ))}
 
             {isFetchingNextPage &&
-                Array.from({ length: 20 }).map((_, idx) => <Skeleton key={idx} className="h-[11rem] sm:h-[17.4rem]" />)}
+                Array.from({ length: 20 }).map((_, idx) => <Skeleton key={idx} className="h-44 sm:h-[17.4rem]" />)}
         </ShowsLayoutWrapper>
     );
 }
