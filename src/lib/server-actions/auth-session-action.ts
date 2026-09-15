@@ -21,11 +21,7 @@ export async function getUserAction() {
     const supabase = await createClient();
     const { data, error } = await supabase.auth.getUser();
 
-    if (error) {
-        return {
-            error: error.message,
-        };
-    }
+    if (error) return undefined;
 
     return data.user;
 }
