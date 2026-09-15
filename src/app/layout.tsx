@@ -1,6 +1,5 @@
 import type { User } from "@supabase/supabase-js";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import type { ReactNode } from "react";
 import { getUserAction } from "@/lib/server-actions/auth-session-action";
 import { createClient } from "@/lib/supabase/server";
@@ -19,9 +18,8 @@ export const metadata: Metadata = {
 
 async function getUserAvatarUrl(user: User | null): Promise<string | null> {
     if (!user) return null;
-    const cookieStore = cookies();
 
-    const supabase = await createClient(cookieStore);
+    const supabase = await createClient();
 
     try {
         const { data } = await supabase.from("users_profile").select("avatar_url").eq("id", user.id);
