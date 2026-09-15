@@ -3,12 +3,13 @@ import PagesLayout from "@/_layout/pages-layout";
 import SearchPageClient from "./search-page.client";
 
 export interface PageQueryParams {
-    searchParams: {
+    searchParams: Promise<{
         q: string;
-    };
+    }>;
 }
 
-export default function SearchPage({ searchParams: { q } }: PageQueryParams) {
+export default async function SearchPage({ searchParams }: PageQueryParams) {
+    const { q } = await searchParams;
     if (!q) redirect("/");
 
     return (
