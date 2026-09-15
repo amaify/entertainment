@@ -1,7 +1,6 @@
 import type { ShowCategory } from "@/app/types";
 import SvgIcon from "@/components/svg/svg";
 import cn from "@/helpers/cn";
-import styles from "./thumbnail.module.css";
 
 interface Props {
     category: ShowCategory;
@@ -22,7 +21,13 @@ export default function ThumbnailDescription({ category, variant, title, year, r
                 relative: variant === "popular",
             })}
         >
-            <span className={cn(styles.description)}>
+            <span
+                className={cn(
+                    "flex items-center text-white/75 text-[1.1rem] sm:text-[1.5rem] font-light",
+                    "[&>span:not(:last-child)]:after:mx-[0.8rem] [&>span:not(:last-child)]:after:inline-block [&>span:not(:last-child)]:after:align-middle",
+                    "[&>span:not(:last-child)]:after:size-[0.3rem] [&>span:not(:last-child)]:after:rounded-full [&>span:not(:last-child)]:after:bg-white/50",
+                )}
+            >
                 <span>{year}</span>
                 <span className="flex items-center gap-[0.6rem]">
                     <SvgIcon variant={category === "Movie" ? "movieIcon" : "tvSeriesIcon"} fillColour="#FFFFFF" />

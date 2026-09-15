@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import Typography from "@/components/typography/typography";
 import cn from "@/helpers/cn";
-import styles from "./layout.module.css";
 
 interface LayoutWrapper {
     children: ReactNode;
@@ -15,7 +14,7 @@ export default function ShowsLayoutWrapper({ children, layoutTitle, error }: Lay
             <Typography as="h1" intent="fluid-heading" className="mb-[3.2rem]">
                 {layoutTitle}
             </Typography>
-            <div className={cn(!error ? styles.shows_layout : "")}>{children}</div>
+            <div className={cn({ "shows-layout": !error })}>{children}</div>
         </section>
     );
 }

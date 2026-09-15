@@ -1,5 +1,4 @@
 import Skeleton from "@/components/ui/skeleton";
-import styles from "./layout.module.css";
 
 export default function ShowsLayoutSkeleton() {
     return (
@@ -9,9 +8,9 @@ export default function ShowsLayoutSkeleton() {
                 <Skeleton className="h-16 w-1/2" />
             </div>
             <Skeleton className="mb-[3.2rem] h-14 w-1/2" />
-            <div className={styles.shows_layout}>
+            <div className="shows-layout">
                 {Array.from({ length: 10 }, (_, idx) => (
-                    <div key={idx} className="h-[17.4rem]">
+                    <div key={idx} className="h-[18.4rem]">
                         <Skeleton className="h-full w-full" />
                     </div>
                 ))}

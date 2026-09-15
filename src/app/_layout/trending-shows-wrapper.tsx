@@ -7,7 +7,7 @@ export default function TrendingShowWrapper({ children }: { children: ReactNode 
             <Typography as="h1" intent="fluid-heading">
                 Trending
             </Typography>
-            <div className="[ trending-show-layout ] flex w-full flex-shrink gap-16 overflow-x-auto overflow-y-hidden pr-[1.6rem] sm:pr-[3.2rem]">
+            <div className="[ trending-show-layout ] flex w-full shrink gap-16 overflow-x-auto overflow-y-hidden pr-[1.6rem] sm:pr-[3.2rem]">
                 {children}
             </div>
         </section>
