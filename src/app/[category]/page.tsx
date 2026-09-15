@@ -7,7 +7,7 @@ import { getUserAction } from "@/lib/server-actions/auth-session-action";
 import BookmarkPage from "./bookmark-page";
 import ShowspageClient from "./shows-page-client";
 
-type CategoryParams = { params: { category: Category }; searchParams: { q: string } };
+type CategoryParams = { params: Promise<{ category: Category }>; searchParams: { q: string } };
 export type Category = "movies" | "series" | "bookmarks";
 
 export async function generateStaticParams() {
@@ -16,8 +16,9 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: CategoryParams) {
+    const { category } = await params;
     return {
-        title: `Entertainment App | ${params.category.charAt(0).toUpperCase() + params.category.slice(1)}`,
+        title: `Entertainment App | ${category.charAt(0).toUpperCase() + category.slice(1)}`,
     };
 }
 
@@ -27,7 +28,7 @@ const movieCategory: Record<"movies" | "series", ShowCategory> = {
 };
 
 export default async function CategoryPage({ params, searchParams }: CategoryParams) {
-    const { category } = params;
+    const { category } = await params;
     const session = await getUserAction();
     const showCategoryPathname: Category[] = ["movies", "series", "bookmarks"];
 
