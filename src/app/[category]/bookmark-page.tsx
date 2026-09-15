@@ -18,7 +18,8 @@ export type BookmarkedMovies = {
     thumbnail: string;
 };
 
-export default function BookmarkPage({ searchParams: { q } }: PageQueryParams) {
+export default async function BookmarkPage({ searchParams }: PageQueryParams) {
+    const { q } = await searchParams;
     const { bookmarkedMovies } = useShowsProviderContext();
 
     let _bookmarkedShows = bookmarkedMovies;
@@ -47,7 +48,7 @@ export default function BookmarkPage({ searchParams: { q } }: PageQueryParams) {
                     ))}
                 </ShowsLayoutWrapper>
                 {_bookmarkedMovies?.length === 0 && (
-                    <Typography as="p" intent="heading-medium-sm" className="w-full !text-primary">
+                    <Typography as="p" intent="heading-medium-sm" className="w-full text-primary!">
                         No bookmarked movies
                     </Typography>
                 )}
@@ -70,7 +71,7 @@ export default function BookmarkPage({ searchParams: { q } }: PageQueryParams) {
                     ))}
                 </ShowsLayoutWrapper>
                 {_bookmarkedSeries?.length === 0 && (
-                    <Typography as="p" intent="heading-medium-sm" className="w-full !text-primary">
+                    <Typography as="p" intent="heading-medium-sm" className="w-full text-primary!">
                         No bookmarked TV Series
                     </Typography>
                 )}

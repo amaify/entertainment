@@ -7,7 +7,7 @@ import { getUserAction } from "@/lib/server-actions/auth-session-action";
 import BookmarkPage from "./bookmark-page";
 import ShowspageClient from "./shows-page-client";
 
-type CategoryParams = { params: Promise<{ category: Category }>; searchParams: { q: string } };
+type CategoryParams = { params: Promise<{ category: Category }>; searchParams: Promise<{ q: string }> };
 export type Category = "movies" | "series" | "bookmarks";
 
 export async function generateStaticParams() {
