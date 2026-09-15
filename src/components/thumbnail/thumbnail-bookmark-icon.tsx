@@ -1,76 +1,77 @@
-import type { ButtonHTMLAttributes } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { ButtonHTMLAttributes } from "react";
 import toast from "react-hot-toast";
+import type { ShowCategory } from "@/app/types";
 import SvgIcon from "@/components/svg/svg";
 import useAppProviderContext from "@/hooks/use-app-provider-context";
 import { addMovieToBookmarkAction, removeMovieFromBookmarkAction } from "@/lib/server-actions/bookmark-action";
-import type { ShowCategory } from "src/app/layout";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  isBookmarked: boolean;
-  category: ShowCategory;
-  title: string;
-  show_id: number;
-  year: number;
-  rating: number;
-  thumbnail: string;
+    isBookmarked: boolean;
+    category: ShowCategory;
+    title: string;
+    show_id: number;
+    year: number;
+    rating: number;
+    thumbnail: string;
 }
 
 export interface BookmarkProperties {
-  category: ShowCategory;
-  title: string;
-  show_id: number;
-  year: number;
-  rating: number;
-  thumbnail: string;
+    category: ShowCategory;
+    title: string;
+    show_id: number;
+    year: number;
+    rating: number;
+    thumbnail: string;
 }
 
 export default function BookmarkIcon({ isBookmarked, title, category, show_id, year, rating, thumbnail }: Props) {
-  const queryClient = useQueryClient();
-  const { userId } = useAppProviderContext();
+    const queryClient = useQueryClient();
+    const { userId } = useAppProviderContext();
 
-  const loadingToastMsg = !isBookmarked ? "Adding" : "Removing";
-  const successToastMsg = !isBookmarked ? "Added to" : "Removed from";
+    const loadingToastMsg = !isBookmarked ? "Adding" : "Removing";
+    const successToastMsg = !isBookmarked ? "Added to" : "Removed from";
 
-  const bookmarkProperties = { show_id, title, category, year, rating, thumbnail };
+    const bookmarkProperties = { show_id, title, category, year, rating, thumbnail };
 
-  const onBookmark = async () => {
-    const toastLoadingId = toast.loading(`${loadingToastMsg} to bookmarks...`);
-    const { message } = !isBookmarked
-      ? await addMovieToBookmarkAction(bookmarkProperties)
-      : await removeMovieFromBookmarkAction({ title });
+    const onBookmark = async () => {
+        const toastLoadingId = toast.loading(`${loadingToastMsg} to bookmarks...`);
+        const { message } = !isBookmarked
+            ? await addMovieToBookmarkAction(bookmarkProperties)
+            : await removeMovieFromBookmarkAction({ title });
 
-    if (message !== "success") {
-      toast.dismiss(toastLoadingId);
-      throw new Error(message);
-    }
+        if (message !== "success") {
+            toast.dismiss(toastLoadingId);
+            throw new Error(message);
+        }
 
-    toast.dismiss(toastLoadingId);
-  };
+        toast.dismiss(toastLoadingId);
+    };
 
-  const mutation = useMutation({
-    mutationFn: onBookmark,
-    onSuccess: () => {
-      toast.success(successToastMsg + "Bookmarks");
-      queryClient.invalidateQueries({ queryKey: ["bookmarkedMovies"] });
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    }
-  });
+    const mutation = useMutation({
+        mutationFn: onBookmark,
+        onSuccess: () => {
+            toast.success(`${successToastMsg} Bookmarks`);
+            queryClient.invalidateQueries({ queryKey: ["bookmarkedMovies"] });
+        },
+        onError: (error) => {
+            toast.error(error.message);
+        },
+    });
 
-  if (!userId) return null;
+    if (!userId) return null;
 
-  return (
-    <button
-      onClick={() => mutation.mutate()}
-      className="group/bookmark absolute right-[1.6rem] top-[1.6rem] h-[3.2rem] w-[3.2rem] rounded-full bg-primary-background/50 transition-all hover:cursor-pointer hover:bg-white"
-    >
-      <SvgIcon
-        variant="bookmarkIcon"
-        className="stroke-white stroke-[1.5] group-hover/bookmark:stroke-primary-background"
-        fillColour={isBookmarked ? "#FFFFFF" : "none"}
-      />
-    </button>
-  );
+    return (
+        <button
+            type="button"
+            onClick={() => mutation.mutate()}
+            className="group/bookmark absolute right-[1.6rem] top-[1.6rem] h-[3.2rem] w-[3.2rem] rounded-full bg-primary-background/50 transition-all hover:cursor-pointer hover:bg-white"
+        >
+            <SvgIcon
+                variant="bookmarkIcon"
+                className="stroke-white stroke-[1.5] group-hover/bookmark:stroke-primary-background"
+                fillColour={isBookmarked ? "#FFFFFF" : "none"}
+            />
+        </button>
+    );
 }

@@ -5,84 +5,84 @@
 @tailwind utilities;
 
 :root {
-  --primary: 252 71 71;
-  --primary-background: 16 20 30;
-  --secondary-background: 22 29 47;
-  --tertiary-background: 90 105 143;
-  --pure-white: 255 255 255;
-  --heading-lg: clamp(2rem, 4.5vw, 3.6rem);
+    --primary: 252 71 71;
+    --primary-background: 16 20 30;
+    --secondary-background: 22 29 47;
+    --tertiary-background: 90 105 143;
+    --pure-white: 255 255 255;
+    --heading-lg: clamp(2rem, 4.5vw, 3.6rem);
 }
 
 *,
 *::after,
 *::before {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  min-width: 0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
 }
 
 html {
-  font-size: 62.5%;
-  font-family: "Outfit", sans-serif;
-  scroll-behavior: smooth;
-  background: rgb(var(--primary-background));
+    font-size: 62.5%;
+    font-family: "Outfit", sans-serif;
+    scroll-behavior: smooth;
+    background: rgb(var(--primary-background));
 }
 
 body {
-  min-width: 325px;
-  margin: 0 auto;
+    min-width: 325px;
+    margin: 0 auto;
 }
 
 @media screen and (min-width: 1280px) {
-  body {
-    overflow: hidden;
-  }
+    body {
+        overflow: hidden;
+    }
 }
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-text-fill-color: rgb(var(--pure-white));
-  background: transparent !important;
-  transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: rgb(var(--pure-white));
+    background: transparent !important;
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 .trending-show-layout {
-  scrollbar-width: none !important;
+    scrollbar-width: none !important;
 }
 
 .trending-show-layout::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 /* Fix Search bar to the top*/
 .search-bar-container {
-  transition: all ease-in-out 0.1s;
-  position: sticky;
-  z-index: 10;
-  top: -1px;
+    transition: all ease-in-out 0.1s;
+    position: sticky;
+    z-index: 10;
+    top: -1px;
 }
 
 .search-bar-pinned {
-  padding: 2rem 1.6rem 3rem 1.6rem;
+    padding: 2rem 1.6rem 3rem 1.6rem;
 }
 
 @media only screen and (min-width: 1280px) {
-  .search-bar-pinned {
-    padding: 4rem 0 4.5rem 0;
-  }
+    .search-bar-pinned {
+        padding: 4rem 0 4.5rem 0;
+    }
 }
 
 /* Modal Styles */
 .modal-subheading > span:not(:last-child)::after {
-  content: "";
-  display: inline-block;
-  vertical-align: middle;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  margin: 0 0.8rem;
-  background: rgb(var(--primary-background));
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    margin: 0 0.8rem;
+    background: rgb(var(--primary-background));
 }
