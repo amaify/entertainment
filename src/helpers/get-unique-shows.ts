@@ -1,10 +1,10 @@
-import type { Show } from "src/app/layout";
+import type { Show } from "@/app/types";
 
 export function getUniquShows(shows: Show[]) {
-  const ids = shows.map(({ id }) => id);
-  const uniqueShows = shows
-    .filter(({ id }, idx) => !ids.includes(id, idx + 1))
-    .filter((show) => show.backdrop_path !== null);
+    const ids = shows.map(({ id }) => id);
+    const uniqueShows = shows
+        .filter(({ id }, idx) => !ids.includes(id, idx + 1))
+        .filter((show) => show.backdrop_path !== null);
 
-  return uniqueShows;
+    return uniqueShows;
 }

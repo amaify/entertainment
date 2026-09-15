@@ -7,28 +7,28 @@ import AuthFormLayout, { type DefaultInputValue, type FormFields } from "../comp
 import useFormSubmitAction from "../use-form-submit-action";
 
 interface Props {
-  formFields: FormFields[];
-  defaultInputValue: DefaultInputValue;
+    formFields: FormFields[];
+    defaultInputValue: DefaultInputValue;
 }
 
 export default function LoginClient({ formFields, defaultInputValue }: Props) {
-  const { onSubmit, pending } = useFormSubmitAction({
-    formAction: loginAction,
-    pushTo: "/",
-    successMessage: "Successfully logged in"
-  });
+    const { onSubmit, pending } = useFormSubmitAction({
+        formAction: loginAction,
+        pushTo: "/",
+        successMessage: "Successfully logged in",
+    });
 
-  return (
-    <AuthFormLayout title="login">
-      <form className="mb-[2.4rem] h-full w-full" onSubmit={onSubmit}>
-        <AuthFormInput
-          formFields={formFields}
-          defaultInputValue={defaultInputValue}
-          pending={pending}
-          btnTitle={pending ? "Logging in..." : "Login to your account"}
-        />
-      </form>
-      <AuthFormFooter authVariant="login" />
-    </AuthFormLayout>
-  );
+    return (
+        <AuthFormLayout title="login">
+            <form className="mb-[2.4rem] h-full w-full" onSubmit={onSubmit}>
+                <AuthFormInput
+                    formFields={formFields}
+                    defaultInputValue={defaultInputValue}
+                    pending={pending}
+                    btnTitle={pending ? "Logging in..." : "Login to your account"}
+                />
+            </form>
+            <AuthFormFooter authVariant="login" />
+        </AuthFormLayout>
+    );
 }

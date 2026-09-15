@@ -1,32 +1,32 @@
-import LoginClient from "./login.client";
 import type { DefaultInputValue, FormFields } from "../components/auth-form-layout";
+import LoginClient from "./login.client";
 
 const formFields: FormFields[] = [
-  {
-    id: "email",
-    type: "email",
-    name: "email",
-    placeholder: "Email address",
-    variant: "formInput"
-  },
-  {
-    id: "password",
-    type: "password",
-    name: "password",
-    placeholder: "Password",
-    variant: "formInput"
-  }
+    {
+        id: "email",
+        type: "email",
+        name: "email",
+        placeholder: "Email address",
+        variant: "formInput",
+    },
+    {
+        id: "password",
+        type: "password",
+        name: "password",
+        placeholder: "Password",
+        variant: "formInput",
+    },
 ];
 
 const defaultInputValue: DefaultInputValue = {
-  email: "",
-  password: ""
+    email: "",
+    password: "",
 };
 
 export default function Login() {
-  return (
-    <main className="w-full text-white">
-      <LoginClient defaultInputValue={defaultInputValue} formFields={formFields} />
-    </main>
-  );
+    return (
+        <main className="w-full text-white">
+            <LoginClient defaultInputValue={defaultInputValue} formFields={formFields} />
+        </main>
+    );
 }

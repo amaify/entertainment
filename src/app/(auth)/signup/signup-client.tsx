@@ -8,28 +8,28 @@ import AuthFormLayout from "../components/auth-form-layout";
 import useFormSubmitAction from "../use-form-submit-action";
 
 interface Props {
-  formFields: FormFields[];
-  defaultInputValue: DefaultInputValue;
+    formFields: FormFields[];
+    defaultInputValue: DefaultInputValue;
 }
 
 export default function SignupClient({ formFields, defaultInputValue }: Props) {
-  const { onSubmit, pending } = useFormSubmitAction({
-    formAction: signupAction,
-    pushTo: "/",
-    successMessage: "Successfully signed up"
-  });
+    const { onSubmit, pending } = useFormSubmitAction({
+        formAction: signupAction,
+        pushTo: "/",
+        successMessage: "Successfully signed up",
+    });
 
-  return (
-    <AuthFormLayout title="sign up">
-      <form className="mb-[2.4rem] h-full w-full" onSubmit={onSubmit}>
-        <AuthFormInput
-          formFields={formFields}
-          defaultInputValue={defaultInputValue}
-          pending={pending}
-          btnTitle={pending ? "Creating account..." : "Create an account"}
-        />
-      </form>
-      <AuthFormFooter authVariant="signup" />
-    </AuthFormLayout>
-  );
+    return (
+        <AuthFormLayout title="sign up">
+            <form className="mb-[2.4rem] h-full w-full" onSubmit={onSubmit}>
+                <AuthFormInput
+                    formFields={formFields}
+                    defaultInputValue={defaultInputValue}
+                    pending={pending}
+                    btnTitle={pending ? "Creating account..." : "Create an account"}
+                />
+            </form>
+            <AuthFormFooter authVariant="signup" />
+        </AuthFormLayout>
+    );
 }
