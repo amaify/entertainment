@@ -7,7 +7,7 @@
         "build": "next build",
         "start": "next start",
         "analyze": "ANALYZE=true next build",
-        "check:all": "bun check:types && bun check:lint && bun test",
+        "check:all": "bun check:types && bun check:lint && bun run test",
         "test": "jest",
         "check:types": "tsc",
         "check:lint": "biome check ./src",
