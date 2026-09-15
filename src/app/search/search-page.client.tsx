@@ -35,30 +35,39 @@ export default function SearchPageClient({ queryString }: Props) {
     const resultText = uniqueShows.length <= 1 ? "result" : "results";
     const layoutTitle = uniqueShows.length > 0 ? `Found ${resultText} for '${queryString}'` : "No result found";
 
-    if (error)
+    if (error) {
         return (
             <ShowsLayoutWrapper layoutTitle={layoutTitle} error={error}>
-                <Typography as="h1" intent="fluid-heading" className="w-full !text-primary">
+                <Typography as="h1" intent="fluid-heading" className="w-full text-primary!">
                     {error.message}
                 </Typography>
             </ShowsLayoutWrapper>
         );
+    }
 
-    if ((isLoading && !data) || value === "")
+    if ((isLoading && !data) || value === "") {
         return (
-            <ShowsLayoutWrapper layoutTitle="">
+            <ShowsLayoutWrapper layoutTitle={`Searching for ${queryString}...`}>
                 {Array.from({ length: 20 }).map((_, idx) => (
-                    <Skeleton key={idx} className="h-[11rem] sm:h-[17.4rem]" />
+                    <div key={idx} className="flex flex-col gap-2">
+                        <Skeleton className="h-44 sm:h-92" />
+                        <div className="flex flex-col gap-1.5">
+                            <Skeleton className="w-1/3 h-4 sm:h-5" />
+                            <Skeleton className="w-3/5 h-6 sm:h-8" />
+                        </div>
+                    </div>
                 ))}
             </ShowsLayoutWrapper>
         );
+    }
 
-    if (uniqueShows.length === 0)
+    if (uniqueShows.length === 0) {
         return (
             <ShowsLayoutWrapper layoutTitle="">
                 <NoResultFound title="No result found" />
             </ShowsLayoutWrapper>
         );
+    }
 
     return (
         <ShowsLayoutWrapper layoutTitle={layoutTitle} error={null}>
@@ -77,7 +86,15 @@ export default function SearchPageClient({ queryString }: Props) {
             ))}
             <div ref={observerElement} />
             {isFetchingNextPage &&
-                Array.from({ length: 20 }).map((_, idx) => <Skeleton key={idx} className="h-[11rem] sm:h-[17.4rem]" />)}
+                Array.from({ length: 20 }).map((_, idx) => (
+                    <div key={idx} className="flex flex-col gap-2">
+                        <Skeleton className="h-44 sm:h-92" />
+                        <div className="flex flex-col gap-1.5">
+                            <Skeleton className="w-1/3 h-4 sm:h-5" />
+                            <Skeleton className="w-3/5 h-6 sm:h-8" />
+                        </div>
+                    </div>
+                ))}
         </ShowsLayoutWrapper>
     );
 }

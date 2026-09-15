@@ -50,8 +50,8 @@ export default function Thumbnail({ id, variant, title, thumbnail, category, rat
     return (
         <div
             className={cn("relative w-full", {
-                "h-[11rem] sm:h-[17.4rem] 2xl:h-[23.4rem]": variant === "popular",
-                "h-[14rem] sm:h-[23rem]": variant === "trending",
+                "h-44 sm:h-[17.4rem] 2xl:h-[23.4rem]": variant === "popular",
+                "h-56 sm:h-92": variant === "trending",
             })}
         >
             <button

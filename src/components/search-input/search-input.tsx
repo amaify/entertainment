@@ -105,6 +105,7 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
                 onBlur={() => setIsInputFocused(false)}
                 value={inputValue}
                 ref={inputRef}
+                autoComplete="off"
                 showCloseIcon={inputValue !== ""}
                 onClickCloseIcon={onClickCloseIcon}
             />
