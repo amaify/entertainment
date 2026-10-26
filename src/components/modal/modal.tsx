@@ -2,24 +2,18 @@
 
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { clsx } from "clsx";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import SvgIcon from "@/components/svg/svg";
 import ModalContent from "./modal-content";
 
 export default function Modal() {
     const searchParams = useSearchParams();
     const pathname = usePathname();
-    const router = useRouter();
 
     const showId = searchParams.get("id") as string;
     const showCategory = searchParams.get("category") as "movie" | "tv";
 
-    const handleCloseModal = () => {
-        const queryParams = new URLSearchParams(searchParams);
-        queryParams.delete("id");
-        queryParams.delete("category");
-        router.replace(`${pathname}?${queryParams.toString()}`, { scroll: false });
-    };
+    const handleCloseModal = () => window.history.replaceState(null, "", pathname);
 
     return (
         <Dialog open={!!showId} onClose={handleCloseModal}>
@@ -29,7 +23,7 @@ export default function Modal() {
                     "max-h-[80%] w-[90%] overflow-y-auto rounded-xl bg-white",
                     "fixed left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2",
                     "md:max-h-full md:min-h-0 md:w-[85%] md:px-10 md:py-12",
-                    "xl:w-3/5 2xl:max-w-[128rem]",
+                    "xl:w-3/5 2xl:max-w-512",
                 )}
             >
                 <div className={clsx("absolute right-10 top-8 z-10")}>
