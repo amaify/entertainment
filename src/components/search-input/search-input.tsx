@@ -19,7 +19,7 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
     let wasSearchPageVisited = "false";
 
     if (typeof window !== "undefined") {
-        previousPath = sessionStorage.getItem("previousPath") ?? "/";
+        previousPath = sessionStorage.getItem("previousPath") ?? "";
         wasSearchPageVisited = sessionStorage.getItem("searchPageVisited") ?? "false";
     }
 
