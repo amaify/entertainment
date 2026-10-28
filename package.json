@@ -12,6 +12,7 @@
         "check:types": "tsc",
         "check:lint": "biome check ./src",
         "check:write": "biome check --write ./src",
+        "test:coverage": "bunx jest --coverage --collectCoverageFrom=src/components/search-input/search-input.tsx --coverageReporters=text",
         "format": "biome format --write ./src"
     },
     "dependencies": {

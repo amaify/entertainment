@@ -54,7 +54,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "/jest.config.ts",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
