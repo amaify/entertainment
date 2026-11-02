@@ -8,7 +8,7 @@ export type AppPath = "/" | "/movies" | "/series" | "/bookmarks";
 
 interface NavLinks {
     href: AppPath;
-    title: "Home" | "Movies" | "TV series" | "Bookmarks";
+    title: "All Shows" | "Movies" | "TV series" | "Bookmarks";
     icon: IconVariant;
 }
 
@@ -17,7 +17,7 @@ export default function NavigationLinks() {
     const { userId } = useAppProviderContext();
 
     const navLinks: NavLinks[] = [
-        { title: "Home", icon: "navHomeIcon", href: "/" },
+        { title: "All Shows", icon: "navHomeIcon", href: "/" },
         { title: "Movies", icon: "navMovieIcon", href: "/movies" },
         { title: "TV series", icon: "navTvSeriesIcon", href: "/series" },
         ...(userId ? [{ title: "Bookmarks", icon: "navBookmarkIcon", href: "/bookmarks" } as NavLinks] : []),

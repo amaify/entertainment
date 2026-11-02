@@ -29,7 +29,7 @@ export default function ModalContent({ showId, variant }: Props) {
 
     if (error || !showDetails) {
         return (
-            <Typography as="h1" intent="fluid-heading" className="!text-primary-background">
+            <Typography as="h1" intent="fluid-heading" className="text-primary-background!">
                 {error?.message ?? "Could not get movie/show details"}
             </Typography>
         );
@@ -42,7 +42,7 @@ export default function ModalContent({ showId, variant }: Props) {
 
     return (
         <div className="flex flex-col gap-8 md:flex-row">
-            <div className={clsx("h-[30rem] w-full", "md:h-auto md:min-h-[43rem] md:w-1/3")}>
+            <div className={clsx("h-120 w-full", "md:h-auto md:min-h-172 md:w-1/3")}>
                 <Image
                     src={getImageUrl({
                         variant: "original",
@@ -57,7 +57,7 @@ export default function ModalContent({ showId, variant }: Props) {
             </div>
             <div className="flex w-full flex-col gap-5 px-10 pb-12 md:w-[70%] md:px-0 md:pb-0">
                 <div>
-                    <Typography as="h1" intent="fluid-heading" className="!text-primary-background">
+                    <Typography as="h1" intent="fluid-heading" className="text-primary-background!">
                         {showDetails.title || showDetails.name}
                         <span className="opacity-60">
                             ({getYear(showDetails.release_date || showDetails?.first_air_date)})
@@ -75,29 +75,29 @@ export default function ModalContent({ showId, variant }: Props) {
                     </div>
                 </div>
                 <div>
-                    <Typography as="h2" intent="heading-medium-sm" className="!text-primary-background">
+                    <Typography as="h2" intent="heading-medium-sm" className="text-primary-background!">
                         Overview
                     </Typography>
-                    <Typography as="p" intent="body-md" className="!text-primary-background">
+                    <Typography as="p" intent="body-md" className="text-primary-background!">
                         {showDetails.overview !== "" ? showDetails.overview : "No overview available"}
                     </Typography>
                 </div>
-                <Typography as="p" intent="heading-light-sm" className="italic !text-primary-background leading-[0.9]">
+                <Typography as="p" intent="heading-light-sm" className="italic text-primary-background! leading-[0.9]">
                     {showDetails.tagline}
                 </Typography>
                 {showDetails?.production_countries && showDetails.production_countries.length > 0 ? (
                     <div>
-                        <Typography as="h2" intent="heading-medium-sm" className="!text-primary-background">
+                        <Typography as="h2" intent="heading-medium-sm" className="text-primary-background!">
                             Produced In
                         </Typography>
-                        <Typography as="p" intent="body-md" className="!text-primary-background">
+                        <Typography as="p" intent="body-md" className="text-primary-background!">
                             {showDetails.production_countries.map((country) => country.name).join(", ")}
                         </Typography>
                     </div>
                 ) : null}
                 {showDetails?.networks && showDetails.networks.length > 0 ? (
                     <div>
-                        <Typography as="h2" intent="heading-medium-sm" className="!text-primary-background">
+                        <Typography as="h2" intent="heading-medium-sm" className="text-primary-background!">
                             Now Streaming
                         </Typography>
                         <div className="flex items-center gap-4">
