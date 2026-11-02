@@ -16,7 +16,7 @@ export default function Modal() {
     const handleCloseModal = () => window.history.replaceState(null, "", pathname);
 
     return (
-        <Dialog open={!!showId} onClose={handleCloseModal}>
+        <Dialog open={!!showId} onClose={handleCloseModal} aria-label="Show Movie or TV Series Details">
             <div aria-hidden="true" className="fixed inset-0 z-20 bg-black/50 backdrop-blur" />
             <DialogPanel
                 className={clsx(
