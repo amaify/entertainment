@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { type ChangeEvent, useEffect, useRef, useState } from "react";
+import { type ChangeEvent, useState } from "react";
 import Input from "@/components/ui/input";
 
 export default function SearchInput({ placeholderText }: { placeholderText: string }) {
@@ -9,18 +9,13 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const [inputValue, setInputValue] = useState(searchParams.get("q") ?? "");
-    const [isInputFocused, setIsInputFocused] = useState(false);
 
-    const inputRef = useRef<HTMLInputElement | null>(null);
-    const searchPageMounted = useRef(false);
     const queryParam = new URLSearchParams(searchParams);
 
     let previousPath = "";
-    let wasSearchPageVisited = "false";
 
     if (typeof window !== "undefined") {
         previousPath = sessionStorage.getItem("previousPath") ?? "/";
-        wasSearchPageVisited = sessionStorage.getItem("searchPageVisited") ?? "false";
     }
 
     const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -45,36 +40,12 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
         }
     };
 
-    useEffect(() => {
-        const searchFieldElement = document.querySelector("#searchField");
-        const observer = new IntersectionObserver(
-            ([e]) => {
-                e.target.classList.toggle("search-bar-pinned", e.intersectionRatio < 1);
-            },
-            {
-                threshold: [0, 1],
-            },
-        );
-
-        if (searchFieldElement) observer.observe(searchFieldElement);
+    const handleFocus = (element: HTMLInputElement | null) => {
         if (pathname.includes("search")) {
-            inputRef.current?.focus();
-            searchPageMounted.current = true;
+            element?.focus();
+            element?.setSelectionRange(element.value.length, element.value.length);
         }
-        if (wasSearchPageVisited === "true") inputRef.current?.focus();
-        if (!pathname.includes("search")) sessionStorage.setItem("previousPath", pathname);
-
-        return () => {
-            if (searchFieldElement) observer.unobserve(searchFieldElement);
-            if (searchPageMounted.current) sessionStorage.setItem("searchPageVisited", "true");
-        };
-    }, []);
-
-    useEffect(() => {
-        if (!isInputFocused && !pathname.includes("search")) {
-            sessionStorage.setItem("searchPageVisited", "false");
-        }
-    }, [isInputFocused]);
+    };
 
     const onClickCloseIcon = () => {
         switch (pathname) {
@@ -101,10 +72,8 @@ export default function SearchInput({ placeholderText }: { placeholderText: stri
                 id="search-input"
                 placeholder={placeholderText}
                 onChange={onInputChange}
-                onFocus={() => setIsInputFocused(true)}
-                onBlur={() => setIsInputFocused(false)}
                 value={inputValue}
-                ref={inputRef}
+                ref={handleFocus}
                 autoComplete="off"
                 showCloseIcon={inputValue !== ""}
                 onClickCloseIcon={onClickCloseIcon}

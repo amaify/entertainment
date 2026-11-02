@@ -91,19 +91,17 @@ input:-webkit-autofill:active {
 
 /* Fix Search bar to the top*/
 .search-bar-container {
-    transition: all ease-in-out 0.1s;
+    --stuck-gap: 2rem;
     position: sticky;
     z-index: 10;
-    top: -1px;
-}
-
-.search-bar-pinned {
-    padding: 2rem 1.6rem 3rem 1.6rem;
+    top: 0;
+    padding-top: var(--stuck-gap);
+    margin-top: calc(var(--stuck-gap) * -1);
 }
 
 @media only screen and (min-width: 1280px) {
-    .search-bar-pinned {
-        padding: 4rem 0 4.5rem 0;
+    .search-bar-container {
+        --stuck-gap: 4rem;
     }
 }
 
