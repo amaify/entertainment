@@ -42,7 +42,7 @@ export default function ModalContent({ showId, variant }: Props) {
 
     return (
         <div className="flex flex-col gap-8 md:flex-row">
-            <div className={clsx("h-120 w-full", "md:h-auto md:min-h-172 md:w-1/3")}>
+            <div className={clsx("h-full w-full rounded-xl", "md:h-auto md:min-h-172 md:w-1/3")}>
                 <Image
                     src={getImageUrl({
                         variant: "original",
@@ -52,7 +52,7 @@ export default function ModalContent({ showId, variant }: Props) {
                     width={500}
                     height={700}
                     placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM83jz5PwAG1ALeWannmwAAAABJRU5ErkJggg=="
-                    className="size-full object-cover md:rounded-xl"
+                    className="size-full object-contain md:rounded-xl md:object-cover"
                 />
             </div>
             <div className="flex w-full flex-col gap-5 px-10 pb-12 md:w-[70%] md:px-0 md:pb-0">
